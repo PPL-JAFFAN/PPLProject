@@ -1,0 +1,113 @@
+body {
+    background-color: rgb(227, 227, 227);
+}
+.container{
+    padding-left: 1em;
+    margin-top: 3em;
+}
+
+#showstats {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2em;
+    width: 28%;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+#profilepic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 4em;
+}
+
+#lihatdata, #verifikasi {
+    margin: 2em;
+    height: 50px;
+    width: 300px;
+    border-radius: 30px;
+}
+
+#jumbotron {
+    background: rgb(250,0,0);
+    background: linear-gradient(90deg, rgba(250,0,0,1) 0%, rgba(244,190,66,1) 100%); 
+    color: white;
+    height: 300px;
+    display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+#jumbotext{
+    font-weight: bold;
+    font-size: 5em;
+    text-align: center;
+}
+#jumbosubtext{
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+}
+h3{
+    margin-bottom: 1em;
+}
+
+#halo {
+    text-align: right;
+    margin-right: 3em;
+}
+
+
+#datadiri{
+    background-color: white;
+    padding: 2em;
+    margin-left: 5em;
+    margin-right: 5em;
+    margin-bottom: 3em;
+    border-radius: 20px;
+}
+
+#stat {
+    padding: 2em;
+    margin-left: 3em;
+    margin-right: 3em;
+    margin-bottom: 3em;
+    border-radius: 20px;
+}
+
+#datamhs {
+    background-color: white;
+    margin : 5em;
+    padding: 3em;
+    border-radius: 20px;
+}
+
+#datadirititle{
+    margin-left: 3em;
+    margin-top: 1em;
+}
+
+#searchmhs{
+    margin-left: 5em;
+    margin-right: 5em;
+    margin-top: 5em;
+}
+
+#nama_mhs {
+    width: 500px;
+    margin-left: 2em;
+    margin-right: 1em;
+}
+
+#table1 {
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: center;
+}
+
+#table2 {
+    padding-left: 6em;
+    text-align: center;
+}
