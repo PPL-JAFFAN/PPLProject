@@ -106,34 +106,100 @@ if (!isset($_SESSION['email'])) {
     </div>
 
     <div class="container">
-    <div>
+      <!--Kolom Profile Mahasiswa-->
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">
+                <div class="row">
 
+                  <div class="col-md-3" style="text-align: center;">
 
-      <div>Nama : <?php echo $mhsDetail['nama']; ?></div>
-      <div>Alamat : <?php echo $mhsDetail['alamat']; ?></div>
-      <div>Angkatan : <?php echo $mhsDetail['angkatan']; ?></div>
-      <div>Jalur Masuk : <?php echo $mhsDetail['jalur_masuk']; ?></div>
-      <div>Email : <?php echo $mhsDetail['email']; ?></div>
+                    <img src="../img/default-profile-pic.jpg" width="100" />
+                    <!-- show image 
+                    <img src="../asset/img/<?php //echo $mhsDetail['foto_mhs']; ?>" alt="foto" width="100px">-->
+                    <br>
 
-      <!-- show image -->
-      <img src="../asset/img/<?php echo $mhsDetail['foto_mhs']; ?>" alt="foto" width="100px">
-
-      <div>
-        <h3>Status Akademik</h3>
+                    <a href="edit_mhs.php">
+                        <i class='bi bi-pen' id="edit"></i>
+                        <span class="links_name">Edit</span>
+                    </a>
+                  </div>
+                  <div class="col-sm-2" style="font-weight: bold;">
+                    Nama <br>
+                    Alamat <br>
+                    Angkatan <br>
+                    Jalur Masuk <br>
+                    Email <br>
+                  </div>
+                  <div class="col">
+                    <div><?php echo $mhsDetail['nama']; ?></div>
+                    <div><?php echo $mhsDetail['alamat']; ?></div>
+                    <div><?php echo $mhsDetail['angkatan']; ?></div>
+                    <div><?php echo $mhsDetail['jalur_masuk']; ?></div>
+                    <div><?php echo $mhsDetail['email']; ?></div>
+                  </div>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>Status : <?php echo $mhsDetail['status']; ?></div>
-      <div>Dosen Wali : <?php echo $dosenwaliDetail['nama']; ?></div>
-      <div>NIP : <?php echo $dosenwaliDetail['nip']; ?></div>
-      <div>Semester : <?php echo $mhsDetail['semester']; ?></div>
+      <br>
+      <!--Kolom Status Akademik -->
+      <div class="row">
+        <div class="col-sm-5">
+          <h3>Status Akademik</h3>
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">
+                <div class="row">
 
-      <div>
-        <h3>Prestasi Akademik Akademik</h3>
+                  <div class="col-sm-5" style="font-weight: bold;">
+                    Status <br>
+                    Dosen Wali <br>
+                    NIP <br>
+                    Semester<br>
+                  </div>
+                  <div class="col">
+                    <div><?php echo $mhsDetail['status']; ?></div>
+                    <div><?php echo $dosenwaliDetail['nama']; ?></div>
+                    <div><?php echo $dosenwaliDetail['nip']; ?></div>
+                    <div><?php echo $mhsDetail['semester']; ?></div>
+                  </div>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--Kolom Prestasi Akademik-->
+        
+        <div class="col-sm-5">
+          <h3>Prestasi Akademik</h3>
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">
+                <div class="row">
+
+                  <div class="col-sm-5" style="font-weight: bold;">
+                    IP Semester<br>
+                    IP Kumulatif<br>
+                    SKS Kumulatif<br>
+                  </div>
+                  <div class="col">
+                    <div><?php echo $khsDetail['ip_semester']; ?></div>
+                    <div><?php echo $khsDetail['ip_kumulatif']; ?></div>
+                    <div><?php echo $khsDetail['sks_kumulatif']; ?></div>
+                  </div>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>IP Semester : <?php echo $khsDetail['ip_semester']; ?></div>
-      <div>IP Kumulatif : <?php echo $khsDetail['ip_kumulatif']; ?></div>
-      <div>SKS Kumulatif : <?php echo $khsDetail['sks_kumulatif']; ?></div>
     </div>
-</div>
+    </section>
   </section>
   <script src="../library/js/script.js"> </script>
 </body>
