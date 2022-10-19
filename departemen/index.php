@@ -88,7 +88,7 @@
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Home
-      <div class="dropdown float-end">
+      <!-- <div class="dropdown float-end">
           <button class="btn btn-outline-primary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Angkatan
           </button>
@@ -101,7 +101,7 @@
             <li><a class="dropdown-item" href="#">2021</a></li>
             <li><a class="dropdown-item" href="#">2022</a></li>
           </ul>
-        </div>
+        </div> -->
       </div><br>
 
       
@@ -152,6 +152,26 @@
           </div>
         </div>
       </div>
+      <br>
+      <div class="h5 mt-4 mb-2 w-100">Statistik</div>
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+        <div class="col">
+          <div class="card rounded-4  ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Aktif</p>
+              <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Non Aktif</p>
+              <canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <br>
       <div class="h5 mt-4 mb-4 w-100">Tabel</div>
@@ -198,16 +218,9 @@
         <?php
           }
         ?>
-
-      
-     
     </table>
     </div>
-
-
-
-
-    </div>
+  </div>
 </body>
      
 </section>
@@ -218,13 +231,61 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-
+<script src="chart.js"></script>
 <script>$(document).ready(function () {
     $('#example').DataTable();
 });</script>
 
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 
-  
- </html>
+<script>
+  var xValues = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+  var yValues = [2,3,5,1,2,4,2];
+  var barColors = ["#8974FF", "#8974FF","#8974FF","#8974FF","#8974FF","#8974FF", "#8974FF"];
+
+  new Chart("myChart", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        // text: "World Wine Production 2018"
+      }
+    }
+  });
+</script>
+
+<script>
+  var xValues = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+  var yValues = [4, 4, 3,0,4,3,2];
+  var barColors = ["#8974FF", "#8974FF","#8974FF","#8974FF","#8974FF","#8974FF", "#8974FF"];
+
+  new Chart("myChart2", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        // text: "World Wine Production 2018"
+      }
+    }
+  });
+</script>
+
+</html>
