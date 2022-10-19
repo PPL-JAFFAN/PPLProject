@@ -76,7 +76,7 @@
        <span class="tooltip">Data Dosen</span>
      </li>
      <li>
-       <a class="nav-link" href="logout.php">
+       <a class="nav-link" href="../logout.php">
          <i class='bx bx-cart-alt' ></i>
          <span class="links_name">Keluar</span>
        </a>
