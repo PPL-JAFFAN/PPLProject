@@ -9,7 +9,9 @@
   <head>
     <meta charset="UTF-8">
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxicons CDN Link -->
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
@@ -18,12 +20,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Data Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-   
-   
-    </head>
+    <style>
+      .home-section a .card-active{
+        color: white;
+        background-color: #8974FF;
+      }
+    </style>
+    <title>Data Mahasiswa</title>
+  </head>
+
 <body>
   <div class="sidebar">
   <div class="logo-details">
@@ -32,14 +39,14 @@
     </div>
     <ul class="nav-list" id="nav-list">
       <li>
-        <a class="nav-link active" href="index.php">
+        <a class="nav-link " href="index.php">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Home</span>
         </a>
          <span class="tooltip">Home</span>
       </li>
       <li>
-       <a class="nav-link " href="datamhs.php">
+       <a class="nav-link active " href="datamhs.php">
          <i class='bx bx-user' ></i>
          <span class="links_name">Data Mahasiswa</span>
        </a>
@@ -87,7 +94,7 @@
   
   <section class="home-section">
     <div class="container-fluid">
-      <div class="h4 mt-5 w-100 ">Home
+      <div class="h4 mt-5 w-100 ">Rekap Data Mahasiswa
       <div class="dropdown float-end">
           <button class="btn btn-outline-primary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Angkatan
@@ -107,7 +114,6 @@
       
 
       <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
-        <div class="col">
 
           <?php
           $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Aktif'");
@@ -128,28 +134,35 @@
               $cuti++;
               }
           ?>
-          <div class="card rounded-4  ">
+        <div class="col">
+          <a href="datamhs.php">
+          <div class="card rounded-4 ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Aktif</p>
               <p class="card-text jumlah text-center"><?= $aktif; ?></p>
             </div>
           </div>
+          </a>
         </div>
         <div class="col">
-          <div class="card rounded-4 ">
+          <a href="datahmsnonaktif.php">
+          <div class="card rounded-4 card-active ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Non Aktif</p>
               <p class="card-text jumlah text-center"><?= $non_aktif; ?></p>
             </div>
           </div>
+          </a>
         </div>
         <div class="col">
+          <a href="datamhscuti.php">
           <div class="card rounded-4 ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Cuti</p>
               <p class="card-text jumlah text-center"><?= $cuti; ?></p>
             </div>
           </div>
+          </a>
         </div>
       </div>
 
@@ -171,7 +184,7 @@
         </thead>
         <tbody>
           <?php
-          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs ORDER BY  nama ASC, semester ASC'  );
+          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs WHERE status = "Nonaktif" ORDER BY  nama ASC, semester ASC'  );
           $i = 1;
           while ($data = mysqli_fetch_array($ambildata)) {
               $nim = $data['nim'];

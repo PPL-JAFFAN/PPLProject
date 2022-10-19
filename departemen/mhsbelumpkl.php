@@ -2,7 +2,7 @@
   include'../db_login.php';
 
 ?>
-
+<!DOCTYPE html>
 <!DOCTYPE html>
 <!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
@@ -18,12 +18,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Data Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-   
-   
-    </head>
+    <title>Data Mahasiswa</title>
+    <style>
+      .home-section a .card{
+        text-decoration: none;
+        color: black;
+      }
+
+      .home-section a .card:hover{
+        color: white;
+        background-color: #8974FF;
+        transition: all ease 0.3s;
+      }
+
+      .home-section a{
+        text-decoration: none;
+      }
+
+      .home-section a .card-active{
+        color: white;
+        background-color: #8974FF;
+      }
+    </style>
+  </head>
 <body>
   <div class="sidebar">
   <div class="logo-details">
@@ -32,7 +51,7 @@
     </div>
     <ul class="nav-list" id="nav-list">
       <li>
-        <a class="nav-link active" href="index.php">
+        <a class="nav-link " href="index.php">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Home</span>
         </a>
@@ -46,7 +65,7 @@
        <span class="tooltip">Data Mahasiswa</span>
      </li>
      <li>
-       <a class="nav-link " href="mhspkl.php">
+       <a class="nav-link active" href="mhspkl.php">
          <i class='bx bx-chat' ></i>
          <span class="links_name">Mahasiswa PKL</span>
        </a>
@@ -87,7 +106,7 @@
   
   <section class="home-section">
     <div class="container-fluid">
-      <div class="h4 mt-5 w-100 ">Home
+      <div class="h4 mt-5 w-100 ">Data Mahasiswa PKL
       <div class="dropdown float-end">
           <button class="btn btn-outline-primary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Angkatan
@@ -104,90 +123,90 @@
         </div>
       </div><br>
 
-      
-
       <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+      <?php
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs m, tb_pkl p WHERE  m.nim = p.nim AND status_pkl = 'LULUS'");
+          $lulus = 0;
+          while ($data = mysqli_fetch_array($ambildata)) {
+              $lulus++;
+              }
+
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs m, tb_pkl p WHERE  m.nim = p.nim AND status_pkl = 'BELUM MENGAMBIL'");
+          $belum = 0;
+          while ($data = mysqli_fetch_array($ambildata)) {
+              $belum++;
+              }
+
+          $ambildata = mysqli_query($conn,"SELECT * FROM tb_mhs m, tb_pkl p WHERE  m.nim = p.nim AND status_pkl = 'SEDANG MENGAMBIL'");
+          $sedang = 0;
+          while ($data = mysqli_fetch_array($ambildata)) {
+              $sedang++;
+              }
+      ?>
         <div class="col">
-
-          <?php
-          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Aktif'");
-          $aktif = 0;
-          while ($data = mysqli_fetch_array($ambildata)) {
-              $aktif++;
-              }
-
-          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Nonaktif'");
-          $non_aktif = 0;
-          while ($data = mysqli_fetch_array($ambildata)) {
-              $non_aktif++;
-              }
-
-          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Cuti'");
-          $cuti = 0;
-          while ($data = mysqli_fetch_array($ambildata)) {
-              $cuti++;
-              }
-          ?>
-          <div class="card rounded-4  ">
-            <div class="card-body">
-              <p class="text-center">Jumlah Mahasiswa Aktif</p>
-              <p class="card-text jumlah text-center"><?= $aktif; ?></p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
+          <a href="mhspkl.php">
           <div class="card rounded-4 ">
             <div class="card-body">
-              <p class="text-center">Jumlah Mahasiswa Non Aktif</p>
-              <p class="card-text jumlah text-center"><?= $non_aktif; ?></p>
+              <p class="text-center">Jumlah Mahasiswa Sudah PKL</p>
+              <p class="card-text jumlah text-center"><?= $lulus; ?></p>
             </div>
           </div>
+          </a>
         </div>
         <div class="col">
-          <div class="card rounded-4 ">
+          <a href="mhsbelumpkl.php">
+          <div class="card rounded-4 card-active ">
             <div class="card-body">
-              <p class="text-center">Jumlah Mahasiswa Cuti</p>
-              <p class="card-text jumlah text-center"><?= $cuti; ?></p>
+              <p class="text-center">Jumlah Mahasiswa Belum PKL</p>
+              <p class="card-text jumlah text-center"><?= $belum; ?></p>
             </div>
           </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="mhssedangpkl.php">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Sedang PKL</p>
+              <p class="card-text jumlah text-center"><?= $sedang; ?></p>
+            </div>
+          </div>
+          </a>
         </div>
       </div>
 
       <br>
-      <div class="h5 mt-4 mb-4 w-100">Tabel</div>
+      <div class="h5 mt-4 mb-4 w-100">Mahasiswa Belum PKL</div>
       <div class="card p-4 rounded-4">
       <table id="example" class="table  bg-light rounded-3" style="width:100%">
         <thead>
             <tr>
                 <th>NIM</th>
                 <th>Nama</th>
-                <th>Alamat</th>
                 <th>Angkatan</th>
                 <th>Email</th>
                 <!-- <th>No HP</th> -->
-                <th>Status</th>
+                <th>Status PKL</th>
                 <th>Semester</th>
             </tr>
         </thead>
         <tbody>
           <?php
-          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs ORDER BY  nama ASC, semester ASC'  );
+          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs m, tb_pkl p WHERE  m.nim = p.nim AND status_pkl = "BELUM MENGAMBIL"'  );
           $i = 1;
           while ($data = mysqli_fetch_array($ambildata)) {
               $nim = $data['nim'];
               $nama = $data['nama'];
-              $alamat = $data['alamat'];
               $angkatan = $data['angkatan'];
               $email = $data['email'];
               // $no_hp = $data['no_hp'];
-              $status = $data['status'];
+              $status = $data['status_pkl'];
               $semester = $data['semester'];
           ?>
 
         <tr>
           <td><?= $nim ?></td>
           <td><?= $nama; ?></td>
-          <td><?= $alamat; ?></td>
           <td><?= $angkatan; ?></td>
           <td><?= $email; ?></td>
           <!-- <td><?= $no_hp; ?></td> -->
@@ -199,8 +218,6 @@
           }
         ?>
 
-      
-     
     </table>
     </div>
 
