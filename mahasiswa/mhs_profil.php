@@ -134,7 +134,6 @@ if (!isset($_SESSION['email'])) {
 
                     
                       <a href="./edit_mhs.php">
-                        <i class='bx bx-log-out' id="log_out"></i>
                         <span class="links_name">Edit</span>
                       </a>
                       <span class="tooltip"></span>
