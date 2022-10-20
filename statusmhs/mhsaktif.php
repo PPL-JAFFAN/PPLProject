@@ -91,7 +91,7 @@
   </div>
 
   <section class="home-section">
-      <div class="text">Mahasiswa Cuti </div>
+      <div class="text">Mahasiswa Aktif </div>
       <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable">
                                 <thead>
@@ -111,7 +111,7 @@
                                 </thead>
 								<tbody>
 										  <?php
-										  $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Cuti'");
+										  $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Aktif'");
 										  $i = 1;
 										  while ($data = mysqli_fetch_array($ambildata)) {
 											  $nim = $data['nim'];
