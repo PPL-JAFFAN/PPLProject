@@ -80,12 +80,19 @@ if (!isset($_SESSION['email'])) {
         <span class="tooltip">Keluar</span>
       </li>
 
+      <?php
+      // get detail mahasiswa
+      $mhsDetail = getMhsDetail($_SESSION['nim']);
+      $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
+      $khsDetail = getKhsDetail($_SESSION['nim']);
+      ?>
+
       <li class="profile">
         <div class="profile-details">
           <!--<img src="profile.jpg" alt="profileImg">-->
           <div class="name_job">
-            <div class="name">Departemen</div>
-            <div class="job">Informatika</div>
+            <div class="name"><?php echo $mhsDetail['nama']; ?></div>
+            <div class="job"><?php echo $mhsDetail['email']; ?></div>
           </div>
         </div>
         <i class="fa fa-bars" id="bars"></i>>
