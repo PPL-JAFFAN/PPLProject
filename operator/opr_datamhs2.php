@@ -92,6 +92,60 @@ if (!isset($_SESSION['email'])) {
                 <div class="container-fluid">
                     <h1 class="mt-4">Rekap Data Mahasiswa</h1>
 					<p>Mahasiswa Aktif</p>
+					<div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th >NIM</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+										<th>Kode Kota</th>
+                                        <th>Angkatan</th>
+										<th>Jalur Masuk</th>
+										<th>Email</th>
+										<th>No HP</th>
+										<th>Status</th>
+										<th>Kode Wali</th>
+										<th>Semester</th>
+                                    </tr>
+                                </thead>
+								<tbody>
+										  <?php
+										  $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Aktif'");
+										  $i = 1;
+										  while ($data = mysqli_fetch_array($ambildata)) {
+											  $nim = $data['nim'];
+											  $nama = $data['nama'];
+											  $alamat = $data['alamat'];
+											  $kode_kota = $data['kode_kota'];
+											  $angkatan = $data['angkatan'];
+											  $jalur_masuk = $data['jalur_masuk'];
+											  $email = $data['email'];
+											  $no_hp = $data['no_hp'];
+											  $status = $data['status'];
+											  $kode_wali = $data['kode_wali'];
+											  $semester = $data['semester'];
+										  ?>
+
+										<tr>
+										  <td><?= $nim ?></td>
+										  <td><?= $nama; ?></td>
+										  <td><?= $alamat; ?></td>
+										  <td><?= $kode_kota; ?></td>
+										  <td><?= $angkatan; ?></td>
+										  <td><?= $jalur_masuk; ?></td>
+										  <td><?= $email; ?></td>
+										  <td><?= $no_hp; ?></td>
+										  <td><?= $status; ?></td>
+										  <td><?= $kode_wali; ?></td>
+										  <td><?= $semester; ?></td>
+										</tr>
+
+										<?php
+										  }
+										?>
+							</table>
+					</div>
 				</div>
   </section>
   <script src="../library/js/script.js"> </script>

@@ -12,16 +12,15 @@ if (!isset($_SESSION['email'])) {
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
     <link rel="stylesheet" href="../library/css/style.css">
-    <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 	<link href="css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/font.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<title>Home</title>
 	<style>
       
@@ -111,8 +110,8 @@ if (!isset($_SESSION['email'])) {
 <body>
   <div class="sidebar">
     <div class="logo-details">
-        <img src="" alt="" class="logo-undip">
-        <div class="logo_name">Universitas Diponegoro</div>
+        <i> <img src="../asset/img/undip.png" style="width:40px ; padding-bottom:5px" alt=""></i>
+        <div class="logo_name" style="padding-top: 5px;"> <div style="font-size:10px ;">Departemen Informatika</div>  Universitas Diponegoro</div>
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
@@ -178,39 +177,58 @@ if (!isset($_SESSION['email'])) {
 
       <div class="row">
       <div class="column">
-        <a href="../statusmhs/mhsktif.php">
+	  <?php
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Aktif'");
+          $aktif = 0;
+          while ($data = mysqli_fetch_array($ambildata)) {
+              $aktif++;
+              }
+
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Nonaktif'");
+          $non_aktif = 0;
+          while ($data = mysqli_fetch_array($ambildata)) {
+              $non_aktif++;
+              }
+
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Cuti'");
+          $cuti = 0;
+          while ($data = mysqli_fetch_array($ambildata)) {
+              $cuti++;
+              }
+          ?>
+        <a href="../statusmhs/mhsaktif.php">
         <div class="card">
         <br><p>Mahasiswa Aktif</p><br>          
-        <h3>432</h3>
+        <h3 class="card-text jumlah text-center"><?= $aktif; ?></h3>
         </div>
         </a>
       </div>
 
       <div class="column">
-      <a href="../statusmhs/mhscuti.php">
-        <div class="card">
+        <a href="../statusmhs/mhscuti.php">
+		<div class="card">
         <br><p>Mahasiswa Cuti</p><br>          
-        <h3>23</h3>
+        <h3 class="card-text jumlah text-center"><?= $cuti; ?></h3>
         </div>
-        </a>
+		</a>
       </div>
       
       <div class="column">
-        <a href="../statusmhs/mhsmangkir.php">
-          <div class="card">
-          <br><p>Jumlah Mahasiswa Mangkir</p><br>          
-          <h3>12</h3>
+          <a href="../statusmhs/mhsnonaktif.php">
+		  <div class="card">
+          <br><p>Jumlah Mahasiswa Nonaktif</p><br>          
+          <h3 class="card-text jumlah text-center"><?= $non_aktif; ?></h3>
           </div>
-        </a>
+		  </a>
       </div>
           
       </div>
       
       <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-
+	
       <script>
       var xValues = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
-      var yValues = [11, 23, 33, 43, 53, 89, 110];
+      var yValues = [2,3,5,1,2,4,2];
       var barColors = ["blue", "orange","purple", "magenta", "green", "pink", "dark-green"];
 
       new Chart("myChart", {
