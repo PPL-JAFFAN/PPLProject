@@ -23,7 +23,9 @@ if (!isset($_SESSION['email'])) {
   <link rel="stylesheet" href="mhs.css">
   <!-- Boxicons CDN Link -->
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
@@ -100,13 +102,22 @@ if (!isset($_SESSION['email'])) {
     </ul>
   </div>
 
-  <section class="home-section">
-    <div class="text">
-      <h3>Profil</h3>
-    </div>
+
+  <span onclick="" id="notif" class='bi bi-bell-fill'></span>
+  <section class="home-section">  
+    <!---Card Informasi Data diri mahasiswa-->
 
     <div class="container">
-      <!--Kolom Profile Mahasiswa-->
+      <!--write in one line-->
+      <div class="row">
+        <div class="col">
+          <h3>Profil</h3>
+        </div>
+        <div class="col" id="halo">
+          <h5>Halo, <?= $mhsDetail['nama']; ?></h5>
+        </div>
+      </div>
+      <!--Card dari kolom profil mahasiswa-->
       <div class="row">
         <div class="col-sm-10">
           <div class="card">
@@ -121,11 +132,15 @@ if (!isset($_SESSION['email'])) {
                     <img src="../asset/img/<?php //echo $mhsDetail['foto_mhs']; ?>" alt="foto" width="100px">-->
                     <br>
 
-                    <a href="edit_mhs.php">
-                        <i class='bi bi-pen' id="edit"></i>
+                    
+                      <a href="./edit_mhs.php">
+                        <i class='bx bx-log-out' id="log_out"></i>
                         <span class="links_name">Edit</span>
-                    </a>
+                      </a>
+                      <span class="tooltip"></span>
+              
                   </div>
+
                   <div class="col-sm-2" style="font-weight: bold;">
                     Nama <br>
                     Alamat <br>
@@ -147,12 +162,12 @@ if (!isset($_SESSION['email'])) {
         </div>
       </div>
       <br>
-      <!--Kolom Status Akademik -->
+      <!--Card kolom dari Status akademi Mahasiswa-->
       <div class="row">
-        <div class="col-sm-5">
-          <h3>Status Akademik</h3>
+        <div class="col-sm-6">       
           <div class="card">
             <div class="card-body">
+              <h4>Status Akademik</h4><br>
               <p class="card-text">
                 <div class="row">
 
@@ -173,12 +188,11 @@ if (!isset($_SESSION['email'])) {
             </div>
           </div>
         </div>
-        <!--Kolom Prestasi Akademik-->
-        
-        <div class="col-sm-5">
-          <h3>Prestasi Akademik</h3>
+        <!--Card kolom dari prestasi akademik mahasiswa-->
+        <div class="col-sm-4">
           <div class="card">
             <div class="card-body">
+              <h4>Prestasi Akademik</h4><br>
               <p class="card-text">
                 <div class="row">
 
@@ -186,6 +200,7 @@ if (!isset($_SESSION['email'])) {
                     IP Semester<br>
                     IP Kumulatif<br>
                     SKS Kumulatif<br>
+                    <br>
                   </div>
                   <div class="col">
                     <div><?php echo $khsDetail['ip_semester']; ?></div>
