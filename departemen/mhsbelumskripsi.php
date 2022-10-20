@@ -24,6 +24,8 @@
     <title>Data Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
     
     <style>
       .home-section a .card-active{
@@ -77,7 +79,7 @@
      </li>
      <li>
        <a class="nav-link" href="../logout.php">
-         <i class='bx bx-cart-alt' ></i>
+         <i class="bi bi-box-arrow-right"></i>
          <span class="links_name">Keluar</span>
        </a>
        <span class="tooltip">Keluar</span>
@@ -97,20 +99,16 @@
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Data Mahasiswa Skripsi
-      <div class="dropdown float-end">
-          <button class="btn btn-outline-primary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Angkatan
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">2016</a></li>
-            <li><a class="dropdown-item" href="#">2017</a></li>
-            <li><a class="dropdown-item" href="#">2018</a></li>
-            <li><a class="dropdown-item" href="#">2019</a></li>
-            <li><a class="dropdown-item" href="#">2020</a></li>
-            <li><a class="dropdown-item" href="#">2021</a></li>
-            <li><a class="dropdown-item" href="#">2022</a></li>
-          </ul>
-        </div>
+      <select class="form-select keyword" id="keyword" name="keyword" style="width: 20% ;float : right" aria-label=".form-select-sm example">
+        <option selected >Angkatan</option>
+        <option value="1">2016</option>
+        <option value="2">2017</option>
+        <option value="3">2018</option>
+        <option value="4">2019</option>
+        <option value="5">2020</option>
+        <option value="6">2021</option>
+        <option value="7">2022</option>
+      </select>
       </div><br>
 
       <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
