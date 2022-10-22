@@ -1,5 +1,6 @@
-17-Oktober 2022
-  Penambahan fitur edit_mahasiswa
-  Perbaikan UI profil_mahasiswa
 20-Oktober 2022
   Perbaikan UI profil_mahasiswa
+  
+22-Oktober
+  + dapat menampilkan irs mahasiswa,
+  - fitur add blm dapat dijalankan
