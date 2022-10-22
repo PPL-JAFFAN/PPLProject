@@ -8,6 +8,25 @@ function getMhsDetail($nim){
     $data = mysqli_fetch_assoc($query);
     return $data;
 }
+//update berkas irs
+function updateIrs($nim, $namafile,$smt){
+    global $conn;
+    $query = mysqli_query($conn, "UPDATE tb_irs SET file_irs = '$namafile' WHERE nim = '$nim' AND semester = '$smt'");
+    return $query;
+}
+//get Matkul PerSemester
+function getMatkul($smt){
+    global $conn;
+    $query = mysqli_query($conn, "SELECT * FROM tb_matakul WHERE semester = '$smt'");
+    return $query;
+}
+
+//get detail irs
+function getIrsDetail($nim){
+    global $conn;
+    $query = mysqli_query($conn, "SELECT * FROM tb_irs WHERE nim='$nim'");
+    return $query;
+}
 
 // get detail dosen
 function getDosenDetail($kode_wali){
