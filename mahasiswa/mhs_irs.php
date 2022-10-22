@@ -84,7 +84,13 @@ if (!isset($_SESSION['email'])) {
       $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
       $mhsDetail = getMhsDetail($_SESSION['nim']);
       $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
+      $nim = $_SESSION['nim'];
+      $irsDetail = getIrsDetail($_SESSION['nim']);
+      //getMatkul belum fix untuk parameter
+      $matkulDetail = getMatkul(3);
       ?>
+
+
       <li class="profile">
         <div class="profile-details">
           <!--<img src="profile.jpg" alt="profileImg">-->
@@ -99,14 +105,108 @@ if (!isset($_SESSION['email'])) {
   </div>
 
   <section class="home-section">
-    <div class="text">
-      <h3>Ini Data IRS Mahasiswa</h3>
+    <!--Selection utk menampilkan irs yang dapat diambil per semester-->
+    <div class="container2">
+      <div class="mt-4">
+        <form action="" method="POST">
+          <div class="form-group">
+            <h4>SEMESTER</h4>
+            <select class="form-control" name="semester" id="semester">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div>
+        </form>
+        <br>
+      </div>
+      
+      <!--Bagian table IRS-->
+      <div class="card">
+        <div class="card-body">
+          <table class="table" width="100%" id="irscontent">
+            <thead>
+              <tr>
+                <th scope="col">Mata Kuliah</th>
+                <th scope="col">Kode Matkul</th>
+                <th scope="col">Waktu</th>
+                <th scope="col">Jumlah SKS</th>
+                <th scope="col">Kelas</th>
+                <th scope="col">Jenis Pembelajaran</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              
+              while ($data = mysqli_fetch_assoc($matkulDetail)) {
+                $matkul = $data['matakuliah'];
+                $kode = $data['kode'];
+                $waktu = $data['waktu'];
+                $bobot = $data['sks'];
+                $kelas = $data['kelas'];
+                $pembelajaran = $data['pembelajaran'];
+                ?>
+              
+                  <tr>
+                    <th scope="row"><?= $matkul ?></th>
+                    <td><?= $kode; ?></td>
+                    <td><?= $waktu; ?></td>
+                    <td><?= $bobot; ?></td>
+                    <td><?= $kelas; ?></td>
+                    <td><?= $pembelajaran; ?></td>
+                    <td>
+                      <button type="button" class="btn btn-primary">ADD</button>
+                    </td>
+                  </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-
-    <div class="container">
-
+    <div class="text-success"><?php if(isset($alertupdate)) echo $alertupdate; ?></div>
+    <div class="text-danger"><?php if(isset($alertupdate)) echo $alertupdate; ?></div>
 
   </section>
   <script src="../library/js/script.js"> </script>
+  <script src="ajax.js"></script>
 </body>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Upload Berkas IRS</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <form action="" method="POST" enctype="multipart/form-data">
+      <div class="modal-body">
+        <input type="number" name="semester" min="1" max="14" class="form-control" placeholder="semester">
+        <br>
+        <input type="file" name="file" class="form-control">
+        <br><br>
+        <button type="submit" class="btn btn-primary" name="uploadIrs">Upload</button>
+        <br>
+      </div>
+      </form>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 </html>
