@@ -78,7 +78,7 @@ if (!isset($_SESSION['nip'])){
         <section class="home-section">
 
             <div class="d-flex justify-content-center" id="searchmhs">
-                <h3>Rekap Data Mahasiswa</h3>
+                <h3>Mahasiswa Perwalian Cuti</h3>
                 <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
                     id="nama_mhs" />
                 <input type="submit" class="btn btn-class mt-4" name="cari_mhs" value="Cari" />
@@ -95,13 +95,13 @@ if (!isset($_SESSION['nip'])){
                             <th id="table2">AKSI </th>
                         </tr>
                         <?php 
-                    $query = "SELECT * FROM tb_mhs WHERE kode_wali = ".$_SESSION['kode_wali'];
+                    $query = "SELECT * FROM tb_mhs WHERE status='cuti' AND kode_wali=".$_SESSION['kode_wali'];
                     $connect = mysqli_query($conn, $query);
                     $no = 1;
 
                     if (isset($_POST['cari_mhs'])){
                         $nama_mhs = $_POST['nama_mhs'];
-                        $query = "SELECT * FROM tb_mhs where nama like '%".$nama_mhs."%' AND kode_wali = ".$_SESSION['kode_wali'];
+                        $query = "SELECT * FROM tb_mhs where nama like '%".$nama_mhs."%' AND status='cuti' AND kode_wali=".$_SESSION['kode_wali'];
                         $connect = mysqli_query($conn, $query);
                         $no = 1;
                     }

@@ -10,9 +10,42 @@ if (isset($_SESSION['nip'])){
     $dosen = mysqli_fetch_assoc($query);
     $namadosen = $dosen['nama'];
     $kodewali = $dosen['kode_wali'];
+    $_SESSION['kode_wali']=$kodewali;
     $alamat = $dosen['alamat'];
     $email = $dosen['email'];
     $nohp = $dosen['no_hp'];
+
+    $queryPerwalian= mysqli_query($conn,"select * from tb_mhs WHERE tb_mhs.kode_wali=".$kodewali);
+    $noPerwalian =0;
+    $noAktif = 0;
+    $noCuti = 0;
+    $noMangkir =0;
+    while ($data = $queryPerwalian->fetch_object()) {
+        if ($data->status == "Aktif"){
+            $noAktif++;
+            $noPerwalian++;
+        }
+        else if ($data->status == "cuti"){
+            $noCuti++;
+            $noPerwalian++;
+        }
+        else if ($data->status == "mangkir"){
+            $noMangkir++;
+            $noPerwalian++;
+        }
+    }
+
+    $queryPKL= mysqli_query($conn,"select * from tb_mhs JOIN tb_pkl ON tb_mhs.nim=tb_pkl.nim WHERE tb_mhs.kode_wali=".$kodewali." AND tb_pkl.status_pkl='LULUS'");
+    $noPKL=0;
+    while ($queryPKL->fetch_object()) {
+        $noPKL++;
+    }
+
+    $querySkripsi= mysqli_query($conn,"select * from tb_mhs JOIN tb_skripsi ON tb_mhs.nim=tb_skripsi.nim WHERE tb_mhs.kode_wali=".$kodewali." AND tb_skripsi.status_skripsi='LULUS'");
+    $noSkripsi=0;
+    while ($querySkripsi->fetch_object()) {
+        $noSkripsi++;
+    }
 
 }
 else{
@@ -50,7 +83,7 @@ else{
         </div>
         <ul class="nav-list">
 
-            <li>
+        <li>
                 <a href="doswal.php">
                     <i class='bx bx-grid-alt' id="icon"></i>
                     <span class="links_name">Home</span>
@@ -58,18 +91,25 @@ else{
                 <span class="tooltip">Home</span>
             </li>
             <li>
-                <a href="datamhs.php">
-                    <i class='bx bx-pie-chart-alt-2' id="icon"></i>
-                    <span class="links_name">Lihat Data <br>Mahasiswa</span>
+                <a href="editdosen.php">
+                    <i class='bx bx-user' id="icon"></i>
+                    <span class="links_name">Edit Data Dosen</span>
                 </a>
-                <span class="tooltip">Lihat DataMahasiswa</span>
+                <span class="tooltip">Edit Data Dosen</span>
             </li>
             <li>
-                <a href="mhspkl.php">
+                <a href="verifMhs.php">
                     <i class='bx bx-chat' id="icon"></i>
                     <span class="links_name">Verifikasi <br>Mahasiswa</span>
                 </a>
                 <span class="tooltip">Verifikasi Mahasiswa</span>
+            </li>
+            <li>
+                <a href="datamhs.php">
+                    <i class='bx bx-pie-chart-alt-2' id="icon"></i>
+                    <span class="links_name">Lihat Data <br>Mahasiswa</span>
+                </a>
+                <span class="tooltip">Lihat Data Mahasiswa</span>
             </li>
 
             <li>
@@ -116,19 +156,19 @@ else{
         <div id="stat">
             <div class="row gx-5 justify-content-center">
 
-                <div class="col-lg-4 col-md-12 " id="showstats">
+                <div class="col-lg-4 col-md-12 " id="showstats"  onclick="location.href='datamhs.php'">
                     <h3 class="text-center">Mahasiswa Perwalian</h3>
-                    <h1 class="text-center">129</h1>
+                    <h1 class="text-center"><?php echo $noPerwalian ?></h1>
                 </div>
 
-                <div class="col-lg-4 col-md-6" id="showstats">
+                <div class="col-lg-4 col-md-6" id="showstats"  onclick="location.href='mhsAktif.php'">
                     <h3 class="text-center">Mahasiswa Perwalian Aktif</h3>
-                    <h1 class="text-center">40</h1>
+                    <h1 class="text-center"><?php echo $noAktif ?></h1>
                 </div>
 
-                <div class="col-lg-4 col-md-6" id="showstats">
+                <div class="col-lg-4 col-md-6" id="showstats" onclick="location.href='mhsSkripsi.php'">
                     <h3 class="text-center">Mahasiswa Perwalian Sudah Lulus Skripsi</h3>
-                    <h1 class="text-center">43</h1>
+                    <h1 class="text-center"><?php echo $noSkripsi ?></h1>
                 </div>
 
             </div>
@@ -136,19 +176,19 @@ else{
         <div id="stat">
             <div class="row gx-5 justify-content-center">
 
-                <div class="col-lg-4 col-md-12 " id="showstats">
+                <div class="col-lg-4 col-md-12 " id="showstats" onclick="location.href='mhsCuti.php'">
                     <h3 class="text-center">Mahasiswa Perwalian Cuti</h3>
-                    <h1 class="text-center">32</h1>
+                    <h1 class="text-center"><?php echo $noCuti ?></h1>
                 </div>
 
-                <div class="col-lg-4 col-md-6" id="showstats">
+                <div class="col-lg-4 col-md-6" id="showstats" onclick="location.href='mhsPKL.php'">
                     <h3 class="text-center">Mahasiswa Perwalian Sudah PKL</h3>
-                    <h1 class="text-center">21</h1>
+                    <h1 class="text-center"><?php echo $noPKL ?></h1>
                 </div>
 
-                <div class="col-lg-4 col-md-6" id="showstats">
+                <div class="col-lg-4 col-md-6" id="showstats" onclick="location.href='mhsMangkir.php'">
                     <h3 class="text-center">Mahasiswa Perwalian Mangkir</h3>
-                    <h1 class="text-center">2</h1>
+                    <h1 class="text-center"><?php echo $noMangkir ?></h1>
                 </div>
 
             </div>

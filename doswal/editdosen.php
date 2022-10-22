@@ -79,7 +79,7 @@ if(isset($_POST['edit'])){
                 <span class="tooltip">Edit Data Dosen</span>
             </li>
             <li>
-                <a href="mhspkl.php">
+                <a href="verifMhs.php">
                     <i class='bx bx-chat' id="icon"></i>
                     <span class="links_name">Verifikasi <br>Mahasiswa</span>
                 </a>
@@ -136,7 +136,7 @@ if(isset($_POST['edit'])){
 
                 <br>
                 <div class="col-12 d-flex justify-content-center button-signup" id="ctn-signup">
-                    <input type="submit" class="btn btn-class mt-4" name="edit" value="edit" id="signupbutton" />
+                    <input type="submit" class="btn btn-primary mt-4" name="edit" value="edit" id="signupbutton" />
                 </div>
             </form>
         </div>
