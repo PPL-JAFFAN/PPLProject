@@ -87,7 +87,7 @@ if (!isset($_SESSION['email'])) {
       $nim = $_SESSION['nim'];
       $irsDetail = getIrsDetail($_SESSION['nim']);
       //getMatkul belum fix untuk parameter
-      $matkulDetail = getMatkul(3);
+      $matkulDetail = getMatkul(1);
       ?>
 
 
