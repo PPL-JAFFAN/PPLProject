@@ -33,6 +33,9 @@ if (isset($_SESSION['nip'])){
             $noMangkir++;
             $noPerwalian++;
         }
+        else {
+            $noPerwalian++;
+        }
     }
 
     $queryPKL= mysqli_query($conn,"select * from tb_mhs JOIN tb_pkl ON tb_mhs.nim=tb_pkl.nim WHERE tb_mhs.kode_wali=".$kodewali." AND tb_pkl.status_pkl='LULUS'");
