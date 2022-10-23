@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3308
--- Generation Time: Oct 22, 2022 at 12:12 PM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 23, 2022 at 08:54 AM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -56,7 +56,7 @@ INSERT INTO `tb_dosen` (`kode_wali`, `nama`, `nip`, `alamat`, `email`, `no_hp`, 
 --
 
 CREATE TABLE `tb_irs` (
-  `semester` int(11) NOT NULL,
+  `semester_irs` int(11) NOT NULL,
   `nim` varchar(14) NOT NULL,
   `sks` int(11) NOT NULL,
   `file_irs` varbinary(8000) DEFAULT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE `tb_irs` (
 -- Dumping data for table `tb_irs`
 --
 
-INSERT INTO `tb_irs` (`semester`, `nim`, `sks`, `file_irs`, `status_irs`, `verif_irs`) VALUES
+INSERT INTO `tb_irs` (`semester_irs`, `nim`, `sks`, `file_irs`, `status_irs`, `verif_irs`) VALUES
 (7, '2406012013010', 24, NULL, '', 'sudah'),
 (5, '24060120140120', 22, NULL, '', 'sudah'),
 (6, '24060120160114', 24, NULL, '', 'belum'),
@@ -83,10 +83,10 @@ INSERT INTO `tb_irs` (`semester`, `nim`, `sks`, `file_irs`, `status_irs`, `verif
 --
 
 CREATE TABLE `tb_khs` (
-  `semester` varchar(2) NOT NULL,
+  `semester_khs` varchar(2) NOT NULL,
   `nim` varchar(14) NOT NULL,
   `sks` int(11) NOT NULL,
-  `file_khs` varbinary(8000) DEFAULT NULL,
+  `file_khs` varchar(255) DEFAULT NULL,
   `sks_kumulatif` int(11) NOT NULL,
   `ip_semester` float DEFAULT NULL,
   `ip_kumulatif` float NOT NULL,
@@ -97,13 +97,14 @@ CREATE TABLE `tb_khs` (
 -- Dumping data for table `tb_khs`
 --
 
-INSERT INTO `tb_khs` (`semester`, `nim`, `sks`, `file_khs`, `sks_kumulatif`, `ip_semester`, `ip_kumulatif`, `verif_khs`) VALUES
+INSERT INTO `tb_khs` (`semester_khs`, `nim`, `sks`, `file_khs`, `sks_kumulatif`, `ip_semester`, `ip_kumulatif`, `verif_khs`) VALUES
 ('5', '2406012012015', 22, NULL, 92, 3.5, 3.67, 'belum'),
 ('5', '24060120120001', 24, NULL, 92, 3.8, 3.92, 'belum'),
 ('6', '2406012013010', 24, NULL, 100, 3.6, 3.32, 'sudah'),
 ('4', '24060120140120', 22, NULL, 72, 3.5, 3.75, 'sudah'),
 ('5', '24060120160114', 20, NULL, 88, 4, 3.9, 'belum'),
-('5', '24060120160981', 22, NULL, 90, 3.2, 3.47, 'belum');
+('5', '24060120160981', 22, NULL, 90, 3.2, 3.47, 'belum'),
+('4', '24060120160981', 20, '4_24060120160981.pdf', 80, 3.5, 3.4, 'belum');
 
 -- --------------------------------------------------------
 
@@ -242,7 +243,7 @@ INSERT INTO `tb_mhs` (`nim`, `nama`, `alamat`, `kode_kota`, `angkatan`, `jalur_m
 ('2406012014112', 'Elvin Natsir', 'Dk. Industri No. 985', '36.71', '2020', 'SBMPTN', 'irawan.bagas@yahoo.co.id', '086214200800', 'Undur Diri', '', '4', '5'),
 ('2406012015015', 'Ida Puspita', 'Gg. Baabur Royan No. 793', '52.72', '2021', 'SBMPTN', 'ega.saptono@wastuti.or.id', '089291583365', 'DO', '', '6', '3'),
 ('24060120160114', 'Hani Indie', 'Jalan Sekar Wangi No.4', '18.71', '2021', 'UM', 'harumwangi@gmail.com', '0815783525', 'Mangkir', '', '4', '3'),
-('24060120160981', 'Tina Tanti', 'Jalan Cendrawasih No.10', '34.71', '2022', 'SBUB', 'tinacendra@gmail.com', '0817111933', 'Aktif', '', '5', '1'),
+('24060120160981', 'Tina Tanti', 'Jalan Cendrawasih No.10', '34.71', '2022', 'SBUB', 'tinacendra@gmail.com', '0817111933', 'Aktif', '', '5', '5'),
 ('2406012016352', 'Widya Hartati', 'Psr. Fajar No. 93', '36.71', '2020', 'SBMPTN', 'rusamah@yahoo.com', '080042693952', 'Meninggal', '', '5', '4'),
 ('2406012017017', 'Dagel Winarno', 'Ds. Cikapayang No. 375', '13.76', '2018', 'SBUB', 'khasanah@gmail.co.id', '084948776818', 'Lulus', '', '1', '8'),
 ('2406012017120', 'Laras Wastuti', 'Jln. Baya Kali Bungur No. 774', '73.73', '2020', 'SBUB', 'hassanah.sidiq@gmail.co.id', '087181649395', 'DO', '', '3', '4'),
