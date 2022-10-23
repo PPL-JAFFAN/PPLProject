@@ -95,13 +95,13 @@ if (!isset($_SESSION['nip'])){
                             <th id="table2">AKSI </th>
                         </tr>
                         <?php 
-                    $query = "SELECT * FROM tb_mhs WHERE status='cuti' AND kode_wali=".$_SESSION['kode_wali'];
+                    $query = "SELECT * FROM tb_mhs WHERE status='Cuti' AND kode_wali=".$_SESSION['kode_wali'];
                     $connect = mysqli_query($conn, $query);
                     $no = 1;
 
                     if (isset($_POST['cari_mhs'])){
                         $nama_mhs = $_POST['nama_mhs'];
-                        $query = "SELECT * FROM tb_mhs where nama like '%".$nama_mhs."%' AND status='cuti' AND kode_wali=".$_SESSION['kode_wali'];
+                        $query = "SELECT * FROM tb_mhs where nama like '%".$nama_mhs."%' AND status='Cuti' AND kode_wali=".$_SESSION['kode_wali'];
                         $connect = mysqli_query($conn, $query);
                         $no = 1;
                     }
@@ -112,7 +112,7 @@ if (!isset($_SESSION['nip'])){
                         echo '<td id="table1">'.$data->nama.'</td>';
                         echo '<td id="table1">'.$data->nim.'</td>';
                         ?><td id="table2"><button type="button" class="btn btn-primary"
-                                onclick="location.href = 'lihatMhs.php?nim=<?php echo $data->nim ?>'">Lihat
+                                onclick="location.href = 'lihatMhs.php?nim=<?php echo $data->nim ?>'">Lihat Data
                                 Mahasiswa</button></td>
                         <?php echo '</tr>';
                         $no = $no+1;

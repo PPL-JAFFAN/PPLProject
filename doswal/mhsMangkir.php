@@ -95,13 +95,13 @@ if (!isset($_SESSION['nip'])){
                             <th id="table2">AKSI </th>
                         </tr>
                         <?php 
-                    $query = "SELECT * FROM tb_mhs WHERE status='mangkir' AND kode_wali=".$_SESSION['kode_wali'];
+                    $query = "SELECT * FROM tb_mhs WHERE status='Mangkir' AND kode_wali=".$_SESSION['kode_wali'];
                     $connect = mysqli_query($conn, $query);
                     $no = 1;
 
                     if (isset($_POST['cari_mhs'])){
                         $nama_mhs = $_POST['nama_mhs'];
-                        $query = "SELECT * FROM tb_mhs where nama like '%".$nama_mhs."%' AND status='mangkir' AND kode_wali=".$_SESSION['kode_wali'];
+                        $query = "SELECT * FROM tb_mhs where nama like '%".$nama_mhs."%' AND status='Mangkir' AND kode_wali=".$_SESSION['kode_wali'];
                         $connect = mysqli_query($conn, $query);
                         $no = 1;
                     }

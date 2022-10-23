@@ -25,11 +25,11 @@ if (isset($_SESSION['nip'])){
             $noAktif++;
             $noPerwalian++;
         }
-        else if ($data->status == "cuti"){
+        else if ($data->status == "Cuti"){
             $noCuti++;
             $noPerwalian++;
         }
-        else if ($data->status == "mangkir"){
+        else if ($data->status == "Mangkir"){
             $noMangkir++;
             $noPerwalian++;
         }
