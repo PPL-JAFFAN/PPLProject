@@ -97,13 +97,13 @@ if (!isset($_SESSION['nip'])){
                         </tr>
                         <?php 
 
-                        $query = "SELECT * FROM tb_irs JOIN tb_mhs where tb_irs.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester";
+                        $query = "SELECT * FROM tb_irs JOIN tb_mhs where tb_irs.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester_irs";
                         $connect = mysqli_query($conn, $query);
                         $no = 1;
 
                         if (isset($_GET['cari_mhs'])){
                             $nama_mhs = $_GET['nama_mhs'];
-                            $query = "SELECT * FROM tb_irs JOIN tb_mhs where tb_irs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester";
+                            $query = "SELECT * FROM tb_irs JOIN tb_mhs where tb_irs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester_irs";
                             $connect = mysqli_query($conn, $query);
                             $no = 1;
                         }
@@ -123,11 +123,11 @@ if (!isset($_SESSION['nip'])){
                         echo '<td id="table1">'.$no.'</td>';
                         echo '<td id="table1">'.$data->nama.'</td>';
                         echo '<td id="table1">'.$data->nim.'</td>';
-                        echo '<td id="table1">'.$data->semester.'</td>';
+                        echo '<td id="table1">'.$data->semester_irs.'</td>';
                         echo '<td id="table1">'.$data->sks.'</td>';
                         ?>
                         <td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = 'scanIRS.php?nim=<?php echo $data->nim ?>'">Lihat
+                                onclick="location.href = '../file/irs/<?php echo $data->file_khs ?>'">Lihat
                                 Scan KHS</button></td>
                         <?php echo '
                          <td>

@@ -127,7 +127,7 @@ if (!isset($_SESSION['nip'])){
                         echo '<td id="table1">'.$data->nilai_pkl.'</td>';
                         ?>
                         <td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = 'scanPKL.php?nim=<?php echo $data->nim ?>'">Lihat
+                                onclick="location.href = '../file/pkl/<?php echo $data->file_khs ?>'">Lihat
                                 Scan PKL</button></td>
                         <?php echo '
                          <td>
