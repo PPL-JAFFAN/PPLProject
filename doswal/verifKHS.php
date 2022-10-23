@@ -100,13 +100,13 @@ if (!isset($_SESSION['nip'])){
                         </tr>
                         <?php 
 
-                        $query = "SELECT * FROM tb_khs JOIN tb_mhs where tb_khs.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_khs.verif_khs,tb_khs.semester";
+                        $query = "SELECT * FROM tb_khs JOIN tb_mhs where tb_khs.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_khs.verif_khs,tb_khs.semester_khs";
                         $connect = mysqli_query($conn, $query);
                         $no = 1;
 
                         if (isset($_GET['cari_mhs'])){
                             $nama_mhs = $_GET['nama_mhs'];
-                            $query = "SELECT * FROM tb_khs JOIN tb_mhs where tb_khs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_khs.verif_khs,tb_khs.semester";
+                            $query = "SELECT * FROM tb_khs JOIN tb_mhs where tb_khs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_khs.verif_khs,tb_khs.semester_khs";
                             $connect = mysqli_query($conn, $query);
                             $no = 1;
                         }
@@ -126,14 +126,14 @@ if (!isset($_SESSION['nip'])){
                         echo '<td id="table1">'.$no.'</td>';
                         echo '<td id="table1">'.$data->nama.'</td>';
                         echo '<td id="table1">'.$data->nim.'</td>';
-                        echo '<td id="table1">'.$data->semester.'</td>';
+                        echo '<td id="table1">'.$data->semester_khs.'</td>';
                         echo '<td id="table1">'.$data->sks.'</td>';
                         echo '<td id="table1">'.$data->sks_kumulatif.'</td>';
                         echo '<td id="table1">'.$data->ip_semester.'</td>';
                         echo '<td id="table1">'.$data->ip_kumulatif.'</td>';
                         ?>
                         <td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = '<?php echo $data->file_khs ?>'">Lihat
+                                onclick="location.href = '../file/khs/<?php echo $data->file_khs ?>'">Lihat
                                 Scan KHS</button></td>
                         <?php echo '
                          <td>
