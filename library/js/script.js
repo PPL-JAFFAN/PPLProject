@@ -117,4 +117,21 @@ function changeIRS(nim) {
   xmlhttp.send(null);
 }
 
+function getKabupaten(idProv) {
+  console.log("clicked")
+  var inner = "kabupaten"
+  var url = "get_kabupaten.php?id_prov=" + idProv
+  //TODO: write ajax getKabupaten
+  var xmlhttp = getXMLHTTPRequest();
+  xmlhttp.open('GET', url, true);
+  xmlhttp.onreadystatechange = function() {
+    if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)){
+       document.getElementById(inner).innerHTML = xmlhttp.responseText;
+               
+    }
+    return false;
+  }
+  xmlhttp.send(null);
+}
+
 //-----------------------END AJAX------------------

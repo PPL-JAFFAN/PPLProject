@@ -12,7 +12,7 @@ if (isset($_SESSION['nip'])){
     $alamat = $dosen['alamat'];
     $email = $dosen['email'];
     $nohp = $dosen['no_hp'];
-
+    $querypropinsi = mysqli_query($conn,"select * from tb_propinsi");
 }
 else{
     header ("Location: ../login.php");
@@ -24,12 +24,14 @@ if(isset($_POST['edit'])){
     $alamat = $_POST['alamat'];
     $nohp = $_POST['no_hp'];
     $email = $_POST['email'];
+    $kode_kota = $_POST['kabupaten'];
     $queryedit = mysqli_query($conn,"UPDATE tb_dosen 
                                 SET kode_wali = '$kodewali',
                                 nama = '$nama',
                                 alamat = '$alamat',
                                 no_hp = $nohp,
-                                email = '$email'
+                                email = '$email',
+                                kode_kota = '$kode_kota'
                                 where nip=$nip;");
     header("Location: doswal.php");
 }
@@ -44,7 +46,8 @@ if(isset($_POST['edit'])){
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="../library/css/style.css">
     <link rel="stylesheet" href="doswal.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -110,7 +113,7 @@ if(isset($_POST['edit'])){
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                    <div class="name"><?php echo $_SESSION['nama']?></div>
+                        <div class="name"><?php echo $_SESSION['nama']?></div>
                         <div class="email"><?php echo $_SESSION['email']?></div>
                     </div>
                 </div>
@@ -148,6 +151,28 @@ if(isset($_POST['edit'])){
                     <label for="kode" id="uname">Email</label>
                     <input class="form-control" type="email" name="email" placeholder="email"
                         value="<?=$dosen['email'];?>" />
+                </div>
+
+                <div class="form-group">
+                    <label for="provinsi">Provinsi</label>
+                    <select name="provinsi" id="provinsi" class="form-control" onchange="getKabupaten(this.value)">
+                        <option value="">Pilih Propinsi</option>
+                        <?php while ($row = $querypropinsi->fetch_object()){
+	                    echo '<option value="'.$row->id.'">'.$row->nama.'</option>';
+                    }
+                    ?>
+                        <!-- /* TODO tampilkan daftar provinsi menggunakan ajax */ -->
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="kabupaten">Kabupaten</label>
+                    <select name="kabupaten" id="kabupaten" class="form-control">
+                        <option value="">Pilih kabupaten/Kota</option>
+
+                        <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
+                    </select>
+
                 </div>
 
                 <br>

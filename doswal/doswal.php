@@ -7,8 +7,20 @@ if (isset($_SESSION['nip'])) {
 
     $nip = $_SESSION['nip'];
     $query = mysqli_query($conn, "select * from tb_dosen where nip='$nip'");
+    
     $cek = mysqli_num_rows($query);
     $dosen = mysqli_fetch_assoc($query);
+
+    $kode_kota = $dosen['kode_kota'];
+    $querykota = mysqli_query($conn, "select * from tb_kota where id=$kode_kota");
+    $kota = mysqli_fetch_assoc($querykota);
+    $namakota = $kota['nama'];
+    $id_prov = $kota['id_provinsi'];
+
+    $queryprov = mysqli_query($conn, "select * from tb_propinsi where id=$id_prov");
+    $prov = mysqli_fetch_assoc($queryprov);
+    $namaprov = $prov['nama'];
+
     $namadosen = $dosen['nama'];
     $_SESSION['nama'] = $namadosen;
     $kodewali = $dosen['kode_wali'];
@@ -161,8 +173,8 @@ if (isset($_SESSION['nip'])) {
                     <h3>NIP: <?php echo $nip ?></h3>
                     <h3>Kode Wali : <?php echo $kodewali ?></h3>
                     <h3>Alamat : <?php echo $alamat ?></h3>
-                    <h3>Kabupaten/Kota : Semarang</h3>
-                    <h3>Propinsi : Jawa Tengah </h3>
+                    <h3>Kabupaten/Kota : <?php echo $namakota ?></h3>
+                    <h3>Propinsi : <?php echo $namaprov ?> </h3>
                     <h3>Email : <?php echo $email ?></h3>
                     <h3>No. HP : <?php echo $nohp ?></h3>
 
