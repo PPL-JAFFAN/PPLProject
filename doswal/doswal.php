@@ -10,10 +10,12 @@ if (isset($_SESSION['nip'])) {
     $cek = mysqli_num_rows($query);
     $dosen = mysqli_fetch_assoc($query);
     $namadosen = $dosen['nama'];
+    $_SESSION['nama'] = $namadosen;
     $kodewali = $dosen['kode_wali'];
     $_SESSION['kode_wali'] = $kodewali;
     $alamat = $dosen['alamat'];
     $email = $dosen['email'];
+    $_SESSION['email'] = $email;
     $nohp = $dosen['no_hp'];
 
     $queryPerwalian = mysqli_query($conn, "select * from tb_mhs WHERE tb_mhs.kode_wali=" . $kodewali);
@@ -62,7 +64,8 @@ if (isset($_SESSION['nip'])) {
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="../library/css/style.css">
     <link rel="stylesheet" href="doswal.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -123,6 +126,15 @@ if (isset($_SESSION['nip'])) {
                     <span class="links_name">Keluar</span>
                 </a>
                 <span class="tooltip">Keluar</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <!-- <img src="undip.png" alt="profileImg"> -->
+                    <div class="name_job">
+                        <div class="name"><?php echo $_SESSION['nama']?></div>
+                        <div class="email"><?php echo $_SESSION['email']?></div>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>

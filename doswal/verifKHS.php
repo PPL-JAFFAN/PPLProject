@@ -77,6 +77,15 @@ if (!isset($_SESSION['nip'])) {
                 </a>
                 <span class="tooltip">Keluar</span>
             </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <!-- <img src="undip.png" alt="profileImg"> -->
+                    <div class="name_job">
+                    <div class="name"><?php echo $_SESSION['nama']?></div>
+                        <div class="email"><?php echo $_SESSION['email']?></div>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
     <form method="GET" autocomplete="on">
