@@ -26,7 +26,7 @@ $result = getMatkul($keyword);
               
               while ($data = mysqli_fetch_assoc($result)) {
                 $matkul = $data['matakuliah'];
-                $kode = $data['kode'];
+                $kode = $data['kode_mk'];
                 $waktu = $data['waktu'];
                 $bobot = $data['sks'];
                 $kelas = $data['kelas'];
