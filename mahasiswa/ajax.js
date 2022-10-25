@@ -27,13 +27,14 @@ keyword.addEventListener('change', function(){
 });
 
 function add_irs(kode_mk){
+	console.log(kode_mk)
 	var xmlhttp = getXMLHTTPRequest();
 	console.log(kode_mk);
 	xmlhttp.open('GET','add_irs.php?kode_mk=' + kode_mk);
 
 	xmlhttp.onreadystatechange = function () {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-	  		content.innerHTML = xmlhttp.responseText;
+			document.getElementById(kode_mk).innerHTML = xmlhttp.responseText;
 		}
   	};
 

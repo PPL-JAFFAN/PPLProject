@@ -17,7 +17,7 @@ function updateIrs($nim, $namafile,$smt){
 //get Matkul PerSemester
 function getMatkul($smt){
     global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_matakul WHERE semester = '$smt'");
+    $query = mysqli_query($conn, "SELECT * FROM tb_matakul ORDER BY semester");
     return $query;
 }
 

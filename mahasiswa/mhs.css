@@ -66,9 +66,17 @@ h3{
 
 #datadiri{
     background-color: white;
-    padding: 2em;
+    padding: 1em;
     margin-left: 5em;
     margin-right: 5em;
     margin-bottom: 3em;
     border-radius: 20px;
+    box-shadow: 10px 10px 30px grey;
+}
+
+#title1 {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1em;
 }

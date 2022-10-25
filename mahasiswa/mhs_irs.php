@@ -5,6 +5,8 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
+$queryIRS= mysqli_query($conn,"select * from tb_irs_diambil WHERE nim=".$_SESSION['nim']);
+
 
 ?>
 
@@ -116,17 +118,7 @@ if (!isset($_SESSION['email'])) {
       <div class="mt-4">
         <form action="" method="POST">
           <div class="form-group">
-            <h4>SEMESTER</h4>
-            <select class="form-control" name="semester" id="semester">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-            </select>
+            PILIH MATA KULIAH
           </div>
         </form>
         <br>
@@ -167,7 +159,20 @@ if (!isset($_SESSION['email'])) {
                   <td><?= $kelas; ?></td>
                   <td><?= $pembelajaran; ?></td>
                   <td>
-                    <button type="button" class="btn btn-primary" onclick="add_irs('<?= $kode_mk ?>')">ADD</button>
+                    <?php 
+                    $status = false;
+                    while ($dataIRS = $queryIRS->fetch_object()) {
+                            if ($dataIRS->kode_mk == $kode_mk){
+                              $status = true;
+                            }
+                           }
+                    if ($status){
+                      $status_add = "<button type='button' class='btn btn-danger' disabled id='$kode_mk'> ADDED </button>";
+                    }
+                    else{
+                      $status_add = "<button type='button' class='btn btn-primary' onclick='add_irs(\"$kode_mk\")' id='$kode_mk'> ADD </button>" ;
+                    }?>
+                    <?php echo $status_add?>
                   </td>
                 </tr>
               <?php } ?>
@@ -176,12 +181,8 @@ if (!isset($_SESSION['email'])) {
         </div>
       </div>
     </div>
-    <div class="text-success"><?php if (isset($alertupdate)) echo $alertupdate; ?></div>
-    <div class="text-danger"><?php if (isset($alertupdate)) echo $alertupdate; ?></div>
 
   </section>
-  <script src="../library/js/script.js"> </script>
-  <script src="ajax.js"></script>
 </body>
 
 <!-- The Modal -->
@@ -215,5 +216,7 @@ if (!isset($_SESSION['email'])) {
     </div>
   </div>
 </div>
+<script src="../library/js/script.js"> </script>
+  <script src="ajax.js"></script>
 
 </html>
