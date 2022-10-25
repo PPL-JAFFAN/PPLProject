@@ -115,8 +115,9 @@ $color='';
             }?>
             <h1 id="title1">Status PKL</h1>
             <h2 style="color:<?php echo $color?>; text-align:center;"><?php echo $pklDetail['status_pkl'];?></h2>
-            <h2>Nilai : <?php echo $pklDetail['nilai_pkl'];?></h2>
-            <h2>Laporan Progres PKL</h2>
+            <h3>Nilai</h3>
+            <h2><?php echo $pklDetail['nilai_pkl'];?></h2>
+            <h3>Laporan Progres PKL</h3>
             <h3><?php echo $pklDetail['scan_pkl'];?></h3>
         </div>
     </section>

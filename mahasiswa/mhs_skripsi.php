@@ -113,9 +113,11 @@ if (!isset($_SESSION['email'])) {
               $color = 'yellow';
             }?>
             <h2 style="color:<?php echo $color?>; text-align:center;"><?php echo $skripsiDetail['status_skripsi']; ?></h2>
-            <h2>Dosen Pembimbing: <?= $dosenwaliDetail['nama'] ?></h2>
-            <h2>Nilai: <?php echo $skripsiDetail['nilai_skripsi']; ?></h2>
-            <h2>Laporan Progres PKL</h2>
+            <h3>Dosen Pembimbing</h3>
+            <h2><?= $dosenwaliDetail['nama'] ?></h2>
+            <h3>Nilai</h3>
+            <h2><?php echo $skripsiDetail['nilai_skripsi']; ?></h2>
+            <h3>Laporan Progres PKL</h3>
             <h2><?php echo $skripsiDetail['scan_skripsi']; ?></h2>
         </div>
 
