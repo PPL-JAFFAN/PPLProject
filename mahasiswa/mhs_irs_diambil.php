@@ -13,9 +13,11 @@ if (!isset($_SESSION['email'])) {
 
 <head>
   <meta charset="UTF-8">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-  </script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
   <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
   <link rel="stylesheet" href="../library/css/style.css">
   <link rel="stylesheet" href="mhs.css">
@@ -33,7 +35,7 @@ if (!isset($_SESSION['email'])) {
     </div>
     <ul class="nav-list">
 
-      <li>
+    <li>
         <a href="mhs_profil.php">
           <i class='bx bx-home' id="icon"></i>
           <span class="links_name">Profil</span>
@@ -66,7 +68,7 @@ if (!isset($_SESSION['email'])) {
       </li>
       <li>
         <a href="mhs_pkl.php">
-          <i class='bx bxs-graduation' id="icon"></i>
+          <i class='bx bxs-graduation'  id="icon"></i>
           <span class="links_name">Data PKL</span>
         </a>
         <span class="tooltip">Data PKL</span>
@@ -94,6 +96,7 @@ if (!isset($_SESSION['email'])) {
       $irsDetail = getIrsDetail($_SESSION['nim']);
       //getMatkul belum fix untuk parameter
       $matkulDetail = getMatkul(1);
+      $irsDiambilDetail = getIrsDiambil($_SESSION['nim']);
       ?>
 
 
@@ -101,7 +104,7 @@ if (!isset($_SESSION['email'])) {
         <div class="profile-details">
           <!--<img src="profile.jpg" alt="profileImg">-->
           <div class="name_job">
-            <div class="name"><?php echo $mhsDetail['nama']; ?></div>
+          <div class="name"><?php echo $mhsDetail['nama']; ?></div>
             <div class="job"><?php echo $mhsDetail['email']; ?></div>
           </div>
         </div>
@@ -131,89 +134,59 @@ if (!isset($_SESSION['email'])) {
         </form>
         <br>
       </div>
-
+      
       <!--Bagian table IRS-->
       <div class="card">
         <div class="card-body">
           <table class="table" width="100%" id="irscontent">
             <thead>
               <tr>
-                <th scope="col">Mata Kuliah</th>
+                <th scope="col">No</th>
                 <th scope="col">Kode Matkul</th>
+                <th scope="col">Mata Kuliah</th>
                 <th scope="col">Waktu</th>
                 <th scope="col">Jumlah SKS</th>
                 <th scope="col">Kelas</th>
                 <th scope="col">Jenis Pembelajaran</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php
-
-              while ($data = mysqli_fetch_assoc($matkulDetail)) {
-                $matkul = $data['matakuliah'];
+              $i=1;
+              while ($data = mysqli_fetch_assoc($irsDiambilDetail)) {
                 $kode_mk = $data['kode_mk'];
+                $matkul = $data['matakuliah'];
                 $waktu = $data['waktu'];
-                $bobot = $data['sks'];
+                $sks = $data['sks'];
                 $kelas = $data['kelas'];
                 $pembelajaran = $data['pembelajaran'];
-              ?>
-
-                <tr>
-                  <th scope="row"><?= $matkul ?></th>
-                  <td><?= $kode_mk; ?></td>
-                  <td><?= $waktu; ?></td>
-                  <td><?= $bobot; ?></td>
-                  <td><?= $kelas; ?></td>
-                  <td><?= $pembelajaran; ?></td>
-                  <td>
-                    <button type="button" class="btn btn-primary" onclick="add_irs('<?= $kode_mk ?>')">ADD</button>
-                  </td>
-                </tr>
-              <?php } ?>
+                $status_irs = $data['status_irs'];
+                ?>
+              
+                  <tr>
+                    <th scope="row"><?= $i ?></th>
+                    <td><?= $kode_mk; ?></td>
+                    <td><?= $matkul; ?></td>
+                    <td><?= $waktu; ?></td>
+                    <td><?= $sks; ?></td>
+                    <td><?= $kelas; ?></td>
+                    <td><?= $pembelajaran; ?></td>
+                    <td><?= $status_irs; ?></td>
+                    <td>
+                      <button type="button" class="btn btn-danger" onclick="delete_irs('<?= $kode_mk ?>')">CANCEL</button>
+                    </td>
+                  </tr>
+              <?php $i++; } ?>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    <div class="text-success"><?php if (isset($alertupdate)) echo $alertupdate; ?></div>
-    <div class="text-danger"><?php if (isset($alertupdate)) echo $alertupdate; ?></div>
-
   </section>
   <script src="../library/js/script.js"> </script>
   <script src="ajax.js"></script>
 </body>
-
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Upload Berkas IRS</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <!-- Modal body -->
-      <form action="" method="POST" enctype="multipart/form-data">
-        <div class="modal-body">
-          <input type="number" name="semester" min="1" max="14" class="form-control" placeholder="semester">
-          <br>
-          <input type="file" name="file" class="form-control">
-          <br><br>
-          <button type="submit" class="btn btn-primary" name="uploadIrs">Upload</button>
-          <br>
-        </div>
-      </form>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 </html>
