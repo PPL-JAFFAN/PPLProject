@@ -97,16 +97,23 @@
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Rekap Data Mahasiswa
-      <select class="form-select keyword" id="keyword" name="keyword" style="width: 20% ;float : right" aria-label=".form-select-sm example">
-        <option selected >Angkatan</option>
-        <option value="1">2016</option>
-        <option value="2">2017</option>
-        <option value="3">2018</option>
-        <option value="4">2019</option>
-        <option value="5">2020</option>
-        <option value="6">2021</option>
-        <option value="7">2022</option>
-      </select>
+      <div class="dropdown float-end">
+      <a class="btn btn-primary dropdown-toggle" href="datamhscuti.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Angkatan
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="datamhscuti.php">Semua</a></li>
+        <li><a class="dropdown-item" href="./datamhs/cuti/2016.php">2016</a></li>
+        <li><a class="dropdown-item" href="./datamhs/cuti/2017.php">2017</a></li>
+        <li><a class="dropdown-item" href="./datamhs/cuti/2018.php">2018</a></li>
+        <li><a class="dropdown-item" href="./datamhs/cuti/2019.php">2019</a></li>
+        <li><a class="dropdown-item" href="./datamhs/cuti/2020.php">2020</a></li>
+        <li><a class="dropdown-item" href="./datamhs/cuti/2021.php">2021</a></li>
+        <li><a class="dropdown-item" href="./datamhs/cuti/2022.php">2022</a></li>
+
+      </ul>
+    </div>
       </div><br>
 
       

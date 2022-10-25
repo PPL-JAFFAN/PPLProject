@@ -109,16 +109,23 @@
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Data Mahasiswa PKL
-      <select class="form-select keyword" id="keyword" name="keyword" style="width: 20% ;float : right" aria-label=".form-select-sm example">
-        <option selected >Angkatan</option>
-        <option value="1">2016</option>
-        <option value="2">2017</option>
-        <option value="3">2018</option>
-        <option value="4">2019</option>
-        <option value="5">2020</option>
-        <option value="6">2021</option>
-        <option value="7">2022</option>
-      </select>
+      <div class="dropdown float-end">
+      <a class="btn btn-primary dropdown-toggle" href="mhsbelumpkl.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Angkatan
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="mhsbelumpkl.php">Semua</a></li>
+        <li><a class="dropdown-item" href="./mhspkl/belum/2016.php">2016</a></li>
+        <li><a class="dropdown-item" href="./mhspkl/belum/2017.php">2017</a></li>
+        <li><a class="dropdown-item" href="./mhspkl/belum/2018.php">2018</a></li>
+        <li><a class="dropdown-item" href="./mhspkl/belum/2019.php">2019</a></li>
+        <li><a class="dropdown-item" href="./mhspkl/belum/2020.php">2020</a></li>
+        <li><a class="dropdown-item" href="./mhspkl/belum/2021.php">2021</a></li>
+        <li><a class="dropdown-item" href="./mhspkl/belum/2022.php">2022</a></li>
+
+      </ul>
+    </div>
       </div><br>
 
       <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
