@@ -2,7 +2,7 @@
 session_start();
 require '../function.php';
 
-$folder="uploads_irs/";
+$folder="uploads_skripsi/";
 if (!file_exists($folder)) {
    mkdir($folder, 0777);
 }

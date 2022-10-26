@@ -56,8 +56,6 @@ function getSkripsiDetail($nim){
     return $data;
 }
 
-
-
 // // function update file khs
 // function updateKhs($nim, $namafile){
 //     global $conn;
@@ -128,6 +126,13 @@ function updateSkripsi($nim, $namafile){
 function updateIrs($nim, $namafile){
     global $conn;
     $query = mysqli_query($conn, "UPDATE tb_irs SET file_irs = '$namafile' WHERE nim = '$nim' ");
+    return $query;
+}
+
+// function update file khs
+function updateKhs($nim, $namafile){
+    global $conn;
+    $query = mysqli_query($conn, "UPDATE tb_khs SET file_khs = '$namafile' WHERE nim = '$nim'");
     return $query;
 }
 
