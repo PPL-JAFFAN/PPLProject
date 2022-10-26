@@ -4,6 +4,7 @@
 ?>
 
 <!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
@@ -100,7 +101,7 @@
       </a>
 
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="../../datamhsnonaktif.php">Semua</a></li>
+        <li><a class="dropdown-item" href="../../datamhsdo.php">Semua</a></li>
         <li><a class="dropdown-item" href="2016.php">2016</a></li>
         <li><a class="dropdown-item" href="2017.php">2017</a></li>
         <li><a class="dropdown-item" href="2018.php">2018</a></li>
@@ -138,7 +139,7 @@
           ?>
         <div class="col">
           <a href="../aktif/2020.php">
-          <div class="card rounded-4  ">
+          <div class="card rounded-4">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Aktif</p>
               <p class="card-text jumlah text-center"><?= $aktif; ?></p>
@@ -147,8 +148,8 @@
           </a>
         </div>
         <div class="col">
-          <a href="2020.php">
-          <div class="card rounded-4  card-active">
+          <a href="../nonaktif/2020.php">
+          <div class="card rounded-4 ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Non Aktif</p>
               <p class="card-text jumlah text-center"><?= $non_aktif; ?></p>
@@ -158,7 +159,7 @@
         </div>
         <div class="col">
           <a href="../cuti/2020.php">
-          <div class="card rounded-4">
+          <div class="card rounded-4 ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Cuti</p>
               <p class="card-text jumlah text-center"><?= $cuti; ?></p>
@@ -203,8 +204,8 @@
       </a>
       </div>
       <div class="col">
-      <a href="../do/2020.php">
-      <div class="card rounded-4 ">
+      <a href="2020.php">
+      <div class="card rounded-4 card-active">
         <div class="card-body">
           <p class="text-center">Jumlah Mahasiswa Drop Out</p>
           <p class="card-text jumlah text-center"><?= $do; ?></p>
@@ -232,7 +233,7 @@
         </thead>
         <tbody>
           <?php
-          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs WHERE status = "Nonaktif" AND angkatan = "2020" ORDER BY  nama ASC, semester ASC'  );
+          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs WHERE status = "DO" AND angkatan = "2020" ORDER BY  nama ASC, semester ASC'  );
           $i = 1;
           while ($data = mysqli_fetch_array($ambildata)) {
               $nim = $data['nim'];

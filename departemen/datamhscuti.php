@@ -171,6 +171,52 @@
         </div>
       </div>
 
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+
+    <?php
+    $datalulus = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Lulus'");
+    $lulus = mysqli_num_rows($datalulus);
+
+
+    $dataud = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Undur Diri'");
+    $ud = mysqli_num_rows($dataud);
+
+    $datado = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='DO'");
+    $do = mysqli_num_rows($datado);
+
+    ?>
+    <div class="col">
+    <a href="datamhslulus.php">
+    <div class="card rounded-4 ">
+      <div class="card-body">
+        <p class="text-center">Jumlah Mahasiswa Lulus</p>
+        <p class="card-text jumlah text-center"><?= $lulus; ?></p>
+      </div>
+    </div>
+    </a>
+    </div>
+    <div class="col">
+    <a href="datamhsundurdiri.php">
+    <div class="card rounded-4 ">
+      <div class="card-body">
+        <p class="text-center">Jumlah Mahasiswa Undur Diri</p>
+        <p class="card-text jumlah text-center"><?= $ud; ?></p>
+      </div>
+    </div>
+    </a>
+    </div>
+    <div class="col">
+    <a href="datamhsdo.php">
+    <div class="card rounded-4 ">
+      <div class="card-body">
+        <p class="text-center">Jumlah Mahasiswa Drop Out</p>
+        <p class="card-text jumlah text-center"><?= $do; ?></p>
+      </div>
+    </div>
+    </a>
+    </div>
+    </div>
+
       <br>
       <div class="h5 mt-4 mb-4 w-100">Tabel</div>
       <div class="card p-4 rounded-4">

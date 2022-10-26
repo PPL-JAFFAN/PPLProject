@@ -34,7 +34,7 @@
 <body>
   <div class="sidebar">
   <div class="logo-details">
-      <i> <img src="../asset/img/undip.png" style="width:40px ; padding-bottom:5px" alt=""></i>
+      <i> <img src="../../../asset/img/undip.png" style="width:40px ; padding-bottom:5px" alt=""></i>
         <div class="logo_name" style="padding-top: 5px;"> <div style="font-size:10px ;">Departemen Informatika</div>  Universitas Diponegoro</div>
     </div>
     <ul class="nav-list" id="nav-list">
@@ -138,7 +138,7 @@
               }
           ?>
         <div class="col">
-          <a href="2019">
+          <a href="2019.php">
           <div class="card rounded-4 card-active ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Aktif</p>
@@ -167,6 +167,52 @@
           </div>
           </a>
         </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+
+      <?php
+      $datalulus = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Lulus'  AND angkatan = '2019'");
+      $lulus = mysqli_num_rows($datalulus);
+
+
+      $dataud = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Undur Diri' AND angkatan = '2019'");
+      $ud = mysqli_num_rows($dataud);
+
+      $datado = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='DO' AND angkatan = '2019'");
+      $do = mysqli_num_rows($datado);
+
+      ?>
+      <div class="col">
+      <a href="../lulus/2016.php">
+      <div class="card rounded-4 ">
+        <div class="card-body">
+          <p class="text-center">Jumlah Mahasiswa Lulus</p>
+          <p class="card-text jumlah text-center"><?= $lulus; ?></p>
+        </div>
+      </div>
+      </a>
+      </div>
+      <div class="col">
+      <a href="../undurdiri/2016.php">
+      <div class="card rounded-4 ">
+        <div class="card-body">
+          <p class="text-center">Jumlah Mahasiswa Undur Diri</p>
+          <p class="card-text jumlah text-center"><?= $ud; ?></p>
+        </div>
+      </div>
+      </a>
+      </div>
+      <div class="col">
+      <a href="../do/2016.php">
+      <div class="card rounded-4 ">
+        <div class="card-body">
+          <p class="text-center">Jumlah Mahasiswa Drop Out</p>
+          <p class="card-text jumlah text-center"><?= $do; ?></p>
+        </div>
+      </div>
+      </a>
+      </div>
       </div>
 
       <br>

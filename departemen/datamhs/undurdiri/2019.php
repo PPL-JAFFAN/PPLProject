@@ -4,6 +4,7 @@
 ?>
 
 <!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
@@ -95,12 +96,12 @@
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Rekap Data Mahasiswa
       <div class="dropdown float-end">
-      <a class="btn btn-primary dropdown-toggle" href="2020.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        2020
+      <a class="btn btn-primary dropdown-toggle" href="2019.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        2019
       </a>
 
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="../../datamhsnonaktif.php">Semua</a></li>
+        <li><a class="dropdown-item" href="../../datamhslulus.php">Semua</a></li>
         <li><a class="dropdown-item" href="2016.php">2016</a></li>
         <li><a class="dropdown-item" href="2017.php">2017</a></li>
         <li><a class="dropdown-item" href="2018.php">2018</a></li>
@@ -118,27 +119,27 @@
       <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
 
           <?php
-          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Aktif' AND angkatan = '2020'");
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Aktif' AND angkatan = '2019'");
           $aktif = 0;
           while ($data = mysqli_fetch_array($ambildata)) {
               $aktif++;
               }
 
-          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Nonaktif' AND angkatan = '2020'");
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Nonaktif' AND angkatan = '2019'");
           $non_aktif = 0;
           while ($data = mysqli_fetch_array($ambildata)) {
               $non_aktif++;
               }
 
-          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Cuti' AND angkatan = '2020'");
+          $ambildata = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Cuti' AND angkatan = '2019'");
           $cuti = 0;
           while ($data = mysqli_fetch_array($ambildata)) {
               $cuti++;
               }
           ?>
         <div class="col">
-          <a href="../aktif/2020.php">
-          <div class="card rounded-4  ">
+          <a href="../aktif/2019.php">
+          <div class="card rounded-4">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Aktif</p>
               <p class="card-text jumlah text-center"><?= $aktif; ?></p>
@@ -147,8 +148,8 @@
           </a>
         </div>
         <div class="col">
-          <a href="2020.php">
-          <div class="card rounded-4  card-active">
+          <a href="../nonaktif/2019.php">
+          <div class="card rounded-4 ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Non Aktif</p>
               <p class="card-text jumlah text-center"><?= $non_aktif; ?></p>
@@ -157,8 +158,8 @@
           </a>
         </div>
         <div class="col">
-          <a href="../cuti/2020.php">
-          <div class="card rounded-4">
+          <a href="../cuti/2019.php">
+          <div class="card rounded-4 ">
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Cuti</p>
               <p class="card-text jumlah text-center"><?= $cuti; ?></p>
@@ -171,20 +172,20 @@
       <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
 
       <?php
-      $datalulus = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Lulus' AND angkatan = '2020'");
+      $datalulus = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Lulus' AND angkatan = '2019'");
       $lulus = mysqli_num_rows($datalulus);
 
 
-      $dataud = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Undur Diri' AND angkatan = '2020'");
+      $dataud = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Undur Diri' AND angkatan = '2019'");
       $ud = mysqli_num_rows($dataud);
 
-      $datado = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='DO' AND angkatan = '2020'");
+      $datado = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='DO' AND angkatan = '2019'");
       $do = mysqli_num_rows($datado);
 
       ?>
       <div class="col">
-      <a href="../lulus/2020.php">
-      <div class="card rounded-4 ">
+      <a href="../lulus/2019.php">
+      <div class="card rounded-4  ">
         <div class="card-body">
           <p class="text-center">Jumlah Mahasiswa Lulus</p>
           <p class="card-text jumlah text-center"><?= $lulus; ?></p>
@@ -193,8 +194,8 @@
       </a>
       </div>
       <div class="col">
-      <a href="../undurdiri/2020.php">
-      <div class="card rounded-4 ">
+      <a href="2019.php">
+      <div class="card rounded-4  card-active">
         <div class="card-body">
           <p class="text-center">Jumlah Mahasiswa Undur Diri</p>
           <p class="card-text jumlah text-center"><?= $ud; ?></p>
@@ -203,7 +204,7 @@
       </a>
       </div>
       <div class="col">
-      <a href="../do/2020.php">
+      <a href="../do/2019.php">
       <div class="card rounded-4 ">
         <div class="card-body">
           <p class="text-center">Jumlah Mahasiswa Drop Out</p>
@@ -232,7 +233,7 @@
         </thead>
         <tbody>
           <?php
-          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs WHERE status = "Nonaktif" AND angkatan = "2020" ORDER BY  nama ASC, semester ASC'  );
+          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs WHERE status = "Undur Diri" AND angkatan = "2019" ORDER BY  nama ASC, semester ASC'  );
           $i = 1;
           while ($data = mysqli_fetch_array($ambildata)) {
               $nim = $data['nim'];

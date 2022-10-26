@@ -154,6 +154,45 @@
           </div>
         </div>
       </div>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+        <div class="col">
+
+          <?php
+          $datalulus = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Lulus'");
+          $lulus = mysqli_num_rows($datalulus);
+
+          $dataud = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='Undur Diri'");
+          $ud = mysqli_num_rows($dataud);
+          
+          $datado = mysqli_query($conn, "SELECT * FROM tb_mhs WHERE status='DO'");
+          $do = mysqli_num_rows($datado);
+        
+          ?>
+          <div class="card rounded-4  ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Lulus</p>
+              <p class="card-text jumlah text-center"><?= $lulus; ?></p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Undur Diri</p>
+              <p class="card-text jumlah text-center"><?= $ud; ?></p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Drop Out</p>
+              <p class="card-text jumlah text-center"><?= $do; ?></p>
+            </div>
+          </div>
+        </div>
+      </div>
       <br>
       
       <div class="h5 mt-4 mb-2 w-100">Statistik</div>
@@ -172,6 +211,46 @@
             <div class="card-body">
               <p class="text-center">Jumlah Mahasiswa Non Aktif</p>
               <canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+        <div class="col">
+          <div class="card rounded-4  ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Cuti</p>
+              <canvas id="myChart3" style="width:100%;max-width:600px"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Lulus</p>
+              <canvas id="myChart4" style="width:100%;max-width:600px"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+        <div class="col">
+          <div class="card rounded-4  ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Undur Diri</p>
+              <canvas id="myChart5" style="width:100%;max-width:600px"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <p class="text-center">Jumlah Mahasiswa Drop Out</p>
+              <canvas id="myChart6" style="width:100%;max-width:600px"></canvas>
             </div>
           </div>
         </div>
@@ -299,6 +378,154 @@
   var barColors = ["#8974FF", "#8974FF","#8974FF","#8974FF","#8974FF","#8974FF", "#8974FF"];
 
   new Chart("myChart2", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        // text: "World Wine Production 2018"
+      }
+    }
+  });
+</script>
+
+<?php
+  //seleksi untuk menampilkan data ke dalam chart
+  $cuti2016 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2016' AND status='Cuti' ");
+  $cuti2017 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2017' AND status='Cuti' ");
+  $cuti2018 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2018' AND status='Cuti' ");
+  $cuti2019 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2019' AND status='Cuti' ");
+  $cuti2020 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2020' AND status='Cuti' ");
+  $cuti2021 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2021' AND status='Cuti' ");
+  $cuti2022 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2022' AND status='Cuti' ");
+
+?>
+
+<script>
+  var xValues = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+  var yValues = [<?php echo mysqli_num_rows($cuti2016);?>,<?php echo mysqli_num_rows($cuti2017);?>,<?php echo mysqli_num_rows($cuti2018);?>,
+  <?php echo mysqli_num_rows($cuti2019);?>, <?php echo mysqli_num_rows($cuti2020);?>, <?php echo mysqli_num_rows($cuti2021);?>,  <?php echo mysqli_num_rows($cuti2022);?>];
+  var barColors = ["#8974FF", "#8974FF","#8974FF","#8974FF","#8974FF","#8974FF", "#8974FF"];
+
+  new Chart("myChart3", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        // text: "World Wine Production 2018"
+      }
+    }
+  });
+</script>
+
+<?php
+  //seleksi untuk menampilkan data ke dalam chart
+  $lulus2016 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2016' AND status='Lulus' ");
+  $lulus2017 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2017' AND status='Lulus' ");
+  $lulus2018 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2018' AND status='Lulus' ");
+  $lulus2019 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2019' AND status='Lulus' ");
+  $lulus2020 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2020' AND status='Lulus' ");
+  $lulus2021 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2021' AND status='Lulus' ");
+  $lulus2022 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2022' AND status='Lulus' ");
+
+?>
+
+<script>
+  var xValues = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+  var yValues = [<?php echo mysqli_num_rows($lulus2016);?>,<?php echo mysqli_num_rows($lulus2017);?>,<?php echo mysqli_num_rows($lulus2018);?>,
+  <?php echo mysqli_num_rows($lulus2019);?>, <?php echo mysqli_num_rows($lulus2020);?>, <?php echo mysqli_num_rows($lulus2021);?>,  <?php echo mysqli_num_rows($lulus2022);?>];
+  var barColors = ["#8974FF", "#8974FF","#8974FF","#8974FF","#8974FF","#8974FF", "#8974FF"];
+
+  new Chart("myChart4", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        // text: "World Wine Production 2018"
+      }
+    }
+  });
+</script>
+
+<?php
+  //seleksi untuk menampilkan data ke dalam chart
+  $ud2016 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2016' AND status='Undur Diri' ");
+  $ud2017 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2017' AND status='Undur Diri' ");
+  $ud2018 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2018' AND status='Undur Diri' ");
+  $ud2019 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2019' AND status='Undur Diri' ");
+  $ud2020 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2020' AND status='Undur Diri' ");
+  $ud2021 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2021' AND status='Undur Diri' ");
+  $ud2022 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2022' AND status='Undur Diri' ");
+
+?>
+
+<script>
+  var xValues = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+  var yValues = [<?php echo mysqli_num_rows($ud2016);?>,<?php echo mysqli_num_rows($ud2017);?>,<?php echo mysqli_num_rows($ud2018);?>,
+  <?php echo mysqli_num_rows($ud2019);?>, <?php echo mysqli_num_rows($ud2020);?>, <?php echo mysqli_num_rows($ud2021);?>,  <?php echo mysqli_num_rows($ud2022);?>];
+  var barColors = ["#8974FF", "#8974FF","#8974FF","#8974FF","#8974FF","#8974FF", "#8974FF"];
+
+  new Chart("myChart5", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        // text: "World Wine Production 2018"
+      }
+    }
+  });
+</script>
+
+<?php
+  //seleksi untuk menampilkan data ke dalam chart
+  $do2016 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2016' AND status='DO' ");
+  $do2017 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2017' AND status='DO' ");
+  $do2018 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2018' AND status='DO' ");
+  $do2019 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2019' AND status='DO' ");
+  $do2020 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2020' AND status='DO' ");
+  $do2021 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2021' AND status='DO' ");
+  $do2022 = mysqli_query($conn,"SELECT * from tb_mhs WHERE angkatan ='2022' AND status='DO' ");
+
+?>
+
+<script>
+  var xValues = ["2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+  var yValues = [<?php echo mysqli_num_rows($do2016);?>,<?php echo mysqli_num_rows($do2017);?>,<?php echo mysqli_num_rows($do2018);?>,
+  <?php echo mysqli_num_rows($do2019);?>, <?php echo mysqli_num_rows($do2020);?>, <?php echo mysqli_num_rows($do2021);?>,  <?php echo mysqli_num_rows($do2022);?>];
+  var barColors = ["#8974FF", "#8974FF","#8974FF","#8974FF","#8974FF","#8974FF", "#8974FF"];
+
+  new Chart("myChart6", {
     type: "bar",
     data: {
       labels: xValues,
