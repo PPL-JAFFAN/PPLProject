@@ -6,9 +6,21 @@ if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
 
-$khsDetail = getKhsDetail($_SESSION['nim']);
 
 $color = '';
+
+if (isset($_POST['submit'])) {
+  if (uploadDetailKhs($_POST)) {
+    echo "<script>
+    alert('Data berhasil diupdate');
+    document.location.href = 'upload_file_khs.php';
+    </script>";
+  } else {
+    echo "<script>
+    alert('Data gagal diupdate');
+    </script>";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +57,6 @@ $color = '';
       text-align: center;
     }
 
-    #btn_upload,
     #selectfile {
       display: none;
     }
@@ -107,7 +118,6 @@ $color = '';
       </li>
       <?php
       // get detail mahasiswa
-      $khsDetail = getKhsDetail($_SESSION['nim']);
       $mhsDetail = getMhsDetail($_SESSION['nim']);
 
       ?>
@@ -129,131 +139,57 @@ $color = '';
       <h3>Data KHS Mahasiswa Aktif</h3>
     </div>
     <h1 id="title1">DATA KHS</h1>
-    <div class="mx-5">
-      <div class="row">
-        <div class="col-sm-10">
-          <h3 class="mb-2">Semester Aktif : </h3>
+    <form action="" method="POST">
+      <div class="mx-5">
+        <div class="row">
+          <div class="col-sm-10">
+            <h3 class="mb-2">Semester Aktif : </h3>
+          </div>
+          <br>
+          <div class="col-sm-11">
+            <select class="form-select" name="smt" id="smt">
+              <option value="" hidden>Pilih Semester</option>
+              <?php
+              for ($i = 1; $i <= 14; $i++) {
+                echo '<option value="' . $i . '">' . $i . '</option>';
+              } ?>
+            </select>
+            <!-- <input class="form-control mb-2" type="number" name="semester_khs" placeholder="Masukkan Semester Aktif anda saat ini" value="<?php echo $khsDetail['semester_khs']; ?>" required> -->
+          </div>
         </div>
-        <br>
-        <div class="col-sm-11">
-          <input class="form-control mb-2" type="number" name="semester_khs" placeholder="Masukkan Semester Aktif anda saat ini" value="<?php echo $khsDetail['semester_khs']; ?>" required>
+        <div class="row">
+          <div class="col-sm-11">
+            <h3 class="mb-2">SKS :</h3>
+            <input class="form-control mb-2" type="number" name="sks" value="" />
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-10">
-          <h6 class="mb-2">Jumlah SKS Kumulatif :</h6>
+        <div class="row">
+          <div class="col-sm-11">
+            <h3 class="mb-2">SKS Kumulatif :</h3>
+            <input class="form-control mb-2" type="number" name="sksk" value="" />
+          </div>
         </div>
-        <br>
-        <div class="col-sm-11">
-          <input class="form-control mb-2" type="text" name="alamat" placeholder="Alamat" value="<?php echo $mhsDetail['alamat']; ?>" />
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-sm-10">
-          <h6 class="mb-2">No Telepon</h6>
+        <div class="row">
+          <div class="col-sm-11">
+            <h3 class="mb-2">IP :</h3>
+            <input class="form-control mb-2" type="number" name="ip" value="" />
+          </div>
         </div>
-        <br>
-        <div class="col-sm-11">
-          <input class="form-control mb-2" type="text" name="telepon" placeholder="No Telephone" value="<?php echo $mhsDetail['no_hp']; ?>" />
-        </div>
-      </div>
 
-      <h3>Jumlah SKS : </h3>
-      <h3>Upload Scan File IRS</h3>
-      <div id="drop_zone">
-        <p>Drop file here</p>
-        <p>or</p>
-        <p><button type="button" id="btn_file_pick" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span> Select File</button></p>
-        <p id="file_info"></p>
-        <p><button type="button" id="btn_upload" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span> Upload To Server</button></p>
-        <input type="file" id="selectfile">
-        <p id="message_info"></p>
+        <div class="row">
+          <div class="col-sm-11">
+            <h3>IPK : </h3>
+            <input class="form-control mb-2" type="number" name="ipk" value="" />
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
+        </div>
       </div>
-      <div>
-        <?php
-        if ($khsDetail['file_khs']) {
-          echo "File terupload : " . $khsDetail['file_khs'];
-        } else {
-          echo "Belum ada file yang diupload";
-        }
-        ?>
-      </div>
-    </div>
+    </form>
   </section>
 
-  <script>
-    var fileobj;
-    $(document).ready(function() {
-      $("#drop_zone").on("dragover", function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-      });
-      $("#drop_zone").on("drop", function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        fileobj = event.originalEvent.dataTransfer.files[0];
-        var fname = fileobj.name;
-        var fsize = fileobj.size;
-        if (fname.length > 0) {
-          document.getElementById('file_info').innerHTML = "File name : " + fname + ' <br>File size : ' + bytesToSize(fsize);
-        }
-        document.getElementById('selectfile').files[0] = fileobj;
-        document.getElementById('btn_upload').style.display = "inline";
-      });
-      $('#btn_file_pick').click(function() {
-        /*normal file pick*/
-        document.getElementById('selectfile').click();
-        document.getElementById('selectfile').onchange = function() {
-          fileobj = document.getElementById('selectfile').files[0];
-          var fname = fileobj.name;
-          var fsize = fileobj.size;
-          if (fname.length > 0) {
-            document.getElementById('file_info').innerHTML = "File name : " + fname + ' <br>File size : ' + bytesToSize(fsize);
-          }
-          document.getElementById('btn_upload').style.display = "inline";
-        };
-      });
-      $('#btn_upload').click(function() {
-        if (fileobj == "" || fileobj == null) {
-          alert("Please select a file");
-          return false;
-        } else {
-          ajax_file_upload(fileobj);
-        }
-      });
-    });
-
-    function ajax_file_upload(file_obj) {
-      if (file_obj != undefined) {
-        var form_data = new FormData();
-        form_data.append('upload_file', file_obj);
-        $.ajax({
-          type: 'POST',
-          url: 'upload_khs.php',
-          contentType: false,
-          processData: false,
-          data: form_data,
-          beforeSend: function(response) {
-            $('#message_info').html("Uploading your file, please wait...");
-          },
-          success: function(response) {
-            $('#message_info').html(response);
-            alert(response);
-            $('#selectfile').val('');
-          }
-        });
-      }
-    }
-
-    function bytesToSize(bytes) {
-      var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-      if (bytes == 0) return '0 Byte';
-      var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-      return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-    }
-  </script>
   <script src="../library/js/script.js"> </script>
 </body>
 

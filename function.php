@@ -33,9 +33,9 @@ function getDosenDetail($kode_wali){
 }
 
 // get detail khs
-function getKhsDetail($nim){
+function getKhsDetail($nim, $smt){
     global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='$nim'");
+    $query = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='$nim' AND semester='$smt'");
     $data = mysqli_fetch_assoc($query);
     return $data;
 }
@@ -130,10 +130,26 @@ function updateIrs($nim, $namafile){
 }
 
 // function update file khs
-function updateKhs($nim, $namafile){
+function updateKhs($nim, $smt, $namafile){
     global $conn;
-    $query = mysqli_query($conn, "UPDATE tb_khs SET file_khs = '$namafile' WHERE nim = '$nim'");
+    $query = mysqli_query($conn, "UPDATE tb_khs SET file_khs = '$namafile' WHERE nim = '$nim' AND semester = '$smt'");
     return $query;
 }
 
+// function update file sks
+function uploadDetailKhs($data){
+    global $conn;
+
+    $smt = $data['smt'];
+    $nim = $_SESSION['nim'];
+    $sks = $data['sks'];
+    $sksk = $data['sksk'];
+    $ip = $data['ip'];
+    $ipk = $data['ipk'];
+
+    $_SESSION['smt'] = $smt;
+
+    $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES(NULL, '$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
+    return $query;
+}
 ?>
