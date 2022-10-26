@@ -13,12 +13,19 @@ if (isset($_SESSION['nip'])) {
     $kode_kota = $dosen['kode_kota'];
     $querykota = mysqli_query($conn, "select * from tb_kota where id=$kode_kota");
     $kota = mysqli_fetch_assoc($querykota);
-    $namakota = $kota['nama'];
-    $id_prov = $kota['id_provinsi'];
+    if(empty($kota)){
+        $namakota = '';
+        $namaprov = '';
+    }
+    else{
+        $namakota = $kota['nama'];
+        $id_prov = $kota['id_provinsi'];
 
-    $queryprov = mysqli_query($conn, "select * from tb_propinsi where id=$id_prov");
-    $prov = mysqli_fetch_assoc($queryprov);
-    $namaprov = $prov['nama'];
+        $queryprov = mysqli_query($conn, "select * from tb_propinsi where id=$id_prov");
+        $prov = mysqli_fetch_assoc($queryprov);
+        $namaprov = $prov['nama'];
+    }
+    
 
     $namadosen = $dosen['nama'];
     $_SESSION['nama'] = $namadosen;

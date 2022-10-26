@@ -51,7 +51,7 @@
       // buat session login dan email
       $_SESSION['email'] = $email;
       $_SESSION['status'] = "operator";
-      header("location:./operator/operator.php");
+      header("location:./operator/index.php");
    
     }else if($data['status']=="departemen"){
       // buat session login dan email
