@@ -8,12 +8,7 @@ function getMhsDetail($nim){
     $data = mysqli_fetch_assoc($query);
     return $data;
 }
-//update berkas irs
-function updateIrs($nim, $namafile,$smt){
-    global $conn;
-    $query = mysqli_query($conn, "UPDATE tb_irs SET file_irs = '$namafile' WHERE nim = '$nim' AND semester = '$smt'");
-    return $query;
-}
+
 //get Matkul PerSemester
 function getMatkul($smt){
     global $conn;
@@ -25,7 +20,8 @@ function getMatkul($smt){
 function getIrsDetail($nim){
     global $conn;
     $query = mysqli_query($conn, "SELECT * FROM tb_irs WHERE nim='$nim'");
-    return mysqli_fetch_assoc($query);
+    $data = mysqli_fetch_assoc($query);
+    return $data;
 }
 
 // get detail dosen
@@ -59,6 +55,8 @@ function getSkripsiDetail($nim){
     $data = mysqli_fetch_assoc($query);
     return $data;
 }
+
+
 
 // // function update file khs
 // function updateKhs($nim, $namafile){
@@ -123,6 +121,13 @@ function updatePkl($nim, $namafile){
 function updateSkripsi($nim, $namafile){
     global $conn;
     $query = mysqli_query($conn, "UPDATE tb_skripsi SET scan_skripsi = '$namafile' WHERE nim = '$nim'");
+    return $query;
+}
+
+//function update file irs
+function updateIrs($nim, $namafile){
+    global $conn;
+    $query = mysqli_query($conn, "UPDATE tb_irs SET file_irs = '$namafile' WHERE nim = '$nim' ");
     return $query;
 }
 
