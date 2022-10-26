@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2022 at 09:30 AM
+-- Generation Time: Oct 26, 2022 at 12:09 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -46,7 +46,7 @@ INSERT INTO `tb_dosen` (`kode_wali`, `nama`, `nip`, `alamat`, `email`, `no_hp`, 
 ('2', 'Nurdin Bahtiar, S.Si, M.T', '197907202003121002', 'Jalan Saksi No.20', 'nurdinbah@gmail.com', '0897635947', '1'),
 ('3', 'Priyo Sidik Sasongko, S.Si., M.Kom.', '197007051997021001', 'Jalan Sukasini No.24', 'priyosidik@gmail.com', '0894557813', '1'),
 ('4', 'Dr. Aris Sugiharto, S.Si., M.Kom.', '197108111997021004', 'Jalan Banteng Api No.72', 'arissugi@gmail.com', '0844699459', '1'),
-('5', 'Beta Noranita, S.Si, M.Kom.', '197308291998022001', 'Jalan Moh. Hatta No.44', 'betanora@gmail.com', '858648412', '1'),
+('5', 'Beta Noranita, S.Si, M.Kom.', '197308291998022001', 'Jalan Moh. Hatta No.44', 'betanora@gmail.com', '858648412', '1255'),
 ('6', 'Indra Waspada, ST, M.T.I', '197902122008121002', 'Jalan Mozzarela No.25', 'indrawas@gmail.com', '0806766111', '1');
 
 -- --------------------------------------------------------
@@ -86,14 +86,25 @@ INSERT INTO `tb_irs` (`semester`, `nim`, `sks`, `file_irs`, `status_irs`, `verif
 
 CREATE TABLE `tb_irs_diambil` (
   `nim` varchar(14) NOT NULL,
-  `kode_mk` varchar(12) NOT NULL,
-  `matakuliah` varchar(60) NOT NULL,
-  `waktu` time NOT NULL,
-  `sks` int(2) NOT NULL,
-  `kelas` varchar(1) NOT NULL,
-  `pembelajaran` varchar(10) NOT NULL,
-  `status_irs` varchar(20) NOT NULL
+  `semester` int(11) NOT NULL,
+  `kode_mk` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_irs_diambil`
+--
+
+INSERT INTO `tb_irs_diambil` (`nim`, `semester`, `kode_mk`) VALUES
+('24060120120001', 1, 'ALPRO01'),
+('24060120120001', 6, 'ASA001'),
+('24060120120001', 6, 'KPL002'),
+('24060120120001', 6, 'KWU001'),
+('24060120120001', 3, 'MBD001'),
+('24060120120001', 6, 'MPI002'),
+('24060120120001', 6, 'PBM001'),
+('24060120120001', 1, 'SCS002'),
+('24060120120001', 3, 'STD002'),
+('24060120120001', 1, 'STK001');
 
 -- --------------------------------------------------------
 
@@ -1405,7 +1416,7 @@ CREATE TABLE `tb_skripsi` (
 --
 
 INSERT INTO `tb_skripsi` (`nim`, `status_skripsi`, `nilai_skripsi`, `tanggal_sidang`, `scan_skripsi`, `verif_skripsi`) VALUES
-('24060120120001', 'LULUS', 'A', '2022-10-31', '', 'sudah'),
+('24060120120001', 'LULUS', 'A', '2022-10-31', 0x302e204b6f6e7472616b2e706466, 'sudah'),
 ('2406012012015', 'ON GOING', '', '2022-10-31', '', 'sudah'),
 ('2406012013010', 'BELUM MENGAMBIL', NULL, NULL, '', 'belum'),
 ('24060120140120', 'BELUM MENGAMBIL', NULL, NULL, '', 'belum'),
