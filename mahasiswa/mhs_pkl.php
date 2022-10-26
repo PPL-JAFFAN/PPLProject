@@ -1,5 +1,3 @@
-
-
 <?php
 require '../function.php';
 session_start();
@@ -118,6 +116,7 @@ $color = '';
     </li>
     <?php
     // get detail mahasiswa
+    $pklDetail = getPklDetail($_SESSION['nim']);
     $mhsDetail = getMhsDetail($_SESSION['nim']);
 
     ?>
