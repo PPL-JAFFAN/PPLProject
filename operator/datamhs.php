@@ -41,14 +41,14 @@
     </div>
     <ul class="nav-list" id="nav-list">
       <li>
-        <a class="nav-link active" href="index.php">
+        <a class="nav-link" href="index.php">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Home</span>
         </a>
          <span class="tooltip">Home</span>
       </li>
       <li>
-       <a class="nav-link " href="datamhs.php">
+       <a class="nav-link active" href="datamhs.php">
          <i class='bx bx-user' ></i>
          <span class="links_name">Data Mahasiswa</span>
        </a>
