@@ -17,23 +17,15 @@ function updateIrs($nim, $namafile,$smt){
 //get Matkul PerSemester
 function getMatkul($smt){
     global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_matakul ORDER BY semester");
+    $query = mysqli_query($conn, "SELECT * FROM tb_matakul WHERE semester = '$smt'");
     return $query;
-}
-
-// get matkul with kode_mk
-function getMatkulDetail($kode_mk){
-    global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_matakul WHERE kode_mk = '$kode_mk'");
-    $data = mysqli_fetch_assoc($query);
-    return $data;
 }
 
 //get detail irs
 function getIrsDetail($nim){
     global $conn;
     $query = mysqli_query($conn, "SELECT * FROM tb_irs WHERE nim='$nim'");
-    return $query;
+    return mysqli_fetch_assoc($query);
 }
 
 // get detail dosen
@@ -68,39 +60,70 @@ function getSkripsiDetail($nim){
     return $data;
 }
 
-//get detail irs diambil
-function getIrsDiambil($nim){
+// // function update file khs
+// function updateKhs($nim, $namafile){
+//     global $conn;
+//     $query = mysqli_query($conn, "UPDATE tb_khs SET file_khs = '$namafile' WHERE nim = '$nim'");
+//     return $query;
+// }
+
+// // function upload file
+// function uploadFile($file){
+//     $namafile = $file['name'];
+//     $ukuranfile = $file['size'];
+//     $error = $file['error'];
+//     $tmpname = $file['tmp_name'];
+
+//     // cek apakah tidak ada gambar yang diupload
+//     if($error === 4){
+//         echo "<script>
+//                 alert('Pilih file terlebih dahulu!');
+//             </script>";
+//         return false;
+//     }
+
+//     // cek apakah yang diupload adalah gambar
+//     $ekstensigambarvalid = ['pdf'];
+//     $ekstensigambar = explode('.', $namafile);
+//     $ekstensigambar = strtolower(end($ekstensigambar));
+//     if(!in_array($ekstensigambar, $ekstensigambarvalid)){
+//         echo "<script>
+//                 alert('Yang anda upload bukan file pdf!');
+//             </script>";
+//         return false;
+//     }
+
+//     // cek jika ukurannya terlalu besar
+//     if($ukuranfile > 1000000){
+//         echo "<script>
+//                 alert('Ukuran file terlalu besar!');
+//             </script>";
+//         return false;
+//     }
+
+//     // lolos pengecekan, gambar siap diupload
+//     // generate nama file baru
+//     $namafilebaru = uniqid();
+//     $namafilebaru .= '.';
+//     $namafilebaru .= $ekstensigambar;
+
+//     move_uploaded_file($tmpname, '../'.$folder.'/'.$namafilebaru);
+
+//     return $namafilebaru;
+// }
+
+// function update file pkl
+function updatePkl($nim, $namafile){
     global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_irs_diambil WHERE nim='$nim'");
+    $query = mysqli_query($conn, "UPDATE tb_pkl SET scan_pkl = '$namafile' WHERE nim = '$nim'");
     return $query;
 }
 
-//check irs diambil with kode_mk and nim
-function checkIrsDiambil($kode_mk, $nim){
+// function update file skripsi
+function updateSkripsi($nim, $namafile){
     global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_irs_diambil WHERE kode_mk='$kode_mk' AND nim='$nim'");
-    $data = mysqli_num_rows($query);
-    return $data;
-}
-
-// add data to irs diambil
-function addIrsDiambil($nim, $kode_mk){
-    $matkulDetail = getMatkulDetail($kode_mk);
-
-    $matakuliah = $matkulDetail['matakuliah'];
-    $waktu = $matkulDetail['waktu'];
-    $sks = $matkulDetail['sks'];
-    $kelas = $matkulDetail['kelas'];
-    $pembelajaran = $matkulDetail['pembelajaran'];
-
-    global $conn;
-    $query = mysqli_query($conn, "INSERT INTO tb_irs_diambil VALUES ('$nim', '$kode_mk', '$matakuliah', '$waktu', '$sks', '$kelas', '$pembelajaran', 'Belum Disetujui')");
+    $query = mysqli_query($conn, "UPDATE tb_skripsi SET scan_skripsi = '$namafile' WHERE nim = '$nim'");
     return $query;
 }
 
-// delete data from irs diambil
-function deleteIrsDiambil($nim, $kode_mk){
-    global $conn;
-    $query = mysqli_query($conn, "DELETE FROM tb_irs_diambil WHERE nim='$nim' AND kode_mk='$kode_mk'");
-    return $query;
-}
+?>
