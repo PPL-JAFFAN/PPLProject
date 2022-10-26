@@ -1,13 +1,33 @@
 <?php
 require '../function.php';
+require_once "../db_login.php";
 session_start();
 // isset not login
-if (!isset($_SESSION['email'])) {
+if (!isset($_SESSION['nim'])) {
   header("location:../login.php");
 }
-if (isset($_POST['buat'])){
-  header("location:buat_irs.php?semester=".$_POST['semester']);
+$nim = $_SESSION['nim'];
+$semester = $_GET['semester'];
+
+$error = '';
+
+$querymatkul = "SELECT * FROM tb_matakul ORDER BY semester ASC" ;
+$connect = mysqli_query($conn, $querymatkul);
+
+if (isset($_POST['submit'])){
+  $matkulpilih = ($_POST["matkul"]);
+  if (empty($matkulpilih)){
+    $error = 'IRS kosong';
+  }
+  else{
+    foreach($matkulpilih as $matkulpilih_item){
+      $queryirs = "INSERT INTO tb_irs_diambil VALUES ($nim,$semester,'$matkulpilih_item')";
+      $connect = mysqli_query($conn, $queryirs);
+    }
+    header("Location:mhs_irs_diambil.php?semester=".$semester);
+  }
 }
+
 
 ?>
 
@@ -89,17 +109,6 @@ if (isset($_POST['buat'])){
         <span class="tooltip">Keluar</span>
       </li>
 
-      <?php
-      $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
-      $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
-      $nim = $_SESSION['nim'];
-      $irsDetail = getIrsDetail($_SESSION['nim']);
-      //getMatkul belum fix untuk parameter
-      $matkulDetail = getMatkul(1);
-      ?>
-
-
       <li class="profile">
         <div class="profile-details">
           <!--<img src="profile.jpg" alt="profileImg">-->
@@ -113,29 +122,39 @@ if (isset($_POST['buat'])){
     </ul>
   </div>
 
-  <form method="POST">
-  <section class="home-section">
-    <h2>PILIH SEMESTER IRS</H2>
-    <select name="semester" id="semester">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-</select>
-<button type="buat" name="buat" value="buat" class="btn btn-primary container-fluid">BUAT IRS</button>
-   
-</section>
-<script src="../library/js/script.js"> </script>
-  <script src="ajax.js"></script>
+<section class="home-section">
+    <form method="POST">
+      
+    <h2>PILIHAN MATA KULIAH</h2>
+    <div id="datadiri">
+    <table>
+        <tr>
+        <th>Nama Mata kuliah</th>
+        <th>SKS</th>
+        <th>Kelas</th>
+        <th>Semester</th>
+        <th>Ambil</th>
+</tr>
 
-</html>
+    <?php
+    while ($data = $connect->fetch_object()) {
+        echo"<tr>";
+        echo "<td>".$data->matakuliah."</td>";
+        echo "<td>".$data->sks."</td>";
+        echo "<td>".$data->kelas."</td>";
+        echo "<td>".$data->semester."</td>";
+        echo '<td>
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="matkul[]" value="'.$data->kode_mk.'"></input>
+                    </label>
+                </td>';
+        echo "</tr>";
+    }?>
+  </table>
+  </div>
+    <button type="submit" class="btn btn-primary" name="submit" value="submit">Submit</button>
+  <p style="color:red;"><?php echo $error?></p>
+
+</form>
+</section>
+

@@ -5,6 +5,16 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
+if (isset($_POST['submit'])){
+  $semester = $_POST['semester'];
+  header("location:mhs_irs_diambil.php?semester=".$semester);
+}
+
+if(isset($_GET['semester'])){
+  $semester = $_GET['semester'];
+  $querymatkul = "SELECT * FROM tb_irs_diambil JOIN tb_matakul ON tb_irs_diambil.kode_mk = tb_matakul.kode_mk WHERE tb_irs_diambil.semester = $semester";
+  $connect = mysqli_query($conn, $querymatkul);
+}
 
 ?>
 
@@ -88,24 +98,12 @@ if (!isset($_SESSION['email'])) {
         <span class="tooltip">Keluar</span>
       </li>
 
-      <?php
-      $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
-      $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
-      $nim = $_SESSION['nim'];
-      $irsDetail = getIrsDetail($_SESSION['nim']);
-      //getMatkul belum fix untuk parameter
-      $matkulDetail = getMatkul(1);
-      $irsDiambilDetail = getIrsDiambil($_SESSION['nim']);
-      ?>
-
-
       <li class="profile">
         <div class="profile-details">
           <!--<img src="profile.jpg" alt="profileImg">-->
           <div class="name_job">
-          <div class="name"><?php echo $mhsDetail['nama']; ?></div>
-            <div class="job"><?php echo $mhsDetail['email']; ?></div>
+          <div class="name"><?php echo $_SESSION['nama']; ?></div>
+            <div class="job"><?php echo $_SESSION['email']; ?></div>
           </div>
         </div>
         <i class="fa fa-bars" id="bars"></i>>
@@ -113,7 +111,9 @@ if (!isset($_SESSION['email'])) {
     </ul>
   </div>
 
+
   <section class="home-section">
+  <?php if(!isset($_GET['semester'])){?>
     <!--Selection utk menampilkan irs yang dapat diambil per semester-->
     <div class="container2">
       <div class="mt-4">
@@ -131,11 +131,16 @@ if (!isset($_SESSION['email'])) {
               <option value="8">8</option>
             </select>
           </div>
+          <button type="submit" class="btn btn-primary" name="submit" value="submit">Lihat IRS</button>
         </form>
         <br>
       </div>
-      
+      <?php 
+      } 
+      else{
+      ?>
       <!--Bagian table IRS-->
+      <h1>IRS SEMESTER <?php echo $semester ?> </h1>
       <div class="card">
         <div class="card-body">
           <table class="table" width="100%" id="irscontent">
@@ -148,24 +153,22 @@ if (!isset($_SESSION['email'])) {
                 <th scope="col">Jumlah SKS</th>
                 <th scope="col">Kelas</th>
                 <th scope="col">Jenis Pembelajaran</th>
-                <th scope="col">Status</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php
               $i=1;
-              while ($data = mysqli_fetch_assoc($irsDiambilDetail)) {
-                $kode_mk = $data['kode_mk'];
-                $matkul = $data['matakuliah'];
-                $waktu = $data['waktu'];
-                $sks = $data['sks'];
-                $kelas = $data['kelas'];
-                $pembelajaran = $data['pembelajaran'];
-                $status_irs = $data['status_irs'];
+              while ($data = $connect->fetch_object()) {
+                $kode_mk = $data->kode_mk;
+                $matkul = $data->matakuliah;
+                $waktu = $data->waktu;
+                $sks = $data->sks;
+                $kelas = $data->kelas;
+                $pembelajaran = $data->pembelajaran;
                 ?>
               
-                  <tr>
+                  <tr id="<?php echo $kode_mk?>">
                     <th scope="row"><?= $i ?></th>
                     <td><?= $kode_mk; ?></td>
                     <td><?= $matkul; ?></td>
@@ -173,9 +176,8 @@ if (!isset($_SESSION['email'])) {
                     <td><?= $sks; ?></td>
                     <td><?= $kelas; ?></td>
                     <td><?= $pembelajaran; ?></td>
-                    <td><?= $status_irs; ?></td>
                     <td>
-                      <button type="button" class="btn btn-danger" onclick="delete_irs('<?= $kode_mk ?>')">CANCEL</button>
+                      <button type="button" class="btn btn-danger" onclick="delete_irs('<?= $kode_mk ?>',<?php echo $semester?>)">CANCEL</button>
                     </td>
                   </tr>
               <?php $i++; } ?>
@@ -183,6 +185,7 @@ if (!isset($_SESSION['email'])) {
           </table>
         </div>
       </div>
+      <?php } ?>
     </div>
   </section>
   <script src="../library/js/script.js"> </script>

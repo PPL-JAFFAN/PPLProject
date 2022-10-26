@@ -43,17 +43,16 @@ function add_irs(kode_mk){
 }
 
 // delete irs
-function delete_irs(kode_mk){
+function delete_irs(kode_mk,semester){
 	var xmlhttp = getXMLHTTPRequest();
-	console.log(kode_mk);
-	xmlhttp.open('GET','delete_irs.php?kode_mk=' + kode_mk);
+	var url = 'delete_irs.php?kode_mk=' + kode_mk + '&semester='+ semester
+	console.log(url);
+	xmlhttp.open('GET',url, true);
 
 	xmlhttp.onreadystatechange = function () {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-	  		content.innerHTML = xmlhttp.responseText;
+	  		document.getElementById(kode_mk).innerHTML = xmlhttp.responseText;
 		}
   	};
-
-  	
   	xmlhttp.send();
 }
