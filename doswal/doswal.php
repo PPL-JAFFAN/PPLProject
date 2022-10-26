@@ -4,7 +4,6 @@ require '../function.php';
 session_start();
 
 if (isset($_SESSION['nip'])) {
-
     $nip = $_SESSION['nip'];
     $query = mysqli_query($conn, "select * from tb_dosen where nip='$nip'");
     

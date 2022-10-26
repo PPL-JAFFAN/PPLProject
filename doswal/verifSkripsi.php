@@ -145,7 +145,7 @@ if (!isset($_SESSION['nip'])){
                         echo '<td id="table1">'.$data->tanggal_sidang.'</td>';
                         ?>
                         <td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = '../file/skripsi/<?php echo $data->file_khs ?>'">Lihat
+                                onclick="location.href = '../mahasiswa/uploads_skripsi/<?php echo $data->scan_skripsi?>'">Lihat
                                 Scan skripsi</button></td>
                         <?php echo '
                          <td>
