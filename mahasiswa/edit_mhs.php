@@ -97,7 +97,6 @@ if (!isset($_SESSION['email'])) {
       $mhsDetail = getMhsDetail($_SESSION['nim']);
       $nim = ($_SESSION['nim']);
       $image =  $mhsDetail['foto_mhs'];
-      $kota = getKota($_SESSION['nim']);
       $querypropinsi = mysqli_query($conn,"select * from tb_propinsi");
       
       //Melakukan Update data yang telah disubmit
