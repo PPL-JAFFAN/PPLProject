@@ -96,7 +96,9 @@ if (!isset($_SESSION['email'])) {
       //fetch semua field data mahasiswa dengan nim tertentu
       $mhsDetail = getMhsDetail($_SESSION['nim']);
       $nim = ($_SESSION['nim']);
-      $image =  $mhsDetail['foto_mhs']; 
+      $image =  $mhsDetail['foto_mhs'];
+      $kota = getKota($_SESSION['nim']);
+      $querypropinsi = mysqli_query($conn,"select * from tb_propinsi");
       
       //Melakukan Update data yang telah disubmit
       if(isset($_POST['update'])){
@@ -104,8 +106,11 @@ if (!isset($_SESSION['email'])) {
         $nohp = $_POST['telepon'];
         $alamat = $_POST['alamat'];
         $email = $_POST['email'];
+        $kode_kota = $_POST['kabupaten'];
 
-        $queryedit = "UPDATE tb_mhs SET nama = '$nama', alamat = '$alamat',no_hp = '$nohp', email = '$email' WHERE nim = '$nim'";
+        $queryedit = "UPDATE tb_mhs SET nama = '$nama', alamat = '$alamat',
+                        no_hp = '$nohp', email = '$email' kode_kota = '$kode_kota'
+                        WHERE nim = '$nim'";
         $resultedit = mysqli_query($conn, $queryedit);
         header("Location: mhs_profil.php");
     }
@@ -140,49 +145,99 @@ if (!isset($_SESSION['email'])) {
                 </div>  
           <!-- Editable content -->
                   <div class="mx-5">
-                      <div class="row">
-                          <div class="col-sm-10">
-                              <h6 class="mb-2">Nama Lengkap</h6>
-                          </div>
-                          <br>
-                          <div class="col-sm-11">
-                              <input class="form-control mb-2" type="text" name="nama" placeholder="Nama Lengkap"
-                                  value="<?php echo $mhsDetail['nama']; ?>"/>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-10">
-                              <h6 class="mb-2">Alamat</h6>
-                          </div>
-                          <br>
-                          <div class="col-sm-11">
-                              <input class="form-control mb-2" type="text" name="alamat" placeholder="Alamat"
-                                  value="<?php echo $mhsDetail['alamat']; ?>"/>
-                          </div>
-                      </div>
-                      
-                      <div class="row">
-                          <div class="col-sm-10">
-                              <h6 class="mb-2">No Telepon</h6>
-                          </div>
-                          <br>
-                          <div class="col-sm-11">
-                              <input class="form-control mb-2" type="text" name="telepon" placeholder="No Telephone" 
-                              value="<?php echo $mhsDetail['no_hp']; ?>"/>
-                          </div>
-                      </div>
-              
-                      <div class="row">
-                          <div class="col-sm-10">
-                              <h6 class="mb-2">Email</h6>
-                          </div>
-                          <br>
-                          <div class="col-sm-11">
-                              <input class="form-control mb-2" type="text" name="email" placeholder="mhs@gmail.com" 
-                              value="<?php echo $mhsDetail['email']; ?>"/>
-                          </div>
-                      </div>
-                  </div>
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <h6 class="mb-2">Nama Lengkap</h6>
+                                </div>
+                                <br>
+                                <div class="col-sm-11">
+                                    <input class="form-control mb-2" type="text" name="nama" placeholder="Nama Lengkap"
+                                        value="<?php echo $mhsDetail['nama']; ?>"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <h6 class="mb-2">Nim</h6>
+                                </div>
+                                <br>
+                                <div class="col-sm-11">
+                                    <span class="form-control mb-2" type="text-muted" name="nim" placeholder="Nim"><?php echo $_SESSION['nim']; ?></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <h6 class="mb-2">Angkatan</h6>
+                                </div>
+                                <br>
+                                <div class="col-sm-11">
+                                    <span class="form-control mb-2" type="text-muted" name="nim" placeholder="Angkatan"><?php echo $mhsDetail['angkatan']; ?></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <h6 class="mb-2">Email</h6>
+                                </div>
+                                <br>
+                                <div class="col-sm-11">
+                                    <input class="form-control mb-2" type="text" name="email" placeholder="mhs@gmail.com" 
+                                    value="<?php echo $mhsDetail['email']; ?>"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <h6 class="mb-2">Alamat</h6>
+                                </div>
+                                <br>
+                                <div class="col-sm-11">
+                                    <input class="form-control mb-2" type="text" name="alamat" placeholder="Alamat"
+                                        value="<?php echo $mhsDetail['alamat']; ?>"/>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <h6 class="mb-2">No Telepon</h6>
+                                </div>
+                                <br>
+                                <div class="col-sm-11">
+                                    <input class="form-control mb-2" type="text" name="telepon" placeholder="No Telephone" 
+                                    value="<?php echo $mhsDetail['no_hp']; ?>"/>
+                                </div>
+                            </div>
+                            
+
+                            <div class="row">
+                                <div class="form-group col-sm-5">
+                                <h6 for="kabupaten">Kota</h6>
+                                
+                                <select name="kabupaten" id="kabupaten" class="form-control">
+                                    <option value="">Pilih kabupaten/Kota</option>
+
+                                    <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
+                                </select>
+                                </div>
+
+                                <div class="col-1"></div>
+                                <div class="form-group col-sm-5">
+                                    <h6 for="provinsi">Provinsi</h6>
+                                    <select name="provinsi" id="provinsi" class="form-control" onchange="getKabupaten(this.value)">
+                                        <option value="">Pilih Propinsi</option>
+                                        <?php while ($row = $querypropinsi->fetch_object()){
+                                        echo '<option value="'.$row->id.'">'.$row->nama.'</option>';
+                                    }
+                                    ?>
+                                        <!-- /* TODO tampilkan daftar provinsi menggunakan ajax */ -->
+                                    </select>
+
+                                </div>
+                            </div>
+                            <br>
+                            
+                        </div>
               </div>
               </div>
 
