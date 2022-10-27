@@ -172,6 +172,10 @@ if (!isset($_SESSION['email'])) {
                             <th>Email</th>
                             <td> <?php echo $mhsDetail['email']; ?></td>
                         </tr>
+                        <tr>
+                            <th>NIM</th>
+                            <td> <?php echo $_SESSION['nim']; ?></td>
+                        </tr>
                         </table>
                         </div>
 

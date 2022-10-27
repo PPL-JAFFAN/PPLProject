@@ -33,9 +33,9 @@ function getDosenDetail($kode_wali){
 }
 
 // get detail khs
-function getKhsDetail($nim, $smt){
+function getKhsDetail($nim){
     global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='$nim' AND semester='$smt'");
+    $query = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='$nim'");
     $data = mysqli_fetch_assoc($query);
     return $data;
 }
