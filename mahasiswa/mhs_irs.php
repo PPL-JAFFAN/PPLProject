@@ -5,6 +5,11 @@ session_start();
 if (!isset($_SESSION['email'])) {
     header("location:../login.php");
 }
+if(!isset($_GET['semester'])){
+    header("location:irs_semester.php");
+}
+$semester = $_GET['semester'];
+$nim = $_SESSION['nim'];
 
 $irsDetail = getIrsDetail($_SESSION['nim']);
 
@@ -107,6 +112,9 @@ $color = '';
             </li>
             <?php
             // get detail mahasiswa
+            $queryfile = ("SELECT * FROM tb_irs where nim=$nim AND semester=$semester");
+            $connect = mysqli_query($conn,$queryfile);
+            $data = $connect->fetch_object();
             $irsDetail = getIrsDetail($_SESSION['nim']);
             $mhsDetail = getMhsDetail($_SESSION['nim']);
 
@@ -128,42 +136,9 @@ $color = '';
         <div class="text">
             <h3>Data IRS Per Semester</h3>
         </div>
-            <h1 id="title1">DATA IRS</h1>
+            <h1 id="title1">UPLOAD FILE IRS SEMESTER <?php echo $semester?></h1>
             <div class="mx-5">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <h3 class="mb-2">Semester IRS : </h3>
-                                </div>
-                                <br>
-                                <div class="col-sm-11">
-                                    <input class="form-control mb-2" type="number" name="semester_irs" placeholder="Masukkan Semester IRS anda" 
-                                    value="<?php echo $irsDetail['semester_irs']; ?>" required>
-                                        
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <h6 class="mb-2">Alamat</h6>
-                                </div>
-                                <br>
-                                <div class="col-sm-11">
-                                    <input class="form-control mb-2" type="text" name="alamat" placeholder="Alamat"
-                                        value="<?php echo $mhsDetail['alamat']; ?>"/>
-                                </div>
-                            </div>
                             
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <h6 class="mb-2">No Telepon</h6>
-                                </div>
-                                <br>
-                                <div class="col-sm-11">
-                                    <input class="form-control mb-2" type="text" name="telepon" placeholder="No Telephone" 
-                                    value="<?php echo $mhsDetail['no_hp']; ?>"/>
-                                </div>
-                            </div>
-            
-            <h3>Jumlah SKS : </h3>
             <h3>Upload Scan File IRS</h3>
             <div id="drop_zone">
                 <p>Drop file here</p>
@@ -177,7 +152,7 @@ $color = '';
             <div>
                 <?php 
                 if($irsDetail['file_irs']){
-                    echo "File terupload : " . $irsDetail['file_irs'];
+                    echo "File terupload : " . $data->file_irs;
                 } else {
                     echo "Belum ada file yang diupload";
                 }
@@ -235,7 +210,7 @@ $color = '';
                 form_data.append('upload_file', file_obj);
                 $.ajax({
                     type: 'POST',
-                    url: 'upload_irs.php',
+                    url: 'upload_irs.php?semester='+<?php echo $semester?>,
                     contentType: false,
                     processData: false,
                     data: form_data,

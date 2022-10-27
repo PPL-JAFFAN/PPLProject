@@ -125,9 +125,9 @@ function updateSkripsi($nim, $namafile){
 }
 
 //function update file irs
-function updateIrs($nim, $namafile){
+function updateIrs($nim, $namafile,$semester){
     global $conn;
-    $query = mysqli_query($conn, "UPDATE tb_irs SET file_irs = '$namafile' WHERE nim = '$nim' ");
+    $query = mysqli_query($conn, "UPDATE tb_irs SET file_irs='$namafile' WHERE nim=$nim AND semester=$semester");
     return $query;
 }
 

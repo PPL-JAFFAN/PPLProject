@@ -145,6 +145,7 @@ if (!isset($_SESSION['email'])) {
                                 Angkatan <br>
                                 Jalur Masuk <br>
                                 Email <br>
+                                NIM <br>
                             </div>
                             <div class="col">
                                 <div><?php echo $mhsDetail['nama']; ?></div>
@@ -152,6 +153,7 @@ if (!isset($_SESSION['email'])) {
                                 <div><?php echo $mhsDetail['angkatan']; ?></div>
                                 <div><?php echo $mhsDetail['jalur_masuk']; ?></div>
                                 <div><?php echo $mhsDetail['email']; ?></div>
+                                <div><?php echo $_SESSION['nim']; ?></div>
                             </div>
                         </div>
                         </p>
