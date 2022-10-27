@@ -108,7 +108,7 @@ if (!isset($_SESSION['email'])) {
         $kode_kota = $_POST['kabupaten'];
 
         $queryedit = "UPDATE tb_mhs SET nama = '$nama', alamat = '$alamat',
-                        no_hp = '$nohp', email = '$email' kode_kota = '$kode_kota'
+                        no_hp = '$nohp', email = '$email',kode_kota = '$kode_kota'
                         WHERE nim = '$nim'";
         $resultedit = mysqli_query($conn, $queryedit);
         header("Location: mhs_profil.php");
