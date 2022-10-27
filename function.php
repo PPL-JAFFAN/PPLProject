@@ -149,7 +149,7 @@ function uploadDetailKhs($data){
 
     $_SESSION['smt'] = $smt;
 
-    $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES(NULL, '$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
+    $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES('$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
     return $query;
 }
 ?>

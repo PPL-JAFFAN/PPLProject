@@ -173,14 +173,14 @@ if (isset($_POST['submit'])) {
         <div class="row">
           <div class="col-sm-11">
             <h3 class="mb-2">IP :</h3>
-            <input class="form-control mb-2" type="number" name="ip" value="" />
+            <input class="form-control mb-2" type="number" name="ip" step="0.01" value="" />
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-11">
             <h3>IPK : </h3>
-            <input class="form-control mb-2" type="number" name="ipk" value="" />
+            <input class="form-control mb-2" type="number" name="ipk" step="0.01" value="" />
           </div>
         </div>
         <div class="d-flex justify-content-center">
