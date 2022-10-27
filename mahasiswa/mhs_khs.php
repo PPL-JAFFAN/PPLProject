@@ -6,6 +6,21 @@ if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
 
+
+$color = '';
+
+if (isset($_POST['submit'])) {
+  if (uploadDetailKhs($_POST)) {
+    echo "<script>
+    alert('Data berhasil diupdate');
+    document.location.href = 'upload_file_khs.php';
+    </script>";
+  } else {
+    echo "<script>
+    alert('Data gagal diupdate');
+    </script>";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +36,31 @@ if (!isset($_SESSION['email'])) {
   <link rel="stylesheet" href="mhs.css">
   <!-- Boxicons CDN Link -->
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    #drop_zone {
+      background-color: #eae5e5;
+      /* border: #B980F0 5px dashed; */
+      border-radius: 20px;
+      width: 50%;
+
+      padding: 60px 0;
+    }
+
+    #drop_zone p {
+      font-size: 20px;
+      text-align: center;
+    }
+
+    #selectfile {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -77,17 +116,16 @@ if (!isset($_SESSION['email'])) {
         </a>
         <span class="tooltip">Keluar</span>
       </li>
-
       <?php
-        $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
-        $mhsDetail = getMhsDetail($_SESSION['nim']);
-        $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
-        ?>
+      // get detail mahasiswa
+      $mhsDetail = getMhsDetail($_SESSION['nim']);
+
+      ?>
       <li class="profile">
         <div class="profile-details">
           <!--<img src="profile.jpg" alt="profileImg">-->
           <div class="name_job">
-          <div class="name"><?php echo $mhsDetail['nama']; ?></div>
+            <div class="name"><?php echo $mhsDetail['nama']; ?></div>
             <div class="job"><?php echo $mhsDetail['email']; ?></div>
           </div>
         </div>
@@ -97,12 +135,61 @@ if (!isset($_SESSION['email'])) {
   </div>
 
   <section class="home-section">
-    <div class="text">Ini Data KHS Mahasiswa</div>
-
-
-
+    <div class="text">
+      <h3>Data KHS Mahasiswa Aktif</h3>
     </div>
+    <h1 id="title1">DATA KHS</h1>
+    <form action="" method="POST">
+      <div class="mx-5">
+        <div class="row">
+          <div class="col-sm-10">
+            <h3 class="mb-2">Semester Aktif : </h3>
+          </div>
+          <br>
+          <div class="col-sm-11">
+            <select class="form-select" name="smt" id="smt">
+              <option value="" hidden>Pilih Semester</option>
+              <?php
+              for ($i = 1; $i <= 14; $i++) {
+                echo '<option value="' . $i . '">' . $i . '</option>';
+              } ?>
+            </select>
+            <!-- <input class="form-control mb-2" type="number" name="semester_khs" placeholder="Masukkan Semester Aktif anda saat ini" value="<?php echo $khsDetail['semester_khs']; ?>" required> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-11">
+            <h3 class="mb-2">SKS :</h3>
+            <input class="form-control mb-2" type="number" name="sks" value="" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-11">
+            <h3 class="mb-2">SKS Kumulatif :</h3>
+            <input class="form-control mb-2" type="number" name="sksk" value="" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-11">
+            <h3 class="mb-2">IP :</h3>
+            <input class="form-control mb-2" type="number" name="ip" value="" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-11">
+            <h3>IPK : </h3>
+            <input class="form-control mb-2" type="number" name="ipk" value="" />
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
+        </div>
+      </div>
+    </form>
   </section>
+
   <script src="../library/js/script.js"> </script>
 </body>
 

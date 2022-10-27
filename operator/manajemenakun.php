@@ -257,6 +257,7 @@
 							</div>
 						</div>
 					</div>
+				</div>
 				
 				<!-- Delete Modal -->
 				<div class="modal fade" id="Delete<?= $nim; ?>">
@@ -285,10 +286,13 @@
 			<?php
 			  }
 			?>
-        </tr>
-		</tbody>
-    </table>
-    </div>
+		</tr>
+		
+		
+			</tbody>
+			</table>
+			</div>
+  </div>
   </div>
 </body>
 </section>
