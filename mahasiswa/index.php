@@ -5,6 +5,9 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
+$mhsDetail = getMhsDetail($_SESSION['nim']);
+$_SESSION['semester']=$mhsDetail['semester'];
+
 
 ?>
 
@@ -79,11 +82,6 @@ if (!isset($_SESSION['email'])) {
         </a>
         <span class="tooltip">Keluar</span>
       </li>
-      <?php
-    // get detail mahasiswa
-    $mhsDetail = getMhsDetail($_SESSION['nim']);
-
-    ?>
       <li class="profile">
         <div class="profile-details">
           <!--<img src="profile.jpg" alt="profileImg">-->

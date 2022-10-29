@@ -113,13 +113,13 @@ if (!isset($_SESSION['nip'])){
                         </tr>
                         <?php 
 
-                        $query = "SELECT * FROM tb_irs JOIN tb_mhs where tb_irs.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester";
+                        $query = "SELECT * FROM tb_mhs JOIN tb_irs where tb_irs.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester";
                         $connect = mysqli_query($conn, $query);
                         $no = 1;
 
                         if (isset($_GET['cari_mhs'])){
                             $nama_mhs = $_GET['nama_mhs'];
-                            $query = "SELECT * FROM tb_irs JOIN tb_mhs where tb_irs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester";
+                            $query = "SELECT * FROM tb_mhs JOIN tb_irs where tb_irs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_irs.verif_irs,tb_irs.semester";
                             $connect = mysqli_query($conn, $query);
                             $no = 1;
                         }

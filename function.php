@@ -140,7 +140,7 @@ function updateKhs($nim, $smt, $namafile){
 function uploadDetailKhs($data){
     global $conn;
 
-    $smt = $data['smt'];
+    $smt = $_SESSION['semester'];
     $nim = $_SESSION['nim'];
     $sks = $data['sks'];
     $sksk = $data['sksk'];
