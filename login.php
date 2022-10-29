@@ -1,6 +1,10 @@
 <?php
   session_start();
   include ('db_login.php');
+  $gagal = '';
+  if (isset($_GET['pesan'])){
+    $gagal = "Password salah";
+  }
 
 
   if(isset($_POST['login'])){
@@ -62,10 +66,10 @@
     }else{
    
       // alihkan ke halaman login kembali
-      header("location:index.php?pesan=gagal");
+      header("location:login.php?pesan=gagal");
     }	
   }else{
-    header("location:index.php?pesan=gagal");
+    header("location:login.php?pesan=gagal");
   }
 }
 
@@ -162,6 +166,7 @@
                     <label class="form-label" for="password">Password</label>
                     <div class="text-danger"><?php if(isset($error_password)) echo $error_password;?></div>
                 </div>
+                <p style="color:red;"><?php echo $gagal?></p>
 
                 <button class="btn btn-primary btn-lg px-5 w-100" type="login" name="login" value="login">Login</button><br>
                 <br>
