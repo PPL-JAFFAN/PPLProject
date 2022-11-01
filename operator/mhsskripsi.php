@@ -24,7 +24,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
-    <title>Data Mahasiswa</title>
+    <title>Mahasiswa Skripsi</title>
   
   <style>
     .home-section a .card-active{

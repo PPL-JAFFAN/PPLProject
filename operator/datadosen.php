@@ -30,7 +30,7 @@
         background-color: #8974FF;
       }
     </style>
-    <title>Data Mahasiswa</title>
+    <title>Data Dosen</title>
   </head>
 
 <body>
