@@ -23,7 +23,7 @@ if (!isset($_SESSION['nip'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Data Mahasiswa</title>
+    <title>Verifiksi KHS</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -91,26 +91,25 @@ if (!isset($_SESSION['nip'])) {
     <form method="GET" autocomplete="on">
         <section class="home-section">
             <div class="d-flex justify-content-center" id="searchmhs">
-                <h3 id="header">Verifikasi KHS Mahasiswa</h3>
+                <h4 class="float-start" >Verifikasi KHS Mahasiswa</h4>
                 <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value="" id="nama_mhs" />
-                <input type="submit" class="btn btn-class mt-4" name="cari_mhs" value="Cari" />
+                <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
             </div>
 
-            <div id="datamhs">
-                <h4>Mahasiswa Perwalian</h4>
-                <div class="d-flex justify-content-center">
-                    <table id="tabelmhs">
+            <div class="card rounded-4 mt-5">
+                <div class="card-body">
+                <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5 ><br>
+                    <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
                         <tr>
-                            <th id="table1">NO. </th>
                             <th id="table1">NAMA </th>
-                            <th id="table1">NIM </th>
-                            <th id="table1">SEMESTER </th>
+                            <th class="text-center">NIM </th>
+                            <th class="text-center"">SEMESTER </th>
                             <th id="table1">SKS </th>
                             <th id="table1">SKS KUMULATIF</th>
                             <th id="table1">IP SEMESTER</th>
                             <th id="table1">IP KUMULATIF</th>
                             <th id="table1">SCAN KHS </th>
-                            <th id="table2">VERIFIKASI </th>
+                            <th id="table1">VERIFIKASI </th>
                         </tr>
                         <?php
 
@@ -136,11 +135,10 @@ if (!isset($_SESSION['nip'])) {
                                 $selectstatus2 = "selected = true";
                             }
                             echo '<tr id ="rows">';
-                            echo '<td id="table1">' . $no . '</td>';
                             echo '<td id="table1">' . $data->nama . '</td>';
-                            echo '<td id="table1">' . $data->nim . '</td>';
-                            echo '<td id="table1">' . $data->semester . '</td>';
-                            echo '<td id="table1">' . $data->sks . '</td>';
+                            echo '<td id="">' . $data->nim . '</td>';
+                            echo '<td class="text-center">' . $data->semester . '</td>';
+                            echo '<td class="text-center"">' . $data->sks . '</td>';
                             echo '<td id="table1">' . $data->sks_kumulatif . '</td>';
                             echo '<td id="table1">' . $data->ip_semester . '</td>';
                             echo '<td id="table1">' . $data->ip_kumulatif . '</td>';

@@ -23,7 +23,7 @@ if (!isset($_SESSION['nip'])){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Data Mahasiswa</title>
+    <title>Verifikasi Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -89,37 +89,54 @@ if (!isset($_SESSION['nip'])){
         </ul>
     </div>
 
-    <form method="POST" autocomplete="on">
-        <section class="home-section">
-            <div class="container">
-                <h1 id="header">VERIFIKASI BERKAS MAHASISWA </h1>
-                <div class="row mt-5 gx-5 justify-content-center">
-
-                    <div class="col-md-6 justify-content-center" id="showstats" onclick="location.href='verifIRS.php'">
-                        <h1 id="div_title"> IRS <h1>
-                    </div>
-
-                    <div class="col-md-6 justify-content-center" id="showstats" onclick="location.href='verifKHS.php'">
-                        <h1 id="div_title"> KHS <h1>
-                    </div>
-
+  
+    <section class="home-section">
+        <div class="container container-fluid">
+            <div class="h4 mt-5 w-100 ">Verifikasi Mahasiswa</div><br>
+        <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+            <div class="col">
+                <a href="verifIRS.php">
+                <div class="card rounded-4 ">
+                <div class="card-body">
+                    <p class="h3 m-4 text-center">Data IRS</p>
                 </div>
-                <div class="row mt-5 gx-5 justify-content-center">
-
-                    <div class="col-md-6 justify-content-center" id="showstats" onclick="location.href='verifPKL.php'">
-                        <h1 id="div_title"> PKL <h1>
-                    </div>
-
-                    <div class="col-md-6 justify-content-center" id="showstats" onclick="location.href='verifSkripsi.php'">
-                        <h1 id="div_title"> SKRIPSI <h1>
-                    </div>
-
-
                 </div>
+                </a>
             </div>
+            <div class="col">
+                <a href="verifKHS.php">
+                <div class="card rounded-4 ">
+                <div class="card-body">
+                    <p class="h3 m-4 text-center">Data KHS</p>
+                </div>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+            <div class="col">
+                <a href="verifPKL.php">
+                <div class="card rounded-4 ">
+                <div class="card-body">
+                    <p class="h3 m-4 text-center">Data PKL</p>
+                </div>
+                </div>
+                </a>
+            </div>
+            <div class="col">
+                <a href="verifSkripsi.php">
+                <div class="card rounded-4 ">
+                <div class="card-body">
+                    <p class="h3 m-4 text-center">Data SKRIPSI</p>
+                </div>
+                </div>
+                </a>
+            </div>
+        </div>
 
         </section>
-    </form>
+
     <script src="../library/js/script.js"> </script>
 </body>
 

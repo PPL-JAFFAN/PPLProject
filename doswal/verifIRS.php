@@ -23,7 +23,7 @@ if (!isset($_SESSION['nip'])){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Data Mahasiswa</title>
+    <title>Verifikasi IRS</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -91,17 +91,18 @@ if (!isset($_SESSION['nip'])){
 
     <form method="GET" autocomplete="on">
         <section class="home-section">
+            <div class="container-fluid">
             <div class="d-flex justify-content-center" id="searchmhs">
-                <h3 id="header">Verifikasi IRS Mahasiswa</h3>
+                <h4 class="float-start" >Verifikasi IRS Mahasiswa</h4>
                 <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
                     id="nama_mhs" />
-                <input type="submit" class="btn btn-class mt-4" name="cari_mhs" value="Cari" />
+                <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
             </div>
 
-            <div id="datamhs">
-                <h4>Mahasiswa Perwalian</h4>
-                <div class="d-flex justify-content-center">
-                    <table id="tabelmhs">
+            <div class="card rounded-4 mt-5">
+                <div class="card-body">
+                <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5 ><br>
+                    <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
                         <tr>
                             <th id="table1">NO. </th>
                             <th id="table1">NAMA </th>
@@ -109,7 +110,7 @@ if (!isset($_SESSION['nip'])){
                             <th id="table1">SEMESTER </th>
                             <th id="table1">SKS </th>
                             <th id="table1">SCAN IRS </th>
-                            <th id="table2">VERIFIKASI </th>
+                            <th id="table1">VERIFIKASI </th>
                         </tr>
                         <?php 
 
@@ -157,9 +158,10 @@ if (!isset($_SESSION['nip'])){
                     }
                   ?>
                     </table>
-                </div>
+            </div>
+            </div>
             </div>
         </section>
     </form>
-    <p id="db_status"></p>
+    <!-- <p id="db_status"></p> -->
     <script src="../library/js/script.js"> </script>

@@ -29,7 +29,7 @@ $data = $connect->fetch_object();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Data Mahasiswa</title>
+    <title>Mahasiswa Skripsi</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -62,14 +62,14 @@ $data = $connect->fetch_object();
                 <span class="tooltip">Edit Data Dosen</span>
             </li>
             <li>
-                <a class="nav-link active" href="verifMhs.php">
+                <a class="nav-link " href="verifMhs.php">
                     <i class='bx bx-chat' id="icon"></i>
                     <span class="links_name">Verifikasi <br>Mahasiswa</span>
                 </a>
                 <span class="tooltip">Verifikasi Mahasiswa</span>
             </li>
             <li>
-                <a class="nav-link" href="datamhs.php">
+                <a class="nav-link active" href="datamhs.php">
                     <i class='bx bx-pie-chart-alt-2' id="icon"></i>
                     <span class="links_name">Lihat Data <br>Mahasiswa</span>
                 </a>
@@ -96,26 +96,69 @@ $data = $connect->fetch_object();
     </div>
     <form method="GET" autocomplete="on">
         <section class="home-section">
-            <h1>DATA MAHASISWA </h1>
-            <div id="datadiri">
-                <h3>Nama</h3>
-                <h2><?php echo $data->nama?></h2>
-                <h3>NIM</h3>
-                <h2><?php echo $data->nim?></h2>
-                <h3>Alamat</h3>
-                <h2><?php echo $data->alamat?></h2>
-                <h3>Angkatan</h3>
-                <h2><?php echo $data->angkatan?></h2>
-                <h3>Jalur Masuk</h3>
-                <h2><?php echo $data->jalur_masuk?></h2>
-                <h3>Email</h3>
-                <h2><?php echo $data->email?></h2>
-                <h3>Nomor HP</h3>
-                <h2><?php echo $data->no_hp?></h2>
-                <h3>Status</h3>
-                <h2><?php echo $data->status?></h2>
-                <h3>Semester</h3>
-                <h2><?php echo $data->semester?></h2>
+        <div class="h4 mt-5 w-100 ">Detal Mahasiswa
+            </div><br>
+
+        <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+
+<div class="col">
+<div class="card rounded-4 card-active ">
+    <div class="card-body">
+
+        <div class="text-center my-3">
+            <img class="rounded-3" src="../img/default-profile-pic.jpg" width="100" />
+                        <!-- show image 
+            <img src="../asset/img/<?php //echo $mhsDetail['foto_mhs']; ?>" alt="foto" width="100px">-->
+                        <br>
             </div>
+
+        <div class="px-5">
+        <table class="table table-responsive">
+
+        <tr>
+            <th>Nama</th>
+            <td> <?php echo $data->nama; ?></td>
+        </tr>
+        <tr>
+            <th>NIM</th>
+            <td> <?php echo $data->nim; ?></td>
+        </tr>
+        <tr>
+            <th>Alamat</th>
+            <td><?php echo  $data->alamat; ?></td>
+        </tr>
+        <tr>
+            <th>Angkatan</th>
+            <td> <?php echo  $data->angkatan; ?></td>
+        </tr>
+        <tr>
+            <th>Jalur Masuk</th>
+            <td> <?php echo $data->jalur_masuk; ?></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td> <?php echo  $data->email; ?></td>
+        </tr>
+        <tr>
+            <th>No HP</th>
+            <td> <?php echo  $data->no_hp; ?></td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td> <?php echo   $data->status; ?></td>
+        </tr>
+        <tr>
+            <th>Semester</th>
+            <td> <?php echo  $data->semester; ?></td>
+        </tr>
+       
+        </table>
+        </div>
+
+    </div>
+</div>
+
+</div>
+</div>
 
         </section>

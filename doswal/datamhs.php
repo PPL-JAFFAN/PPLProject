@@ -92,23 +92,26 @@ if (!isset($_SESSION['nip'])){
 
     <form method="POST" autocomplete="on">
         <section class="home-section">
+            <div class="container-fluid">
 
             <div class="d-flex justify-content-center" id="searchmhs">
                 <h3>Rekap Data Mahasiswa</h3>
                 <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
                     id="nama_mhs" />
-                <input type="submit" class="btn btn-class mt-4" name="cari_mhs" value="Cari" />
+                <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
             </div>
             
-            <div id="datamhs">
-            <h4>Mahasiswa Perwalian</h4>
-                <div class="d-flex justify-content-center">
-                    <table id="tabelmhs">
+            <div class="card rounded-4 mt-5">
+                <div class="card-body">
+                <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5 ><br>
+                    <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
                         <tr>
                             <th id="table1">NO. </th>
                             <th id="table1">NAMA </th>
                             <th id="table1">NIM </th>
-                            <th id="table2">AKSI </th>
+                            <th id="table1">SEMESTER </th>
+                            <th id="table1">STATUS </th>
+                            <th id="table1">AKSI </th>
                         </tr>
                         <?php 
                     $query = "SELECT * FROM tb_mhs WHERE kode_wali = ".$_SESSION['kode_wali'];
@@ -127,7 +130,10 @@ if (!isset($_SESSION['nip'])){
                         echo '<td id="table1">'.$no.'</td>';
                         echo '<td id="table1">'.$data->nama.'</td>';
                         echo '<td id="table1">'.$data->nim.'</td>';
-                        ?><td id="table2"><button type="button" class="btn btn-primary"
+                        echo '<td id="table1">'.$data->semester.'</td>';
+                        echo '<td id="table1">'.$data->status.'</td>';
+
+                        ?><td id="table1"><button type="button" class="btn btn-primary"
                                 onclick="location.href = 'lihatMhs.php?nim=<?php echo $data->nim ?>'">Lihat
                                 Mahasiswa</button></td>
                         <?php echo '</tr>';
@@ -138,7 +144,7 @@ if (!isset($_SESSION['nip'])){
                     </table>
                 </div>
             </div>
-
+            </div>
         </section>
     </form>
     <script src="../library/js/script.js"> </script>
