@@ -181,7 +181,7 @@ $color = '';
                 <input type="file" id="selectfile">
                 <p id="message_info"></p>
             </div>
-            <div>
+            <div class="text-center">
                 <?php
                 if ($skripsiDetail['scan_skripsi']) {
                     echo "File terupload : " . $skripsiDetail['scan_skripsi'];

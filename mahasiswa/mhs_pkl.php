@@ -183,7 +183,7 @@ $color = '';
                 <input type="file" id="selectfile">
                 <p id="message_info"></p>
             </div>
-            <div>
+            <div class="text-center">
                 <?php 
                 if($pklDetail['scan_pkl']){
                     echo "File terupload : " . $pklDetail['scan_pkl'];
