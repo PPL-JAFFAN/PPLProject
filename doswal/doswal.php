@@ -159,79 +159,141 @@ if (isset($_SESSION['nip'])) {
 
 
     <section class="home-section">
-
-        <h1 id="datadirititle">Home</h1>
-        <h3 id="halo">Halo <?php echo $namadosen ?></h3>
-        <div id="datadiri">
-            <div class="row">
-                <div class="col-4">
-                    <div class="d-flex justify-content-center">
-                        <img src="../img/default-profile-pic.jpg" id="profilepic">
+        <div class="container container-fluid">
+            <div class="h4 mt-5 w-100 ">Profil
+                    <div class="h4 float-end">
+                        <h4>Halo, <?= $namadosen; ?></h4>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-warning" onclick="location.href = 'editdosen.php'">Edit
-                            data
-                            diri</button>
-                    </div>
-                </div>
-                <div class="col-8">
-                    <h2>Nama lengkap: <?php echo $namadosen ?></h2>
-                    <h3>NIP: <?php echo $nip ?></h3>
-                    <h3>Kode Wali : <?php echo $kodewali ?></h3>
-                    <h3>Alamat : <?php echo $alamat ?></h3>
-                    <h3>Kabupaten/Kota : <?php echo $namakota ?></h3>
-                    <h3>Propinsi : <?php echo $namaprov ?> </h3>
-                    <h3>Email : <?php echo $email ?></h3>
-                    <h3>No. HP : <?php echo $nohp ?></h3>
+            </div><br>
 
+<div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+<div class="col">
+<div class="card rounded-4 card-active ">
+    <div class="card-body">
+        <div class="text-center">
+        <img class="rounded-4 m-3" src="../img/default-profile-pic.jpg" width="140" />
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-warning" onclick="location.href = 'editdosen.php'">Edit
+                        data diri</button>
                 </div>
             </div>
-        </div>
 
+            <div class="px-5">
+                <table class="table table-responsive">
 
-        <div id="stat">
-            <div class="row gx-5 justify-content-center">
-
-                <div class="col-lg-4 col-md-12 " id="showstats" onclick="location.href='datamhs.php'">
-                    <h3 class="text-center">Mahasiswa Perwalian</h3>
-                    <h1 class="text-center"><?php echo $noPerwalian ?></h1>
-                </div>
-
-                <div class="col-lg-4 col-md-6" id="showstats" onclick="location.href='mhsAktif.php'">
-                    <h3 class="text-center">Mahasiswa Perwalian Aktif</h3>
-                    <h1 class="text-center"><?php echo $noAktif ?></h1>
-                </div>
-
-                <div class="col-lg-4 col-md-6" id="showstats" onclick="location.href='mhsSkripsi.php'">
-                    <h3 class="text-center">Mahasiswa Perwalian Sudah Lulus Skripsi</h3>
-                    <h1 class="text-center"><?php echo $noSkripsi ?></h1>
-                </div>
-
+                <tr>
+                    <th>Nama Lengkap : </th>
+                    <td> <?php echo $namadosen; ?></td>
+                </tr>
+                <tr>
+                    <th>NIP :</th>
+                    <td><?php echo $nip; ?></td>
+                </tr>
+                <tr>
+                    <th>Kode Wali :</th>
+                    <td> <?php echo $kodewali; ?></td>
+                </tr>
+                <tr>
+                    <th>Alamat :</th>
+                    <td> <?php echo $alamat; ?></td>
+                </tr>
+                <tr>
+                    <th>Kabupaten/Kota :</th>
+                    <td> <?php echo $namakota; ?></td>
+                </tr>
+                <tr>
+                    <th>Propinsi :</th>
+                    <td> <?php echo $namaprov; ?></td>
+                </tr>
+                <tr>
+                    <th>Email :</th>
+                    <td> <?php echo $email; ?></td>
+                </tr>
+                <tr>
+                    <th>No. HP :</th>
+                    <td> <?php echo $nohp; ?></td>
+                </tr>
+                </table>
             </div>
+
+            
         </div>
-        <div id="stat">
-            <div class="row gx-5 justify-content-center">
+    </div>
+</div>
 
-                <div class="col-lg-4 col-md-12 " id="showstats" onclick="location.href='mhsCuti.php'">
-                    <h3 class="text-center">Mahasiswa Perwalian Cuti</h3>
-                    <h1 class="text-center"><?php echo $noCuti ?></h1>
-                </div>
-
-                <div class="col-lg-4 col-md-6" id="showstats" onclick="location.href='mhsPKL.php'">
-                    <h3 class="text-center">Mahasiswa Perwalian Sudah PKL</h3>
-                    <h1 class="text-center"><?php echo $noPKL ?></h1>
-                </div>
-
-                <div class="col-lg-4 col-md-6" id="showstats" onclick="location.href='mhsMangkir.php'">
-                    <h3 class="text-center">Mahasiswa Perwalian Mangkir</h3>
-                    <h1 class="text-center"><?php echo $noMangkir ?></h1>
-                </div>
-
-            </div>
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+    <div class="col">
+        <a href="datamhs.php">
+        <div class="card rounded-4 ">
+        <div class="card-body">
+            <p class="text-center">Jumlah Mahasiswa Perwalian</p>
+            <p class="card-text jumlah text-center"><?= $noPerwalian; ?></p>
         </div>
+        </div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="mhsAktif.php">
+        <div class="card rounded-4 ">
+        <div class="card-body">
+            <p class="text-center">Mahasiswa Perwalian Aktif</p>
+            <p class="card-text jumlah text-center"><?= $noAktif; ?></p>
+        </div>
+        </div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="mhsSkripsi.php">
+        <div class="card rounded-4 ">
+        <div class="card-body">
+            <p class="text-center">Mahasiswa Perwalian Lulus Skripsi</p>
+            <p class="card-text jumlah text-center"><?= $noSkripsi; ?></p>
+        </div>
+        </div>
+        </a>
+    </div>
+</div>
 
-    </section>
-    <script src="../library/js/script.js"> </script>
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+    <div class="col">
+        <a href="mhsCuti.php">
+        <div class="card rounded-4 ">
+        <div class="card-body">
+            <p class="text-center">Mahasiswa Perwalian Cuti</p>
+            <p class="card-text jumlah text-center"><?= $noCuti; ?></p>
+        </div>
+        </div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="mhsPKL.php">
+        <div class="card rounded-4 ">
+        <div class="card-body">
+            <p class="text-center">Mahasiswa Perwalian Sudah PKL</p>
+            <p class="card-text jumlah text-center"><?= $noPKL; ?></p>
+        </div>
+        </div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="mhsMangkir.php">
+        <div class="card rounded-4 ">
+        <div class="card-body">
+            <p class="text-center">Mahasiswa Perwalian Mangkir</p>
+            <p class="card-text jumlah text-center"><?= $noMangkir; ?></p>
+        </div>
+        </div>
+        </a>
+    </div>
+</div>
+
+</div>
+
+</div>
+</section>
+    
+<script src="../library/js/script.js"> </script>
 </body>
 
 </html>
