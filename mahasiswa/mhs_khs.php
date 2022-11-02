@@ -9,29 +9,17 @@ $color = '';
 $error = '';
 
 if (isset($_POST['submit'])) {
-  $sks = $_POST['sks'];
-  $sksk = $_POST['sksk'];
-  $ip = $_POST['ip'];
-  $ipk = $_POST['ipk'];
-
-  if($sks > 24){
-    $error_sks = 'sks semester tidak boleh lebih dari 24';
+  if (uploadDetailKhs($_POST)) {
+    echo "<script>
+    alert('Data berhasil diupdate');
+    document.location.href = 'upload_file_khs.php?nim=" . $_SESSION['nim'] . "&smt=" . $_POST['smt'] . "';
+    </script>";
+  } else {
+    echo "<script>
+    alert('Data gagal diupdate');
+    </script>";
   }
-  else if ($sks < 0 || $sksk < 0 || $ip < 0 || $ipk < 0){
-    // $error = 'Kolom Tidak Boleh Kosong';
-  }
-  else{
-    if (uploadDetailKhs($_POST)) {
-      echo "<script>
-      alert('Data berhasil diupdate');
-      document.location.href = 'upload_file_khs.php';
-      </script>";
-    } else {
-      echo "<script>
-      alert('Data gagal diupdate');
-      </script>";
-    }
-  }
+  
 
    // validasi sks: tidak boleh kosong 
    $alamat = test_input($_POST['sks']);
@@ -179,14 +167,44 @@ function test_input($data){
     // get detail mahasiswa
     $mhsDetail = getMhsDetail($_SESSION['nim']);
 
-    ?>
-    <li class="profile">
-      <div class="profile-details">
-        <!--<img src="profile.jpg" alt="profileImg">-->
-        <div class="name_job">
-        <div class="name"><?php echo $mhsDetail['nama']; ?></div>
-          <div class="email"><?php echo $mhsDetail['email']; ?></div>
+      ?>
+      <li class="profile">
+        <div class="profile-details">
+          <!--<img src="profile.jpg" alt="profileImg">-->
+          <div class="name_job">
+            <div class="name"><?php echo $mhsDetail['nama']; ?></div>
+            <div class="job"><?php echo $mhsDetail['email']; ?></div>
+          </div>
         </div>
+        <i class="fa fa-bars" id="bars"></i>>
+      </li>
+    </ul>
+  </div>
+
+  <section class="home-section">
+    <div class="text">
+      <h3>Data KHS Mahasiswa Aktif</h3>
+    </div>
+    <h1 id="title1">DATA KHS</h1>
+    <form action="" method="POST" id="khscontent">
+      <div class="mx-5">
+        <div class="row">
+          <div class="col-sm-10">
+            <h3 class="mb-2">Semester Aktif : </h3>
+          </div>
+          <br>
+          <div class="col-sm-11">
+            <select onchange="get_khs(this.value)" class="form-select" name="smt" id="smt">
+              <option value="" hidden>Pilih Semester</option>
+              <?php
+              for ($i = 1; $i <= 14; $i++) {
+                echo '<option value="' . $i . '">' . $i . '</option>';
+              } ?>
+            </select>
+            <!-- <input class="form-control mb-2" type="number" name="semester_khs" placeholder="Masukkan Semester Aktif anda saat ini" value="<?php echo $khsDetail['semester_khs']; ?>" required> -->
+          </div>
+        </div>
+        
       </div>
       <i class="fa fa-bars" id="bars"></i>>
     </li>
@@ -241,6 +259,9 @@ function test_input($data){
         </div>
   </section>
 
+  <script src="../library/js/script.js"> </script>
+  <script src="ajax.js"></script>
+</body>
 
 
 <script src="../library/js/script.js"></script>

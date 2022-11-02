@@ -56,3 +56,19 @@ function delete_irs(kode_mk,semester){
   	};
   	xmlhttp.send();
 }
+
+//function get khs
+function get_khs($smt){
+	var xmlhttp = getXMLHTTPRequest();
+	var url = 'get_khs.php?semester=' + $smt;
+	console.log(url);
+	xmlhttp.open('GET',url, true);
+
+	xmlhttp.onreadystatechange = function () {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	  		document.getElementById('khscontent').innerHTML = xmlhttp.responseText;
+		}
+  	};
+  	xmlhttp.send();
+}
+
