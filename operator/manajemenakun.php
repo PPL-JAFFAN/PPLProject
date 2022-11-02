@@ -104,7 +104,7 @@
   
   <section class="home-section">
     <div class="container-fluid">
-
+	<p id="db_status"></p>
       <br>
 	  <div style="font-size:30px">Manajemen Akun Mahasiswa</div></br>
 	  <div>Program Studi Informatika</div></br>
@@ -271,11 +271,10 @@
 					  </div>
 
 					  <!-- Modal body -->
-					  <form method="POST">
                         <div class="modal-body">
                          Hapus Mahasiswa <?= $email; ?>?
                              <br><br>
-                             <button type="submit" class="btn btn-primary" name="hapusmahasiswa">Hapus</button>
+                             <button type="submit" class="btn btn-primary" name="hapus" onclick="hapus(<?php echo $nim?>)">Hapus</button>
                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                         </div>
                       </form>
@@ -308,6 +307,29 @@
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
+<script>
+function getXMLHTTPRequest() {
+  if (window.XMLHttpRequest) {
+      return new XMLHttpRequest();
+  } else {
+      return new ActiveXObject("Microsoft.XMLHTTP");
+  }
+}
 
+function hapus(nim) {
+  console.log(nim)
+  var xmlhttp = getXMLHTTPRequest()
+  var url = "hapus.php?nim=" + nim;
+  xmlhttp.open('GET', url, true);
+  xmlhttp.onreadystatechange = function() {
+      if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+          document.getElementById("db_status").innerHTML = xmlhttp.responseText;
+      }
+      return false;
+  }
+  xmlhttp.send(null);
+  window.location.href = "manajemenakun.php"
+}
+</script>
   
  </html>

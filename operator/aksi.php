@@ -51,13 +51,15 @@ if (isset($_POST['updatemahasiswa'])) {
 
 
 //hapus mahasiswa
-if (isset($_POST['hapusmahasiswa'])) {
-   $nimmahasiswa = $_POST['nimmahasiswa'];
-   
-   $delete = mysqli_query($conn, "DELETE FROM tb_mhs where nim='$nimmahasiswa'");
+/*
+if (isset($_POST['hapus'])) {
+	$nimmahasiswa = $_POST['nimmahasiswa'];
+    $delete = mysqli_query($conn, "DELETE FROM tb_mhs WHERE nim='$nimmahasiswa'");
    if ($delete) {
       header('location:manajemenakun.php');
    } else {
       header('location:manajemenakun.php');
    }
 }
+*/
+?>
