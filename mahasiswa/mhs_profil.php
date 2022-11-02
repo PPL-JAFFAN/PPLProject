@@ -115,7 +115,7 @@ if (!isset($_SESSION['email'])) {
       // get detail mahasiswa
       $mhsDetail = getMhsDetail($_SESSION['nim']);
       $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
-      $khsDetail = getKhsDetail($_SESSION['nim']);
+      $khsDetail = getKhsDetail($_SESSION['nim'],$mhsDetail['semester']);
       $_SESSION['semester']=$mhsDetail['semester'];
       ?>
 

@@ -180,82 +180,39 @@ function test_input($data){
       </li>
     </ul>
   </div>
-
-  <section class="home-section">
-    <div class="text">
-      <h3>Data KHS Mahasiswa Aktif</h3>
-    </div>
-    <h1 id="title1">DATA KHS</h1>
-    <form action="" method="POST" id="khscontent">
-      <div class="mx-5">
-        <div class="row">
-          <div class="col-sm-10">
-            <h3 class="mb-2">Semester Aktif : </h3>
-          </div>
-          <br>
-          <div class="col-sm-11">
-            <select onchange="get_khs(this.value)" class="form-select" name="smt" id="smt">
-              <option value="" hidden>Pilih Semester</option>
-              <?php
-              for ($i = 1; $i <= 14; $i++) {
-                echo '<option value="' . $i . '">' . $i . '</option>';
-              } ?>
-            </select>
-            <!-- <input class="form-control mb-2" type="number" name="semester_khs" placeholder="Masukkan Semester Aktif anda saat ini" value="<?php echo $khsDetail['semester_khs']; ?>" required> -->
-          </div>
-        </div>
-        
-      </div>
-      <i class="fa fa-bars" id="bars"></i>>
-    </li>
-    </ul>
-  </div>
   
     <section class="home-section">
+    <div class="h4 mt-5 w-100 ">Data KHS Mahasiswa</div>
         <div class="container-fluid">
-            <div class="h4 mt-5 w-100 ">Data KHS Mahasiswa
-            </div><br>
-            <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
-                <div class="col">
-                    <div class="card rounded-4 card-active p-4 ">
-                        <div class="card-body">
-                             <div class="h4 w-100 ">Upload Data KHS </div><br>
-                            <form action="" method="POST">
-                                <div>
-                                    <label for="sks">SKS :</label>
-                                    <input class="form-control" type="number" name="sks"  value="<?php if(isset($sks)) {echo $sks;} ?>" />
-                                    <div class="error text-danger"> <?php if(isset($error_sks)) echo $error_sks; ?> </div>
-                                </div>
-                                <div>
-                                    <label for="sksk" class="mt-3">SKS Kumulatif :</label>
-                                    <input class="form-control" type="number" name="sksk" value="<?php if(isset($sksk)) {echo $sksk;} ?>" />
-                                    <div class="error text-danger"> <?php if(isset($error_sksk)) echo $error_sksk; ?> </div>
-                                </div>
-
-                                <div>
-                                    <label for="ip" class="mt-3">IP :</label>
-                                    <input class="form-control" type="number" name="ip" step="0.01" value="<?php if(isset($ip)) {echo $ip;} ?>" />
-                                    <div class="error text-danger"> <?php if(isset($error_ip)) echo $error_ip; ?> </div>
-                                </div>
-
-                                <div>
-                                    <label for="ipk" class="mt-3">IPK :</label>
-                                    <input class="form-control" type="number" name="ipk" step="0.01" value="<?php if(isset($ipk)) {echo $ipk;} ?>" />
-                                    <div class="error text-danger"> <?php if(isset($error_ipk)) echo $error_ipk; ?> </div>
-
-                                </div>
-
-                                <div>
-                                    <p style="color:red;"><?php echo $error ?> </p>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
-                                </div>
-                            </form>
-                         </div>
-                    </div>
-                </div>
+          <?php 
+          $i = 1;
+          while ($i <= $mhsDetail['semester']){
+            $querySksk = mysqli_query($conn,"SELECT * FROM tb_khs WHERE nim='".$mhsDetail['nim']."' AND semester=".$i);
+            $cek = mysqli_num_rows($querySksk);
+            if ($cek == 0){
+              echo '<a href="get_khs.php?semester='.$i.'">
+              <div>
+              <h2>Semester '.$i.'</h2>
+              <h4>Jumlah SKS : 0</h4>
+              </div>
+              </a>
+              <br>';
+            }
+            else{
+              $khs = mysqli_fetch_assoc($querySksk);
+            echo '
+            <a href="get_khs.php?semester='.$i.'">
+            <div>
+            <h2>Semester '.$i.'</h2>
+            <h4>Jumlah SKS : '.$khs['sks'].'</h4>
             </div>
+            </a>
+            <br>';
+            }
+            
+            $i++;
+          } ?>
+            
         </div>
   </section>
 
