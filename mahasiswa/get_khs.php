@@ -211,51 +211,69 @@ function test_input($data){
     else{
       $ipk = $khsDetail['ip_kumulatif'];
     }
+
+    if (empty($khsDetail['verif_khs'])){
+      $verif = 'belum';
+      $color = 'red';
+    }
+    else{
+      $verif = $khsDetail['verif_khs'];
+      if ($verif == 'belum'){
+        $color = 'red';
+      }
+      else{
+        $color = 'green';
+      }
+    }
   
     ?>
 
     <section class="home-section">
-    <form method="POST">
+        <form method="POST">
 
-        <div class="mx-5">
-            <div class="row">
-                <div class="col-sm-10">
-                    <h3 class="mb-2">KHS Semester <?php echo $semester?> </h3>
+            <div class="mx-5">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h3 class="mb-2">KHS Semester <?php echo $semester?> </h3>
+                    </div>
+                    <br>
                 </div>
-                <br>
-            </div>
-            <div class="row">
-                <div class="col-sm-11">
-                    <h3 class="mb-2">SKS :</h3>
-                    <input class="form-control mb-2" type="number" name="sks" value="<?php echo $sks ?>" />
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h3 class="mb-2">SKS :</h3>
+                        <input class="form-control mb-2" type="number" name="sks" value="<?php echo $sks ?>" />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-11">
-                    <h3 class="mb-2">SKS Kumulatif :</h3>
-                    <input class="form-control mb-2" type="number" name="sksk"
-                        value="<?php echo $sksk ?>" />
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h3 class="mb-2">SKS Kumulatif :</h3>
+                        <input class="form-control mb-2" type="number" name="sksk" value="<?php echo $sksk ?>" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-11">
-                    <h3 class="mb-2">IP :</h3>
-                    <input class="form-control mb-2" type="number" name="ip" step="0.01"
-                        value="<?php echo $ip ?>" />
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h3 class="mb-2">IP :</h3>
+                        <input class="form-control mb-2" type="number" name="ip" step="0.01"
+                            value="<?php echo $ip ?>" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-11">
-                    <h3>IPK : </h3>
-                    <input class="form-control mb-2" type="number" name="ipk" step="0.01"
-                        value="<?php echo $ipk ?>" />
+                <div class="row">
+                    <div class="col-sm-11">
+                        <h3>IPK : </h3>
+                        <input class="form-control mb-2" type="number" name="ipk" step="0.01"
+                            value="<?php echo $ipk ?>" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h3>Verifikasi oleh dosen : </h3>
+                    <h2 style="color:<?php echo $color ?> ; "><?php echo $verif?> </h2>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
-            </div>
-        </div>
-  </form>
+        </form>
     </section>

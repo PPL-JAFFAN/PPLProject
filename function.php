@@ -151,7 +151,7 @@ function uploadDetailKhs($data,$semester,$exist){
         $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES('$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
     }
     else {
-        $query = mysqli_query($conn, "UPDATE tb_khs SET sks=$sks , sks_kumulatif=$sksk , ip_semester=$ip , ip_kumulatif=$ipk WHERE nim='$nim' AND semester=$semester ");
+        $query = mysqli_query($conn, "UPDATE tb_khs SET sks=$sks , sks_kumulatif=$sksk , ip_semester=$ip , ip_kumulatif=$ipk , verif_khs='belum' WHERE nim='$nim' AND semester=$semester ");
     }
 
     

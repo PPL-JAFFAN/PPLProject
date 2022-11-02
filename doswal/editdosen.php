@@ -20,13 +20,12 @@ else{
 
 if(isset($_POST['edit'])){
     $nama = $_POST['nama'];
-    $kodewali = $_POST['kode'];
     $alamat = $_POST['alamat'];
     $nohp = $_POST['no_hp'];
     $email = $_POST['email'];
     $kode_kota = $_POST['kabupaten'];
     $queryedit = mysqli_query($conn,"UPDATE tb_dosen 
-                                SET kode_wali = '$kodewali',
+                                SET
                                 nama = '$nama',
                                 alamat = '$alamat',
                                 no_hp = $nohp,
@@ -148,11 +147,6 @@ if(isset($_POST['edit'])){
                             value="<?=$dosen['no_hp'];?>" />
                     </div>
 
-                    <div class="form-group">
-                        <label for="kode" id="uname">Kode Wali</label>
-                        <input class="form-control mb-3" type="number" name="kode" placeholder="kode"
-                            value="<?=$dosen['kode_wali'];?>" />
-                    </div>
                     <div class="form-group">
                         <label for="kode" id="uname">Email</label>
                         <input class="form-control mb-3" type="email" name="email" placeholder="email"
