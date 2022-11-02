@@ -116,6 +116,7 @@ if (!isset($_SESSION['email'])) {
       $mhsDetail = getMhsDetail($_SESSION['nim']);
       $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
       $khsDetail = getKhsDetail($_SESSION['nim']);
+      $_SESSION['semester']=$mhsDetail['semester'];
       ?>
 
         <!---Card Informasi Data diri mahasiswa-->

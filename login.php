@@ -39,7 +39,7 @@
       $_SESSION['email'] = $email;
       $_SESSION['status'] = "mhs";
       $_SESSION['nim'] = $data['nim/nip'];
-      header("location:./mahasiswa/index.php");
+      header("location:./mahasiswa/mhs_profil.php");
 
    
     // cek jika user login sebagai pegawai
