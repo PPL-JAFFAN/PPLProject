@@ -117,6 +117,12 @@ if (!isset($_SESSION['email'])) {
       $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
       $khsDetail = getKhsDetail($_SESSION['nim'],$mhsDetail['semester']);
       $_SESSION['semester']=$mhsDetail['semester'];
+      $kode_kota = $mhsDetail['kode_kota'];
+
+      $queryKota = "SELECT * FROM tb_kota WHERE id = '$kode_kota'";
+      $result = mysqli_query($conn, $queryKota);
+      $kota = mysqli_fetch_assoc($result);
+
       ?>
 
         <!---Card Informasi Data diri mahasiswa-->
@@ -176,6 +182,10 @@ if (!isset($_SESSION['email'])) {
                         <tr>
                             <th>NIM</th>
                             <td> <?php echo $_SESSION['nim']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Kota</th>
+                            <td> <?php echo $kota['nama']; ?> </td>
                         </tr>
                         </table>
                         </div>
