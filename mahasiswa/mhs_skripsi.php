@@ -167,6 +167,10 @@ $color = '';
                     <th>Nilai</th>
                     <td><?php echo $skripsiDetail['nilai_skripsi']; ?></td>
                   </tr>
+                  <tr>
+                    <th>Tanggal Sidang</th>
+                    <td> <?= $skripsiDetail['tanggal_sidang']; ?></td>
+                  </tr>
                 </table>
               </div>
 
