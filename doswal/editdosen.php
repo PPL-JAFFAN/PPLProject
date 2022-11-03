@@ -13,6 +13,10 @@ if (isset($_SESSION['nip'])){
     $email = $dosen['email'];
     $nohp = $dosen['no_hp'];
     $querypropinsi = mysqli_query($conn,"select * from tb_propinsi");
+
+    $queryPass = mysqli_query($conn,"select * from tb_user where nimnip='$nip'");
+    $user = mysqli_fetch_assoc($queryPass);
+    $password = $user['password'];
 }
 else{
     header ("Location: ../login.php");
@@ -24,6 +28,7 @@ if(isset($_POST['edit'])){
     $nohp = $_POST['no_hp'];
     $email = $_POST['email'];
     $kode_kota = $_POST['kabupaten'];
+    $password = $_POST['password'];
     $queryedit = mysqli_query($conn,"UPDATE tb_dosen 
                                 SET
                                 nama = '$nama',
@@ -32,6 +37,7 @@ if(isset($_POST['edit'])){
                                 email = '$email',
                                 kode_kota = '$kode_kota'
                                 where nip=$nip;");
+    $queryPword = mysqli_query($conn, "UPDATE tb_user SET password = '$password' WHERE nim/nip='$nip'");
     header("Location: doswal.php");
 }
 
@@ -151,6 +157,12 @@ if(isset($_POST['edit'])){
                         <label for="kode" id="uname">Email</label>
                         <input class="form-control mb-3" type="email" name="email" placeholder="email"
                             value="<?=$dosen['email'];?>" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kode" id="uname">Password</label>
+                        <input class="form-control mb-3" type="text" name="password" placeholder="ketik password"
+                            value="<?=$password;?>" />
                     </div>
 
                     <div class="form-group">

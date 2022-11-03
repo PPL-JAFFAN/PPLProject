@@ -1,12 +1,12 @@
 <?php
 session_start();
+require "../db_login.php";
 
 $dbhost = "localhost:3308";
 $dbuser = "root";
 $dbpwd = "";
 $dbname = "ppl";
 
-$conn = new mysqli($dbhost, $dbuser, $dbpwd, $dbname);
 
 function test_input($data)
 {
