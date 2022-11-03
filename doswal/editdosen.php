@@ -14,7 +14,7 @@ if (isset($_SESSION['nip'])){
     $nohp = $dosen['no_hp'];
     $querypropinsi = mysqli_query($conn,"select * from tb_propinsi");
 
-    $queryPass = mysqli_query($conn,"select * from tb_user where nim/nip='$nip'");
+    $queryPass = mysqli_query($conn,"select * from tb_user where nimnip='$nip'");
     $user = mysqli_fetch_assoc($queryPass);
     $password = $user['password'];
 }
