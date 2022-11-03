@@ -138,27 +138,33 @@ $color = '';
 
   <section class="home-section">
     <div class="container-fluid">
-      <div class="h4 mt-5 w-100 ">Input Data Progres PKL</div><br>
-      <div class="row row-cols-1 row-cols-md-2 g-4 mt-1" id="datadiri">
-        <form method="POST">
-
-          <div class="row">
-            <div class="col-sm-11">
-              <h3 class="mb-2">Status :</h3>
-              <input type="text" class="form-control" name="status" value="<?php echo $pklDetail['status_pkl']; ?>">
+      <div class="h4 mt-5 w-100 ">Input Progres Data PKL</div><br>
+      <div class="row row-cols-1 row-cols-md-1 g-4 mt-1" id="datadiri">
+        <div class="col">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <form action="" method="POST">
+                <label for="status" class="form-label">Status PKL</label>
+                <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value, '<?= $nilai ?>')">
+                  <option value="1" <?php if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
+                  <option value="2" <?php if ($pklDetail['status_pkl'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
+                </select>
+                <div></div>
+                <label for="status" class="form-label">Nilai :</label>
+                <select name="nilai" id="nilai" class="form-select" aria-label="Default select example" <?php
+                                                                                                        if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') {
+                                                                                                          echo 'disabled';
+                                                                                                        }
+                                                                                                        ?>>
+                </select>
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-11">
-              <h3 class="mb-2">Nilai :</h3>
-              <input type="text" class="form-control" name="nilai" value="<?php echo $pklDetail['nilai_pkl']; ?>">
-            </div>
-          </div>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
-          </div>
+        </div>
       </div>
-      </form>
       <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
 
       <div id="drop_zone">

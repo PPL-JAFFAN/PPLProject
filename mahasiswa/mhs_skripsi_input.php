@@ -213,6 +213,8 @@ function test_input($data)
                                                                                                         }
                                                                                                         ?>>
                 </select>
+                <label for="tgl_sidang" class="form-label">Tanggal Sidang :</label>
+                <input type="date" name="tgl_sidang" id="tgl_sidang" class="form-control" value="<?= $skripsiDetail['tanggal_sidang'] ?>">
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
                 </div>
