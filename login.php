@@ -1,78 +1,75 @@
 <?php
-  session_start();
-  include ('db_login.php');
-  $gagal = '';
-  if (isset($_GET['pesan'])){
-    $gagal = "Password salah";
-  }
+session_start();
+include('db_login.php');
+$gagal = '';
+if (isset($_GET['pesan'])) {
+  $gagal = "Password salah";
+}
 
 
-  if(isset($_POST['login'])){
+if (isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
   if ($email == '') {
     $error_email = "Email is required";
     $valid = FALSE;
-  }else if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+  } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error_email = "Invalid email format";
     $valid = FALSE;
   }
   //cek validasi password
   $password = ($_POST['password']);
-  if ($password == ''){
-      $error_password = "Password is required";
-      $valid = FALSE;
+  if ($password == '') {
+    $error_password = "Password is required";
+    $valid = FALSE;
   }
 
   if (!$email == '' && !$password == '') {
-  $query = mysqli_query($conn,"select * from tb_user where email='$email' and password='$password'");
-  $cek = mysqli_num_rows($query);
+    $query = mysqli_query($conn, "select * from tb_user where email='$email' and password='$password'");
+    $cek = mysqli_num_rows($query);
 
-  if($cek > 0){
- 
-    $data = mysqli_fetch_assoc($query);
-   
-    // cek jika user login sebagai admin
-    if($data['status']=="mhs"){
-      // buat session login dan username
-      $_SESSION['email'] = $email;
-      $_SESSION['status'] = "mhs";
-      $_SESSION['nim'] = $data['nim/nip'];
-      header("location:./mahasiswa/mhs_profil.php");
+    if ($cek > 0) {
 
-   
-    // cek jika user login sebagai pegawai
-    }else if($data['status']=="dosen"){
-      // buat session login dan email
-      $_SESSION['email'] = $email;
-      $_SESSION['status'] = "dosen";
-      $_SESSION['nip'] = $data['nim/nip'];
-      header("location: doswal/doswal.php");
-   
-    // cek jika user login sebagai pengurus
-    }else if($data['status']=="operator"){
-      // buat session login dan email
-      $_SESSION['email'] = $email;
-      $_SESSION['status'] = "operator";
-      header("location:./operator/index.php");
-   
-    }else if($data['status']=="departemen"){
-      // buat session login dan email
-      $_SESSION['email'] = $email;
-      $_SESSION['status'] = "departemen";
-      header("location:./departemen/index.php");
-   
-    }else{
-   
-      // alihkan ke halaman login kembali
+      $data = mysqli_fetch_assoc($query);
+
+      // cek jika user login sebagai admin
+      if ($data['status'] == "mhs") {
+        // buat session login dan username
+        $_SESSION['email'] = $email;
+        $_SESSION['status'] = "mhs";
+        $_SESSION['nim'] = $data['nimnip'];
+        header("location:./mahasiswa/mhs_profil.php");
+
+
+        // cek jika user login sebagai pegawai
+      } else if ($data['status'] == "dosen") {
+        // buat session login dan email
+        $_SESSION['email'] = $email;
+        $_SESSION['status'] = "dosen";
+        $_SESSION['nip'] = $data['nimnip'];
+        header("location: doswal/doswal.php");
+
+        // cek jika user login sebagai pengurus
+      } else if ($data['status'] == "operator") {
+        // buat session login dan email
+        $_SESSION['email'] = $email;
+        $_SESSION['status'] = "operator";
+        header("location:./operator/index.php");
+      } else if ($data['status'] == "departemen") {
+        // buat session login dan email
+        $_SESSION['email'] = $email;
+        $_SESSION['status'] = "departemen";
+        header("location:./departemen/index.php");
+      } else {
+
+        // alihkan ke halaman login kembali
+        header("location:login.php?pesan=gagal");
+      }
+    } else {
       header("location:login.php?pesan=gagal");
-    }	
-  }else{
-    header("location:login.php?pesan=gagal");
+    }
   }
-}
-
 }
 
 
@@ -84,100 +81,104 @@
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
-    <style>
-        .gradient-custom{
-            background: rgb(131,58,180);
-            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
-            }
-    </style>
-</head>
-  <body>
 
-
-<!-- Section: Design Block -->
-<section class="background-radial-gradient overflow-hidden">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
   <style>
-    .background-radial-gradient {
-      background-color: hsl(218, 41%, 15%);
-      background-image: radial-gradient(650px circle at 0% 0%,
-          hsl(218, 41%, 35%) 15%,
-          hsl(218, 41%, 30%) 35%,
-          hsl(218, 41%, 20%) 75%,
-          hsl(218, 41%, 19%) 80%,
-          transparent 100%),
-        radial-gradient(1250px circle at 100% 100%,
-          hsl(218, 41%, 45%) 15%,
-          hsl(218, 41%, 30%) 35%,
-          hsl(218, 41%, 20%) 75%,
-          hsl(218, 41%, 19%) 80%,
-          transparent 100%);
-    }
-
-
-    .bg-glass {
-      background-color: hsla(0, 0%, 100%, 0.9) !important;
-      backdrop-filter: saturate(200%) blur(25px);
+    .gradient-custom {
+      background: rgb(131, 58, 180);
+      background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
     }
   </style>
+</head>
+
+<body>
 
 
-  <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-    <div class="row gx-lg-5 align-items-center mb-5">
-      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-          Aplikasi Pengelolaan <br />
-          <span style="color: hsl(218, 81%, 75%)">Data Mahasiswa</span><br>
-          <span> Informatika</span>
-        </h1>
-        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-          Aplikasi ini digunakan untuk mengelola data mahasiswa <br>
-          program studi informatika Universitas Diponegoro Semarang
-        </p>
-      </div>
+  <!-- Section: Design Block -->
+  <section class="background-radial-gradient overflow-hidden">
+    <style>
+      .background-radial-gradient {
+        background-color: hsl(218, 41%, 15%);
+        background-image: radial-gradient(650px circle at 0% 0%,
+            hsl(218, 41%, 35%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%),
+          radial-gradient(1250px circle at 100% 100%,
+            hsl(218, 41%, 45%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%);
+      }
 
-      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-        <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-        <style>
-        *{
-          text-align:c ;
-        }</style>
 
-        <div class="card bg-glass rounded-4">
-          <div class="card-body px-3 py-4 px-md-5 rounded-4">
-            <div class="mx-auto"><img src="./asset/img/undip.png" style=" display: block; margin-left: auto; margin-right: auto; width: 30%;;"  alt=""></div>
-            <p class="mx-auto" style= "text-align:center;">Departemen Informatika </p>
-            <h4>Login</h4><br>
-            <form method="POST" autocomplete="on" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+      .bg-glass {
+        background-color: hsla(0, 0%, 100%, 0.9) !important;
+        backdrop-filter: saturate(200%) blur(25px);
+      }
+    </style>
+
+
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+      <div class="row gx-lg-5 align-items-center mb-5">
+        <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+          <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+            Aplikasi Pengelolaan <br />
+            <span style="color: hsl(218, 81%, 75%)">Data Mahasiswa</span><br>
+            <span> Informatika</span>
+          </h1>
+          <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+            Aplikasi ini digunakan untuk mengelola data mahasiswa <br>
+            program studi informatika Universitas Diponegoro Semarang
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+          <style>
+            * {
+              text-align: c;
+            }
+          </style>
+
+          <div class="card bg-glass rounded-4">
+            <div class="card-body px-3 py-4 px-md-5 rounded-4">
+              <div class="mx-auto"><img src="./asset/img/undip.png" style=" display: block; margin-left: auto; margin-right: auto; width: 30%;;" alt=""></div>
+              <p class="mx-auto" style="text-align:center;">Departemen Informatika </p>
+              <h4>Login</h4><br>
+              <form method="POST" autocomplete="on" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="form-outline form-white mb-4">
-                    <input type="email" id="email" name="email" class="form-control form-control-lg" value="<?php if(isset($email)) echo $email;?>"/>
-                    <label class="form-label" for="email">Email</label>
-                    <div class="text-danger"><?php if(isset($error_email)) echo $error_email;?></div>
+                  <input type="email" id="email" name="email" class="form-control form-control-lg" value="<?php if (isset($email)) echo $email; ?>" />
+                  <label class="form-label" for="email">Email</label>
+                  <div class="text-danger"><?php if (isset($error_email)) echo $error_email; ?></div>
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                    <input type="password" id="password" value="" name="password" class="form-control form-control-lg" />
-                    <label class="form-label" for="password">Password</label>
-                    <div class="text-danger"><?php if(isset($error_password)) echo $error_password;?></div>
+                  <input type="password" id="password" value="" name="password" class="form-control form-control-lg" />
+                  <label class="form-label" for="password">Password</label>
+                  <div class="text-danger"><?php if (isset($error_password)) echo $error_password; ?></div>
                 </div>
-                <p style="color:red;"><?php echo $gagal?></p>
+                <p style="color:red;"><?php echo $gagal ?></p>
 
                 <button class="btn btn-primary btn-lg px-5 w-100" type="login" name="login" value="login">Login</button><br>
                 <br>
               </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<!-- Section: Design Block -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-  </body>
+  </section>
+  <!-- Section: Design Block -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+
 </html>

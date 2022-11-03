@@ -1,5 +1,8 @@
 <?php
-  include'../db_login.php';
+  include '../db_login.php';
+  include './aksi.php';
+  include '../function.php'
+  
 
 ?>
 
@@ -30,6 +33,14 @@
         background-color: #8974FF;
       }
     </style>
+    <style>
+				.modal {
+				  background: rgba(0, 0, 0, 0.5); 
+				}
+				.modal-backdrop {
+				  display: none;
+				}
+			  </style>
     <title>Data Dosen</title>
   </head>
 
@@ -106,6 +117,10 @@
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Rekap Data Dosen
       </div><br>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_dosen">
+        Tambah Data Dosen
+      </button>
+    </div>
 
       <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
 
@@ -136,9 +151,10 @@
             <tr>
                 <th>NIP</th>
                 <th>Nama</th>
-                <th>Alamat</th>
+                <!-- <th>Alamat</th> -->
                 <th>Email</th>
-                <th>No HP</th>
+                <th>Aksi</th>
+                <!-- <th>No HP</th> -->
             </tr>
         </thead>
         <tbody>
@@ -147,20 +163,96 @@
           $i = 1;
           while ($data = mysqli_fetch_array($ambildata)) {
               $nip = $data['nip'];
+              // $id = $data['kode_wali'];
               $nama = $data['nama'];
-              $alamat = $data['alamat'];
+              // $alamat = $data['alamat'];
               $email = $data['email'];
-              $no_hp = $data['no_hp'];
+              // $no_hp = $data['no_hp'];
+              // $password = $data['password'];
+              
+             
 
+          
           ?>
+
+          
 
         <tr>
           <td><?= $nip ?></td>
           <td><?= $nama; ?></td>
-          <td><?= $alamat; ?></td>
+          <!-- <td><?= $alamat; ?></td> -->
           <td><?= $email; ?></td>
-          <td><?= $no_hp; ?></td>
+          <!-- <td><?= $no_hp; ?></td> -->
+          <td>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" name="edit_dosen" data-bs-toggle="modal" data-bs-target="#edit_dosen<?= $nip;?>">Edit</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" name="delete_dosen" data-bs-toggle="modal" data-bs-target="#delete_dosen<?= $nip;?>">Hapus</button>
+          </td>
         </tr>
+        
+          <!-- Edit Modal -->
+        <div class="modal fade" id="edit_dosen<?= $nip;?>">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Data Dosen</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="POST">
+              <div class="modal-body">
+                <input type="text" name="nama" placeholder="Nama" class="form-control" value="<?= $nama; ?>" required>
+                <br>
+                <!-- <input type="text" name="nip" placeholder="NIP" class="form-control" value="<?= $nip; ?>"  required>
+                <br> -->
+                <input type="hidden" name="id" value="<?= $nip; ?>">
+                <input type="email" name="email" placeholder="Email" value="<?= $email; ?>"  class="form-control" required>
+                <br>
+                <!-- <input type="text" name="password" placeholder="Password" value="<?= $password; ?>"  class="form-control" required> -->
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" name="edit_dosen">Submit</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+
+              </div>
+            </div>
+        </div>
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="delete_dosen<?= $nip;?>">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Hapus Data Dosen</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="POST">
+              <div class="modal-body">
+                <input type="hidden" name="id" value="<?= $nip; ?>">
+                <h6>Apakah Yakin Akan Menghapus </h6> <?= $nama; ?>
+                <br>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" name="delete_dosen">Hapus</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+
+              </div>
+            </div>
+        </div>
 
         <?php
           }
@@ -174,10 +266,64 @@
 </body>
 </section>
 
+  <!-- Add Modal -->
+  <div class="modal fade" id="add_dosen">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Tambah Data Dosen</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <!-- Modal body -->
+          <form method="POST">
+            <div class="modal-body">
+              <input type="text" name="nama" placeholder="Nama" class="form-control" required>
+              <br>
+              <input type="text" name="nip" placeholder="NIP" class="form-control" required>
+              <br>
+              <input type="email" name="email" placeholder="Email" class="form-control" value="" required>
+              <br>
+              <input type="password" name="password" placeholder="Password" class="form-control" required>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" name="add_dosen">Submit</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+  </div>
+
+  
+
+  
+
 <script src="../library/js/script.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/PapaParse/4.6.3/papaparse.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="../../extensions/Editor/js/dataTables.editor.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+
+
 
 <script>$(document).ready(function () {
     $('#example').DataTable();

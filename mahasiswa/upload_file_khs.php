@@ -5,8 +5,8 @@ session_start();
 if (!isset($_SESSION['email'])) {
     header("location:../login.php");
 }
-
-$khsDetail = getKhsDetail($_SESSION['nim'], $_SESSION['smt']);
+$semester = $_GET['smt'];
+$khsDetail = getKhsDetail($_SESSION['nim'], $semester);
 
 $color = '';
 

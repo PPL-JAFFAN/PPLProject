@@ -13,6 +13,6 @@ keyword.addEventListener('change', function(){
         }
     }
     //eksekusi ajax
-    xhr.open('GET', 'getmhspkl.php?keyword'+ keyword.value, true);
+    xhr.open('GET', 'getmhspkl.php?keyword='+ keyword.value, true);
     xhr.send();
 });
