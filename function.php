@@ -18,6 +18,14 @@ function getPassMhs($nim_nip)
     return $data;
 }
 
+function getPassDosen($nim_nip)
+{
+    global $conn;
+    $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE nimnip='$nim_nip'");
+    $data = mysqli_fetch_assoc($query);
+    return $data;
+}
+
 function getKotaKabupaten($id)
 {
     global $conn;
