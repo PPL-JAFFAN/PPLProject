@@ -196,3 +196,19 @@ function uploadDetailKhs($data)
     $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES('$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
     return $query;
 }
+
+// function update file skripsi
+function uploadDetailSkripsi($data)
+{
+    global $conn;
+
+    $nim = $_SESSION['nim'];
+    $status_skripsi = $data['status_skripsi'];
+    $nilai_skripsi = $data['nilai_skripsi'];
+    $tanggal_sidang = $data['tanggal_sidang'];
+    $scan_skripsi = $data['scan_skripsi'];
+    $verif_skripsi = $data['verif_skripsi'];
+
+    $query = mysqli_query($conn, "INSERT INTO tb_skripsi VALUES('$nim', '$status_skripsi', '$nilai_skripsi', '$tanggal_sidang', '$scan_skripsi', '$verif_skripsi')");
+    return $query;
+}
