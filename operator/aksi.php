@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$dbhost = "localhost";
+$dbhost = "localhost:3308";
 $dbuser = "root";
 $dbpwd = "";
 $dbname = "ppl";
@@ -62,4 +62,62 @@ if (isset($_POST['hapus'])) {
    }
 }
 */
+
+if (isset($_POST['add_dosen'])) {
+   $nama = $_POST['nama'];
+   $nip = $_POST['nip'];
+   $email = $_POST['email'];
+   $password = $_POST['password'];
+
+   $addtodosen = mysqli_query($conn, "INSERT INTO tb_dosen (nama, nip, email ) VALUES('$nama','$nip', '$email')");
+   $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username, email, password ) VALUES('$nip','$nama','$email', '$password')");
+
+   if ($addtodosen) {
+      header('location:datadosen.php');
+   } else {
+      echo "Gagal Menambahkan Data";
+      header('location:datadosen.php');
+   }
+
+}
+
+
+//edit dosen
+if (isset($_POST['edit_dosen'])) {
+   $nama = $_POST['nama'];
+   $email = $_POST['email'];
+   $id = $_POST['id'];
+
+   $queryupdate = mysqli_query($conn, "UPDATE tb_dosen SET nama = '$nama', email = '$email' WHERE nip='$id'");
+   $queryupdateuser = mysqli_query($conn, "UPDATE tb_user SET username = '$nama' , email = '$email' WHERE nimnip='$id'");
+
+   if ($edit) {
+      header('location:datadosen.php');
+   } else {
+      echo "Gagal Menambahkan Data";
+      header('location:datadosen.php');
+   }
+
+}
+
+//delete dosen
+if (isset($_POST['delete_dosen'])) {
+   $id = $_POST['id'];
+
+   $querydelete = mysqli_query($conn, "DELETE FROM tb_dosen WHERE nip='$id'");
+   $querydeleteuser = mysqli_query($conn, "DELETE FROM tb_user WHERE nimnip='$id'");
+
+   if ($querydelete) {
+      header('location:datadosen.php');
+   } else {
+      echo "Gagal Menambahkan Data";
+      header('location:datadosen.php');
+   }
+
+}
+
+
+
+
+
 ?>

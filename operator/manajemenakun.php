@@ -130,16 +130,16 @@
           $i = 1;
           while ($data = mysqli_fetch_array($ambildata)) {
             $nim = $data['nim'];
-			$nama = $data['nama'];
-			$alamat = $data['alamat'];
-			$kode_kota = $data['kode_kota'];
-			$angkatan = $data['angkatan'];
-			$jalur_masuk = $data['jalur_masuk'];
-			$email = $data['email'];
-			$no_hp = $data['no_hp'];
-			$status = $data['status'];
-			$kode_wali = $data['kode_wali'];
-			$semester = $data['semester'];
+            $nama = $data['nama'];
+            $alamat = $data['alamat'];
+            $kode_kota = $data['kode_kota'];
+            $angkatan = $data['angkatan'];
+            $jalur_masuk = $data['jalur_masuk'];
+            $email = $data['email'];
+            $no_hp = $data['no_hp'];
+            $status = $data['status'];
+            $kode_wali = $data['kode_wali'];
+            $semester = $data['semester'];
           ?>
 
         <tr>
@@ -200,15 +200,17 @@
 							 Semester:<input type="number" name="semester" min="1" maxlength="1" placeholder="Semester" value="<?= $semester; ?>" class="form-control">
                             <br>
 							<br>
-                            <button type="submit" class="btn btn-primary" name="updatemahasiswa">Submit</button>
+                            
                             </div>
-                        </form>
+                        
 					  </div>
 
 					  <!-- Modal footer -->
 					  <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name="updatemahasiswa">Submit</button>
 						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
 					  </div>
+            </form>
 
 					</div>
 				  </div>
