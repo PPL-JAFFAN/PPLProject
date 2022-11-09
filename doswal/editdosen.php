@@ -37,7 +37,7 @@ if(isset($_POST['edit'])){
                                 email = '$email',
                                 kode_kota = '$kode_kota'
                                 where nip=$nip;");
-    $queryPword = mysqli_query($conn, "UPDATE tb_user SET password = '$password' WHERE nim/nip='$nip'");
+    $queryPword = mysqli_query($conn, "UPDATE tb_user SET password = '$password' WHERE nimnip='$nip'");
     header("Location: doswal.php");
 }
 
@@ -148,8 +148,8 @@ if(isset($_POST['edit'])){
                     </div>
 
                     <div class="form-group">
-                        <label for="no_telp" id="uname">No. Telepon</label>
-                        <input class="form-control mb-3" type="number" name="no_hp" placeholder="Nomor Telepon"
+                        <label for="no_telp" id="uname">No. HP</label>
+                        <input class="form-control mb-3" type="text" name="no_hp" placeholder="Nomor Telepon"
                             value="<?=$dosen['no_hp'];?>" />
                     </div>
 
