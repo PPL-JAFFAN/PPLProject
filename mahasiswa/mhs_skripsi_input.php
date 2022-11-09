@@ -1,53 +1,33 @@
 <?php
 require '../function.php';
-require_once '../db_login.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
 
-$skripsiDetail = getSkripsiDetail($_SESSION['nim']);
-$error = '';
-$color = '';
-if (empty($skripsiDetail)) {
-  $exist = 0;
-} else {
-  $exist = 1;
-}
-if (isset($_POST['submit'])) {
-  $flag = true;
-  if ($_POST['status_skripsi'] < 0 || $_POST['status_skripsi'] > 2) {
-    $flag = false;
-  }
-  if ($_POST['nilai_skripsi'] < 0 || $_POST['nilai_skripsi'] > 4) {
-    $flag = false;
-  }
-  if ($flag) {
-    if (uploadDetailSkripsi($_POST, $nim, $exist)) {
-      echo "<script>
-      alert('Data berhasil diupdate');
-      document.location.href = 'upload_file_skripsi.php?nim=" . $_SESSION['nim'] . "&smt=" . $semester . "';
-      </script>";
-    } else {
-      echo "<script>
-      alert('Data gagal diupdate');
-      </script>";
+$nim = $_SESSION['nim'];
+$skripsiDetail = getSkripsiDetail($nim);
+
+if(isset($_POST['submit'])){
+    $status = $_POST['status'];
+    $nilai = $_POST['nilai'];
+    if($pklDetail){
+      $query = "UPDATE tb_pkl SET status_skripsi = '$status', nilai_skripsi = '$nilai' WHERE nim = '$nim'";
+      $result = mysqli_query($conn, $query);
+    }else{
+      $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
+      $result = mysqli_query($conn, $query);
     }
-  } else {
-    echo "<script>
-    alert('Data gagal diupdate');
-    </script>";
-  }
+    if($result){
+        echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl.php';</script>";
+    }else{
+        echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl.php';</script>";
+    }
 }
 
-function test_input($data)
-{
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+
+$color = '';
 
 ?>
 
@@ -136,14 +116,14 @@ function test_input($data)
         <span class="tooltip">Data KHS</span>
       </li>
       <li>
-        <a href="mhs_pkl.php" class="nav-link">
+        <a href="mhs_pkl.php" class="nav-link active">
           <i class='bx bxs-graduation ' id="icon"></i>
           <span class="links_name">Data PKL</span>
         </a>
         <span class="tooltip">Data PKL</span>
       </li>
       <li>
-        <a href="mhs_skripsi.php " class="nav-link active">
+        <a href="mhs_skripsi.php">
           <i class='bx bxs-bar-chart-alt-2' id="icon"></i>
           <span class="links_name">Data Skripsi</span>
         </a>
@@ -160,7 +140,6 @@ function test_input($data)
       // get detail mahasiswa
       $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
       $mhsDetail = getMhsDetail($_SESSION['nim']);
-      $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
 
       ?>
       <li class="profile">
@@ -176,45 +155,39 @@ function test_input($data)
     </ul>
   </div>
 
-  <?php
-  if (empty($skripsiDetail['status_skripsi'])) {
-    $status_skripsi = 'BELUM MENGAMBIL';
-  } else {
-    $status_skripsi = $skripsiDetail['status_skripsi'];
-  }
-
-  if (empty($skripsiDetail['nilai'])) {
-    $nilai = '-';
-  } else {
-    $nilai = $skripsiDetail['nilai'];
-  }
-  ?>
-
-
-
   <section class="home-section">
     <div class="container-fluid">
-      <div class="h4 mt-5 w-100 ">Data Progres Skripsi Mahasiswa</div><br>
+      <div class="h4 mt-5 w-100 ">Input Progres Data Skripsi</div><br>
       <div class="row row-cols-1 row-cols-md-1 g-4 mt-1" id="datadiri">
         <div class="col">
           <div class="card rounded-4 ">
             <div class="card-body">
               <form action="" method="POST">
-                <label for="status" class="form-label">Status Skripsi</label>
-                <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value, '<?= $nilai ?>')">
-                  <option value="1" <?php if ($skripsiDetail['status_skripsi'] == 'ON GOING') echo 'selected'; ?>>ON GOING</option>
-                  <option value="2" <?php if ($skripsiDetail['status_skripsi'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
+                <label for="status" class="form-label">Status PKL</label>
+                <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value)">
+                  <option value="SEDANG MENGAMBIL" <?php if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
+                  <option value="LULUS" <?php if ($pklDetail['status_pkl'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
                 </select>
                 <div></div>
                 <label for="status" class="form-label">Nilai :</label>
-                <select name="nilai" id="nilai" class="form-select" aria-label="Default select example" <?php
-                                                                                                        if ($skripsiDetail['status_skripsi'] == 'ON GOING') {
-                                                                                                          echo 'disabled';
-                                                                                                        }
-                                                                                                        ?>>
+                <!-- ============================================ -->
+                <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
+                  <option <?php 
+                  if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') 
+                    echo 'disabled'
+                  
+                    ?>> <?php 
+                  if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL'){
+                    echo 'Tidak Tersedia';
+                  }
+                  else{
+                    echo '<option value="A"> A </option>';
+                    echo '<option value="B"> B </option>';
+                    echo '<option value="C"> C </option>';
+                      
+                  }
+                    ?> </option>
                 </select>
-                <label for="tgl_sidang" class="form-label">Tanggal Sidang :</label>
-                <input type="date" name="tgl_sidang" id="tgl_sidang" class="form-control" value="<?= $skripsiDetail['tanggal_sidang'] ?>">
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
                 </div>
@@ -223,11 +196,7 @@ function test_input($data)
           </div>
         </div>
       </div>
-    </div>
-    </div>
-
-    <div>
-      <div class="h5 mt-4 mb-4 w-100">Laporan Progres Skripsi</div>
+      <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
 
       <div id="drop_zone">
         <p>Drop file here</p>
@@ -240,13 +209,14 @@ function test_input($data)
       </div>
       <div class="text-center">
         <?php
-        if ($skripsiDetail['scan_skripsi']) {
-          echo "File terupload : " . $skripsiDetail['scan_skripsi'];
+        if ($pklDetail['scan_pkl']) {
+          echo "File terupload : " . $pklDetail['scan_pkl'];
         } else {
           echo "Belum ada file yang diupload";
         }
         ?>
       </div>
+    </div>
     </div>
   </section>
 
@@ -257,20 +227,20 @@ function test_input($data)
 
   <script>
     function changeOpsi(value1, value2) {
-      var inner = "nilai"
-      var url = "get_opsi.php?opsi=" + value1 + "&nilai=" + value2;
-
       var xmlhttp = getXMLHTTPRequest();
+      var url = 'get_khs.php?semester=' + $smt;
+      console.log(url);
       xmlhttp.open('GET', url, true);
+
       xmlhttp.onreadystatechange = function() {
-        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
-          document.getElementById(inner).innerHTML = xmlhttp.responseText;
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          document.getElementById('khscontent').innerHTML = xmlhttp.responseText;
         }
-        return false;
-      }
-      xmlhttp.send(null);
+      };
+      xmlhttp.send();
     }
   </script>
+
   <script>
     $(document).ready(function() {
       $('#example').DataTable();
@@ -322,13 +292,28 @@ function test_input($data)
       });
     });
 
+    // ajax change nilai
+    function changeOpsi(value1) {
+      var xmlhttp = getXMLHTTPRequest();
+      var url = 'get_nilai.php?status=' + value1;
+      console.log(url);
+      xmlhttp.open('GET', url, true);
+
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          document.getElementById('nilai').innerHTML = xmlhttp.responseText;
+        }
+      };
+      xmlhttp.send();
+    }
+
     function ajax_file_upload(file_obj) {
       if (file_obj != undefined) {
         var form_data = new FormData();
         form_data.append('upload_file', file_obj);
         $.ajax({
           type: 'POST',
-          url: 'upload_skripsi.php',
+          url: 'upload_pkl.php',
           contentType: false,
           processData: false,
           data: form_data,
@@ -351,8 +336,7 @@ function test_input($data)
       return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
     }
   </script>
-  <script src="../library/js/script.js"></script>
-</body>
+  <script src="../library/js/script.js"> </script>
 
 
 </html>
