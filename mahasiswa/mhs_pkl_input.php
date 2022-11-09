@@ -6,7 +6,26 @@ if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
 
-$pklDetail = getPklDetail($_SESSION['nim']);
+$nim = $_SESSION['nim'];
+$pklDetail = getPklDetail($nim);
+
+if(isset($_POST['submit'])){
+    $status = $_POST['status'];
+    $nilai = $_POST['nilai'];
+    if($pklDetail){
+      $query = "UPDATE tb_pkl SET status_pkl = '$status', nilai_pkl = '$nilai' WHERE nim = '$nim'";
+      $result = mysqli_query($conn, $query);
+    }else{
+      $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
+      $result = mysqli_query($conn, $query);
+    }
+    if($result){
+        echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl.php';</script>";
+    }else{
+        echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl.php';</script>";
+    }
+}
+
 
 $color = '';
 
@@ -145,17 +164,15 @@ $color = '';
             <div class="card-body">
               <form action="" method="POST">
                 <label for="status" class="form-label">Status PKL</label>
-                <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value, '<?= $nilai ?>')">
-                  <option value="1" <?php if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
-                  <option value="2" <?php if ($pklDetail['status_pkl'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
+                <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value)">
+                  <option value="SEDANG MENGAMBIL" <?php if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
+                  <option value="LULUS" <?php if ($pklDetail['status_pkl'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
                 </select>
                 <div></div>
                 <label for="status" class="form-label">Nilai :</label>
-                <select name="nilai" id="nilai" class="form-select" aria-label="Default select example" <?php
-                                                                                                        if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') {
-                                                                                                          echo 'disabled';
-                                                                                                        }
-                                                                                                        ?>>
+                <!-- ============================================ -->
+                <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
+                  <option disabled> Tidak tersedia </option>
                 </select>
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
@@ -188,8 +205,6 @@ $color = '';
     </div>
     </div>
   </section>
-
-
 
   <script src="../library/js/script.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -262,6 +277,21 @@ $color = '';
         }
       });
     });
+
+    // ajax change nilai
+    function changeOpsi(value1) {
+      var xmlhttp = getXMLHTTPRequest();
+      var url = 'get_nilai.php?status=' + value1;
+      console.log(url);
+      xmlhttp.open('GET', url, true);
+
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          document.getElementById('nilai').innerHTML = xmlhttp.responseText;
+        }
+      };
+      xmlhttp.send();
+    }
 
     function ajax_file_upload(file_obj) {
       if (file_obj != undefined) {
