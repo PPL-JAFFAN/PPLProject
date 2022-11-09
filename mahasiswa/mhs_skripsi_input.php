@@ -9,21 +9,21 @@ if (!isset($_SESSION['email'])) {
 $nim = $_SESSION['nim'];
 $skripsiDetail = getSkripsiDetail($nim);
 
-if(isset($_POST['submit'])){
-    $status = $_POST['status'];
-    $nilai = $_POST['nilai'];
-    if($pklDetail){
-      $query = "UPDATE tb_pkl SET status_skripsi = '$status', nilai_skripsi = '$nilai' WHERE nim = '$nim'";
-      $result = mysqli_query($conn, $query);
-    }else{
-      $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
-      $result = mysqli_query($conn, $query);
-    }
-    if($result){
-        echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl.php';</script>";
-    }else{
-        echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl.php';</script>";
-    }
+if (isset($_POST['submit'])) {
+  $status = $_POST['status'];
+  $nilai = $_POST['nilai'];
+  if ($skripsiDetail) {
+    $query = "UPDATE tb_skripsi SET status_skripsi = '$status', nilai_skripsi = '$nilai' WHERE nim = '$nim'";
+    $result = mysqli_query($conn, $query);
+  } else {
+    $query = "INSERT INTO tb_skripsi VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
+    $result = mysqli_query($conn, $query);
+  }
+  if ($result) {
+    echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_skripsi.php';</script>";
+  } else {
+    echo "<script>alert('Data gagal diubah!');document.location.href='mhs_skripsi.php';</script>";
+  }
 }
 
 
@@ -116,14 +116,14 @@ $color = '';
         <span class="tooltip">Data KHS</span>
       </li>
       <li>
-        <a href="mhs_pkl.php" class="nav-link active">
+        <a href="mhs_pkl.php" class="nav-link ">
           <i class='bx bxs-graduation ' id="icon"></i>
           <span class="links_name">Data PKL</span>
         </a>
         <span class="tooltip">Data PKL</span>
       </li>
       <li>
-        <a href="mhs_skripsi.php">
+        <a href="mhs_skripsi.php" class="nav-link active">
           <i class='bx bxs-bar-chart-alt-2' id="icon"></i>
           <span class="links_name">Data Skripsi</span>
         </a>
@@ -163,30 +163,27 @@ $color = '';
           <div class="card rounded-4 ">
             <div class="card-body">
               <form action="" method="POST">
-                <label for="status" class="form-label">Status PKL</label>
+                <label for="status" class="form-label">Status Skripsi</label>
                 <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value)">
-                  <option value="SEDANG MENGAMBIL" <?php if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
-                  <option value="LULUS" <?php if ($pklDetail['status_pkl'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
+                  <option value="SEDANG MENGAMBIL" <?php if ($skripsiDetail['status_skripsi'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
+                  <option value="LULUS" <?php if ($skripsiDetail['status_skripsi'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
                 </select>
-                <div></div>
                 <label for="status" class="form-label">Nilai :</label>
                 <!-- ============================================ -->
                 <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
-                  <option <?php 
-                  if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') 
-                    echo 'disabled'
-                  
-                    ?>> <?php 
-                  if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL'){
-                    echo 'Tidak Tersedia';
-                  }
-                  else{
-                    echo '<option value="A"> A </option>';
-                    echo '<option value="B"> B </option>';
-                    echo '<option value="C"> C </option>';
-                      
-                  }
-                    ?> </option>
+                  <option <?php
+                          if ($skripsiDetail['status_skripsi'] == 'SEDANG MENGAMBIL')
+                            echo 'disabled'
+
+                          ?>> <?php
+                        if ($skripsiDetail['status_skripsi'] == 'SEDANG MENGAMBIL') {
+                          echo 'Tidak Tersedia';
+                        } else {
+                          echo '<option value="A"> A </option>';
+                          echo '<option value="B"> B </option>';
+                          echo '<option value="C"> C </option>';
+                        }
+                        ?> </option>
                 </select>
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
@@ -196,7 +193,7 @@ $color = '';
           </div>
         </div>
       </div>
-      <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
+      <div class="h5 mt-4 mb-4 w-100">Laporan Progres Skripsi</div>
 
       <div id="drop_zone">
         <p>Drop file here</p>
@@ -209,8 +206,8 @@ $color = '';
       </div>
       <div class="text-center">
         <?php
-        if ($pklDetail['scan_pkl']) {
-          echo "File terupload : " . $pklDetail['scan_pkl'];
+        if ($skripsiDetail['scan_skripsi']) {
+          echo "File terupload : " . $skripsiDetail['scan_skripsi'];
         } else {
           echo "Belum ada file yang diupload";
         }
@@ -313,7 +310,7 @@ $color = '';
         form_data.append('upload_file', file_obj);
         $.ajax({
           type: 'POST',
-          url: 'upload_pkl.php',
+          url: 'upload_skripsi.php',
           contentType: false,
           processData: false,
           data: form_data,
