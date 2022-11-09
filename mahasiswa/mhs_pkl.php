@@ -6,26 +6,7 @@ if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
 
-$nim = $_SESSION['nim'];
-$pklDetail = getPklDetail($nim);
-
-if(isset($_POST['submit'])){
-    $status = $_POST['status'];
-    $nilai = $_POST['nilai'];
-    if($pklDetail){
-      $query = "UPDATE tb_pkl SET status_pkl = '$status', nilai_pkl = '$nilai' WHERE nim = '$nim'";
-      $result = mysqli_query($conn, $query);
-    }else{
-      $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
-      $result = mysqli_query($conn, $query);
-    }
-    if($result){
-        echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl.php';</script>";
-    }else{
-        echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl.php';</script>";
-    }
-}
-
+$pklDetail = getPklDetail($_SESSION['nim']);
 
 $color = '';
 
@@ -157,75 +138,91 @@ $color = '';
 
   <section class="home-section">
     <div class="container-fluid">
-      <div class="h4 mt-5 w-100 ">Input Progres Data PKL</div><br>
-      <div class="row row-cols-1 row-cols-md-1 g-4 mt-1" id="datadiri">
+      <div class="h4 mt-5 w-100 ">Data Progres PKL</div><br>
+      <div>
+        <a href="mhs_pkl_input.php" class="btn btn-primary">Input Data Progres PKL</a>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4 mt-1" id="datadiri">
         <div class="col">
           <div class="card rounded-4 ">
             <div class="card-body">
-              <form action="" method="POST">
-                <label for="status" class="form-label">Status PKL</label>
-                <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value)">
-                  <option value="SEDANG MENGAMBIL" <?php if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
-                  <option value="LULUS" <?php if ($pklDetail['status_pkl'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
-                </select>
-                <div></div>
-                <label for="status" class="form-label">Nilai :</label>
-                <!-- ============================================ -->
-                <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
-                  <option disabled> Tidak tersedia </option>
-                </select>
-                <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
-                </div>
-              </form>
+              <?php if ($pklDetail['status_pkl'] == 'LULUS') {
+                $color = 'green';
+              } else if ($pklDetail['status_pkl'] == 'BELUM MENGAMBIL') {
+                $color = 'red';
+              } else {
+                $color = 'yellow';
+              } ?>
+              <p class="text-center">Status PKL</p>
+              <p class="jumlah  card-text text-center" style="color:<?php echo $color ?>; text-align:center;"><?php echo $pklDetail['status_pkl']; ?></p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card rounded-4 ">
+            <div class="card-body">
+              <p class="text-center">Nilai</p>
+              <p class="jumlah card-text text-center"><?php echo $pklDetail['nilai_pkl']; ?></p>
+              <!-- <form action="" method="GET" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="file" aria-describedby="file" aria-label="Upload">
+                            <button class="btn btn-outline-secondary" type="submit" id="upload" name="upload">Upload</button>
+                        </div>
+                    </form> -->
+
             </div>
           </div>
         </div>
       </div>
-      <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
 
-      <div id="drop_zone">
-        <p>Drop file here</p>
-        <p>or</p>
-        <p><button type="button" id="btn_file_pick" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span> Select File</button></p>
-        <p id="file_info"></p>
-        <p><button type="button" id="btn_upload" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span> Upload To Server</button></p>
-        <input type="file" id="selectfile">
-        <p id="message_info"></p>
+      <div>
+        <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
+
+        <div id="drop_zone">
+          <p>Drop file here</p>
+          <p>or</p>
+          <p><button type="button" id="btn_file_pick" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span> Select File</button></p>
+          <p id="file_info"></p>
+          <p><button type="button" id="btn_upload" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span> Upload To Server</button></p>
+          <input type="file" id="selectfile">
+          <p id="message_info"></p>
+        </div>
+        <div class="text-center">
+          <?php
+          if ($pklDetail['scan_pkl']) {
+            echo "File terupload : " . $pklDetail['scan_pkl'];
+          } else {
+            echo "Belum ada file yang diupload";
+          }
+          ?>
+        </div>
       </div>
-      <div class="text-center">
-        <?php
-        if ($pklDetail['scan_pkl']) {
-          echo "File terupload : " . $pklDetail['scan_pkl'];
-        } else {
-          echo "Belum ada file yang diupload";
-        }
-        ?>
+      <div class="card rounded-4 ">
+        <div class="card-body">
+          <p class="text-center">Verifikasi</p>
+          <p class="jumlah card-text text-center"><?php echo $pklDetail['verif_pkl']; ?></p>
+          <!-- <form action="" method="GET" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="file" aria-describedby="file" aria-label="Upload">
+                            <button class="btn btn-outline-secondary" type="submit" id="upload" name="upload">Upload</button>
+                        </div>
+                    </form> -->
+
+        </div>
       </div>
     </div>
     </div>
   </section>
 
+
+
   <script src="../library/js/script.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-
-  <script>
-    function changeOpsi(value1, value2) {
-      var xmlhttp = getXMLHTTPRequest();
-      var url = 'get_khs.php?semester=' + $smt;
-      console.log(url);
-      xmlhttp.open('GET', url, true);
-
-      xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          document.getElementById('khscontent').innerHTML = xmlhttp.responseText;
-        }
-      };
-      xmlhttp.send();
-    }
-  </script>
 
   <script>
     $(document).ready(function() {
@@ -277,21 +274,6 @@ $color = '';
         }
       });
     });
-
-    // ajax change nilai
-    function changeOpsi(value1) {
-      var xmlhttp = getXMLHTTPRequest();
-      var url = 'get_nilai.php?status=' + value1;
-      console.log(url);
-      xmlhttp.open('GET', url, true);
-
-      xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          document.getElementById('nilai').innerHTML = xmlhttp.responseText;
-        }
-      };
-      xmlhttp.send();
-    }
 
     function ajax_file_upload(file_obj) {
       if (file_obj != undefined) {
