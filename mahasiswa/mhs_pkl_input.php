@@ -172,7 +172,21 @@ $color = '';
                 <label for="status" class="form-label">Nilai :</label>
                 <!-- ============================================ -->
                 <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
-                  <option disabled> Tidak tersedia </option>
+                  <option <?php 
+                  if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL') 
+                    echo 'disabled'
+                  
+                    ?>> <?php 
+                  if ($pklDetail['status_pkl'] == 'SEDANG MENGAMBIL'){
+                    echo 'Tidak Tersedia';
+                  }
+                  else{
+                    echo '<option value="A"> A </option>';
+                    echo '<option value="B"> B </option>';
+                    echo '<option value="C"> C </option>';
+                      
+                  }
+                    ?> </option>
                 </select>
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
