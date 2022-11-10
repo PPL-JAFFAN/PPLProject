@@ -10,6 +10,8 @@ if (!isset($_SESSION['email'])) {
 $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
 $color = '';
 
+$data = getSkripsiDetail($_SESSION['nim']);
+
 ?>
 
 <!DOCTYPE html>
@@ -183,7 +185,7 @@ $color = '';
       <div>
         <div class="h5 mt-4 mb-4 w-100">Laporan Progres Skripsi</div>
 
-        <div id="drop_zone">
+        <!-- <div id="drop_zone">
           <p>Drop file here</p>
           <p>or</p>
           <p><button type="button" id="btn_file_pick" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span> Select File</button></p>
@@ -191,7 +193,10 @@ $color = '';
           <p><button type="button" id="btn_upload" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span> Upload To Server</button></p>
           <input type="file" id="selectfile">
           <p id="message_info"></p>
-        </div>
+        </div> -->
+        <td id="scan_skripsi">
+          <a href="../mahasiswa/uploads_skripsi/<?php echo $data['scan_skripsi'] ?>" class="btn btn-primary">Lihat Scan Skripsi</a>
+        </td>
         <div class="text-center">
           <?php
           if ($skripsiDetail['scan_skripsi']) {

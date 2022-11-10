@@ -13,9 +13,10 @@ if (isset($_POST['submit'])) {
   $status = $_POST['status'];
   $nilai = $_POST['nilai'];
   $dosbing = $_POST['dosbing'];
+  $tanggal_sidang = $_POST['tanggal_sidang'];
 
   if ($skripsiDetail) {
-    $query = "UPDATE tb_skripsi SET status_skripsi = '$status',dosbing = '$dosbing', nilai_skripsi = '$nilai' WHERE nim = '$nim'";
+    $query = "UPDATE tb_skripsi SET status_skripsi = '$status',dosbing = '$dosbing', nilai_skripsi = '$nilai', tanggal_sidang = '$tanggal_sidang' WHERE nim = '$nim'";
     $result = mysqli_query($conn, $query);
   } else {
     $query = "INSERT INTO tb_skripsi VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
@@ -195,7 +196,9 @@ $color = '';
                         ?> </option>
                 </select>
 
-                <label for="tanggal_sidang" class="tanggal_sidang" aria-label="Default select example"></label>
+                <label for="tanggal_sidang" class="tanggal_sidang" aria-label="Default select example">Tanggal Sidang</label>
+                <input type="date" name="tanggal_sidang" id="tanggal_sidang" class="form-control" value="<?php echo $skripsiDetail['tanggal_sidang']; ?>">
+
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
                 </div>

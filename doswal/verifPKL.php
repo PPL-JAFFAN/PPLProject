@@ -2,8 +2,8 @@
 require_once('../db_login.php');
 session_start();
 
-if (!isset($_SESSION['nip'])){ 
-    header ("Location:../login.php");
+if (!isset($_SESSION['nip'])) {
+    header("Location:../login.php");
 }
 ?>
 <!DOCTYPE html>
@@ -81,8 +81,8 @@ if (!isset($_SESSION['nip'])){
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                    <div class="name"><?php echo $_SESSION['nama']?></div>
-                        <div class="email"><?php echo $_SESSION['email']?></div>
+                        <div class="name"><?php echo $_SESSION['nama'] ?></div>
+                        <div class="email"><?php echo $_SESSION['email'] ?></div>
                     </div>
                 </div>
             </li>
@@ -91,75 +91,71 @@ if (!isset($_SESSION['nip'])){
 
     <form method="GET" autocomplete="on">
         <section class="home-section">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-center" id="searchmhs">
-                <h4 class="float-start" >Verifikasi PKL Mahasiswa</h4>
-                <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
-                    id="nama_mhs" />
-                <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
-            </div>
+            <div class="container-fluid">
+                <div class="d-flex justify-content-center" id="searchmhs">
+                    <h4 class="float-start">Verifikasi PKL Mahasiswa</h4>
+                    <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value="" id="nama_mhs" />
+                    <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
+                </div>
 
-            <div class="card rounded-4 mt-5">
-                <div class="card-body">
-                <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5 ><br>
-                    <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
-                        <tr>
-                            <th id="table1">NO. </th>
-                            <th id="table1">NAMA </th>
-                            <th id="table1">NIM </th>
-                            <th id="table1">STATUS PKL </th>
-                            <th id="table1">NILAI PKL </th>
-                            <th id="table1">SCAN PKL </th>
-                            <th id="table1">VERIFIKASI </th>
-                        </tr>
-                        <?php 
+                <div class="card rounded-4 mt-5">
+                    <div class="card-body">
+                        <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5><br>
+                        <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
+                            <tr>
+                                <th id="table1">NO. </th>
+                                <th id="table1">NAMA </th>
+                                <th id="table1">NIM </th>
+                                <th id="table1">STATUS PKL </th>
+                                <th id="table1">NILAI PKL </th>
+                                <th id="table1">SCAN PKL </th>
+                                <th id="table1">VERIFIKASI </th>
+                            </tr>
+                            <?php
 
-                        $query = "SELECT * FROM tb_pkl JOIN tb_mhs where tb_pkl.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_pkl.verif_pkl";
-                        $connect = mysqli_query($conn, $query);
-                        $no = 1;
-
-                        if (isset($_GET['cari_mhs'])){
-                            $nama_mhs = $_GET['nama_mhs'];
-                            $query = "SELECT * FROM tb_pkl JOIN tb_mhs where tb_pkl.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_pkl.verif_pkl";
+                            $query = "SELECT * FROM tb_pkl JOIN tb_mhs where tb_pkl.nim = tb_mhs.nim AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_pkl.verif_pkl";
                             $connect = mysqli_query($conn, $query);
                             $no = 1;
-                        }
-                        
-                    
-                    while ($data = $connect->fetch_object()) {
-                        $st_verif = $data->verif_pkl;
-                        if ($st_verif == "belum"){
-                            $selectstatus1 = "selected = true";
-                            $selectstatus2 = "";
-                        }
-                        elseif ($st_verif == "sudah"){
-                                $selectstatus1 = "";
-                                $selectstatus2 = "selected = true";
-                        }
-                        echo '<tr id ="rows">';
-                        echo '<td id="table1">'.$no.'</td>';
-                        echo '<td id="table1">'.$data->nama.'</td>';
-                        echo '<td id="table1">'.$data->nim.'</td>';
-                        echo '<td id="table1">'.$data->status_pkl.'</td>';
-                        echo '<td id="table1">'.$data->nilai_pkl.'</td>';
-                        ?>
-                        <td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = '../mahasiswa/uploads/<?php echo $data->scan_pkl?>'">Lihat
-                                Scan PKL</button></td>
-                        <?php echo '
+
+                            if (isset($_GET['cari_mhs'])) {
+                                $nama_mhs = $_GET['nama_mhs'];
+                                $query = "SELECT * FROM tb_pkl JOIN tb_mhs where tb_pkl.nim = tb_mhs.nim && tb_mhs.nama LIKE '%" . $nama_mhs . "%' AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_pkl.verif_pkl";
+                                $connect = mysqli_query($conn, $query);
+                                $no = 1;
+                            }
+
+
+                            while ($data = $connect->fetch_object()) {
+                                $st_verif = $data->verif_pkl;
+                                if ($st_verif == "belum") {
+                                    $selectstatus1 = "selected = true";
+                                    $selectstatus2 = "";
+                                } elseif ($st_verif == "sudah") {
+                                    $selectstatus1 = "";
+                                    $selectstatus2 = "selected = true";
+                                }
+                                echo '<tr id ="rows">';
+                                echo '<td id="table1">' . $no . '</td>';
+                                echo '<td id="table1">' . $data->nama . '</td>';
+                                echo '<td id="table1">' . $data->nim . '</td>';
+                                echo '<td id="table1">' . $data->status_pkl . '</td>';
+                                echo '<td id="table1">' . $data->nilai_pkl . '</td>';
+                            ?>
+                                <td id="table1"><button type="button" class="btn btn-primary" onclick="location.href = '../mahasiswa/uploads/<?php echo $data->scan_pkl ?>'">Lihat Scan PKL</button></td>
+                                <?php echo '
                          <td>
-                            <select id="'.$data->nim.'" name="verif_pkl" class="form-control" onchange="changePKL('.$data->nim.')">
-                                <option value="belum"'.$selectstatus1.'>Belum</option>
-                                <option value="sudah"'.$selectstatus2.'>Sudah</option>
+                            <select id="' . $data->nim . '" name="verif_pkl" class="form-control" onchange="changePKL(' . $data->nim . ')">
+                                <option value="belum"' . $selectstatus1 . '>Belum</option>
+                                <option value="sudah"' . $selectstatus2 . '>Sudah</option>
                             </select>
                         </td>'; ?>
-                        <?php echo '</tr>';
-                        $no = $no+1;
-                    }
-                  ?>
-                    </table>
+                            <?php echo '</tr>';
+                                $no = $no + 1;
+                            }
+                            ?>
+                        </table>
+                    </div>
                 </div>
-            </div>
         </section>
     </form>
     <p id="db_status"></p>
