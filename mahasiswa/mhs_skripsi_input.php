@@ -165,9 +165,13 @@ $color = '';
               <form action="" method="POST">
                 <label for="status" class="form-label">Status Skripsi</label>
                 <select name="status" id="status" class="form-select" aria-label="Default select example" onchange="changeOpsi(this.value)">
-                  <option value="SEDANG MENGAMBIL" <?php if ($skripsiDetail['status_skripsi'] == 'SEDANG MENGAMBIL') echo 'selected'; ?>>SEDANG MENGAMBIL</option>
+                  <option value="SEDANG MENGAMBIL" <?php if ($skripsiDetail['status_skripsi'] == 'ON GOING') echo 'selected'; ?>>ON GOING</option>
                   <option value="LULUS" <?php if ($skripsiDetail['status_skripsi'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
                 </select>
+                <label for="dosbing" class="form-label">Dosen Pembimbing</label>
+                <input type="text" id="dosbing" name="dosbing" class="form-control" value="">
+
+
                 <label for="status" class="form-label">Nilai :</label>
                 <!-- ============================================ -->
                 <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">

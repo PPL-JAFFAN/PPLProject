@@ -144,6 +144,7 @@ $color = '';
     </li>
     <?php
     // get detail mahasiswa
+    $irsDetail = getIrsDetail($_SESSION['nim']);
     $mhsDetail = getMhsDetail($_SESSION['nim']);
 
     ?>
@@ -159,6 +160,14 @@ $color = '';
     </li>
     </ul>
   </div>
+  <?php
+    if (empty($irsDetail['sks'])){
+      $sks = 0;
+    }
+    else{
+      $sks = $irsDetail['sks'];
+    }
+  ?>
   
     <section class="home-section">
         <div class="container-fluid">
@@ -192,7 +201,7 @@ $color = '';
 
                             <div class="form-group mt-3">
                                 <label for="sks">Jumlah SKS :</label>
-                                <input type="number" class="form-control" id="sks" name="sks" maxlength="50"/>
+                                <input type="number" class="form-control" id="sks" name="sks" maxlength="50" value="<? echo $sks; ?>"/>
                             </div>
                             <div>
                                 <p style="color:red;"><?php echo $error?></p>
