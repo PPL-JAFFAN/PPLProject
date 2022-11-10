@@ -123,6 +123,7 @@ $color = '';
       $mhsDetail = getMhsDetail($_SESSION['nim']);
       $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
 
+
       ?>
       <li class="profile">
         <div class="profile-details">
@@ -161,7 +162,7 @@ $color = '';
                 <table class="table table-responsive">
                   <tr>
                     <th>Dosen Pembimbing</th>
-                    <td> <?= $dosenwaliDetail['nama'] ?></td>
+                    <td> <?= $skripsiDetail['dosbing'] ?></td>
                   </tr>
                   <tr>
                     <th>Nilai</th>
