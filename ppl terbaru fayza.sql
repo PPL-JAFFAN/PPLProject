@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3308
--- Generation Time: Oct 26, 2022 at 03:42 PM
+-- Host: 127.0.0.1
+-- Generation Time: Nov 10, 2022 at 02:40 PM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,7 +46,7 @@ INSERT INTO `tb_dosen` (`kode_wali`, `nama`, `nip`, `alamat`, `email`, `no_hp`, 
 ('2', 'Nurdin Bahtiar, S.Si, M.T', '197907202003121002', 'Jalan Saksi No.20', 'nurdinbah@gmail.com', '0897635947', 827),
 ('3', 'Priyo Sidik Sasongko, S.Si., M.Kom.', '197007051997021001', 'Jalan Sukasini No.24', 'priyosidik@gmail.com', '0894557813', 827),
 ('4', 'Dr. Aris Sugiharto, S.Si., M.Kom.', '197108111997021004', 'Jalan Banteng Api No.72', 'arissugi@gmail.com', '0844699459', 827),
-('5', 'Beta Noranita, S.Si, M.Kom.', '197308291998022001', 'Jalan Moh. Hatta No.44', 'betanora@gmail.com', '858648412', 827),
+('5', 'Beta Noranita, S.Si, M.Kom.', '197308291998022001', 'Jalan Moh. Hatta No.44', 'betanora@gmail.com', '858648412', 0),
 ('6', 'Indra Waspada, ST, M.T.I', '197902122008121002', 'Jalan Mozzarela No.25', 'indrawas@gmail.com', '0806766111', 827);
 
 -- --------------------------------------------------------
@@ -76,35 +76,8 @@ INSERT INTO `tb_irs` (`semester`, `nim`, `sks`, `file_irs`, `status_irs`, `verif
 (6, '24060120120001', 20, NULL, '', 'belum'),
 (6, '2406012012015', 24, NULL, '', 'sudah'),
 (5, '24060120120001', 24, NULL, '', 'sudah'),
-(4, '24060120120001', 22, NULL, '', 'sudah');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_irs_diambil`
---
-
-CREATE TABLE `tb_irs_diambil` (
-  `nim` varchar(14) NOT NULL,
-  `semester` int(11) NOT NULL,
-  `kode_mk` varchar(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tb_irs_diambil`
---
-
-INSERT INTO `tb_irs_diambil` (`nim`, `semester`, `kode_mk`) VALUES
-('24060120120001', 1, 'ALPRO01'),
-('24060120120001', 6, 'ASA001'),
-('24060120120001', 6, 'KPL002'),
-('24060120120001', 6, 'KWU001'),
-('24060120120001', 3, 'MBD001'),
-('24060120120001', 6, 'MPI002'),
-('24060120120001', 6, 'PBM001'),
-('24060120120001', 1, 'SCS002'),
-('24060120120001', 3, 'STD002'),
-('24060120120001', 1, 'STK001');
+(4, '24060120120001', 22, NULL, '', 'sudah'),
+(1, '24060120120001', 24, 0x416273656e20312e6a7067, '', 'belum');
 
 -- --------------------------------------------------------
 
@@ -113,6 +86,7 @@ INSERT INTO `tb_irs_diambil` (`nim`, `semester`, `kode_mk`) VALUES
 --
 
 CREATE TABLE `tb_khs` (
+  `id_khs` int(11) NOT NULL,
   `semester` varchar(2) NOT NULL,
   `nim` varchar(14) NOT NULL,
   `sks` int(11) NOT NULL,
@@ -127,13 +101,18 @@ CREATE TABLE `tb_khs` (
 -- Dumping data for table `tb_khs`
 --
 
-INSERT INTO `tb_khs` (`semester`, `nim`, `sks`, `file_khs`, `sks_kumulatif`, `ip_semester`, `ip_kumulatif`, `verif_khs`) VALUES
-('5', '2406012012015', 22, NULL, 92, 3.5, 3.67, 'belum'),
-('5', '24060120120001', 24, NULL, 92, 3.8, 3.92, 'belum'),
-('6', '2406012013010', 24, NULL, 100, 3.6, 3.32, 'sudah'),
-('4', '24060120140120', 22, NULL, 72, 3.5, 3.75, 'sudah'),
-('5', '24060120160114', 20, NULL, 88, 4, 3.9, 'belum'),
-('5', '24060120160981', 22, NULL, 90, 3.2, 3.47, 'belum');
+INSERT INTO `tb_khs` (`id_khs`, `semester`, `nim`, `sks`, `file_khs`, `sks_kumulatif`, `ip_semester`, `ip_kumulatif`, `verif_khs`) VALUES
+(1, '5', '2406012012015', 22, NULL, 92, 3.5, 3.67, 'belum'),
+(2, '5', '24060120120001', 24, 0x4661797a615f41756c69615f4d4c5f312e706466, 92, 3.8, 3.92, 'belum'),
+(3, '6', '2406012013010', 24, NULL, 100, 3.6, 3.32, 'sudah'),
+(4, '4', '24060120140120', 22, NULL, 72, 3.5, 3.75, 'sudah'),
+(5, '5', '24060120160114', 20, NULL, 88, 4, 3.9, 'belum'),
+(6, '5', '24060120160981', 22, NULL, 90, 3.2, 3.47, 'belum'),
+(8, '1', '24060120120001', 22, NULL, 22, 4, 4, ''),
+(9, '2', '24060120120001', 24, NULL, 46, 4, 4, ''),
+(10, '3', '24060120120001', 21, NULL, 67, 4, 4, ''),
+(11, '4', '24060120120001', 20, NULL, 87, 4, 4, ''),
+(12, '5', '24060120120001', 24, NULL, 92, 3.8, 3.92, 'belum');
 
 -- --------------------------------------------------------
 
@@ -1426,6 +1405,7 @@ INSERT INTO `tb_mhs` (`nim`, `nama`, `alamat`, `kode_kota`, `angkatan`, `jalur_m
 --
 
 CREATE TABLE `tb_pkl` (
+  `id_pkl` int(11) NOT NULL,
   `nim` varchar(14) NOT NULL,
   `status_pkl` varchar(255) NOT NULL,
   `nilai_pkl` varchar(2) DEFAULT NULL,
@@ -1437,13 +1417,13 @@ CREATE TABLE `tb_pkl` (
 -- Dumping data for table `tb_pkl`
 --
 
-INSERT INTO `tb_pkl` (`nim`, `status_pkl`, `nilai_pkl`, `scan_pkl`, `verif_pkl`) VALUES
-('24060120120001', 'LULUS', 'A', NULL, 'belum'),
-('2406012012015', 'LULUS', 'B', NULL, 'sudah'),
-('2406012013010', 'BELUM MENGAMBIL', NULL, NULL, 'belum'),
-('24060120140120', 'SEDANG MENGAMBIL', NULL, NULL, 'sudah'),
-('24060120160114', 'SEDANG MENGAMBIL', NULL, NULL, 'sudah'),
-('24060120160981', 'BELUM MENGAMBIL', NULL, NULL, 'belum');
+INSERT INTO `tb_pkl` (`id_pkl`, `nim`, `status_pkl`, `nilai_pkl`, `scan_pkl`, `verif_pkl`) VALUES
+(1, '24060120120001', 'LULUS', 'A', 0x4661797a615f41756c69615f4d4c5f312e706466, 'belum'),
+(2, '2406012012015', 'LULUS', 'B', NULL, 'sudah'),
+(3, '2406012013010', 'BELUM MENGAMBIL', NULL, NULL, 'belum'),
+(4, '24060120140120', 'SEDANG MENGAMBIL', NULL, NULL, 'sudah'),
+(5, '24060120160114', 'SEDANG MENGAMBIL', NULL, NULL, 'sudah'),
+(6, '24060120160981', 'BELUM MENGAMBIL', NULL, NULL, 'belum');
 
 -- --------------------------------------------------------
 
@@ -1507,6 +1487,7 @@ CREATE TABLE `tb_skripsi` (
   `nim` varchar(14) NOT NULL,
   `status_skripsi` varchar(255) NOT NULL,
   `nilai_skripsi` varchar(2) DEFAULT NULL,
+  `dosbing` text NOT NULL,
   `tanggal_sidang` date DEFAULT NULL,
   `scan_skripsi` varbinary(8000) NOT NULL,
   `verif_skripsi` varchar(11) CHARACTER SET utf8 NOT NULL
@@ -1516,13 +1497,13 @@ CREATE TABLE `tb_skripsi` (
 -- Dumping data for table `tb_skripsi`
 --
 
-INSERT INTO `tb_skripsi` (`nim`, `status_skripsi`, `nilai_skripsi`, `tanggal_sidang`, `scan_skripsi`, `verif_skripsi`) VALUES
-('24060120120001', 'LULUS', 'A', '2022-10-31', 0x302e204b6f6e7472616b2e706466, 'sudah'),
-('2406012012015', 'ON GOING', '', '2022-10-31', '', 'sudah'),
-('2406012013010', 'BELUM MENGAMBIL', NULL, NULL, '', 'belum'),
-('24060120140120', 'BELUM MENGAMBIL', NULL, NULL, '', 'belum'),
-('24060120160114', 'ON GOING', NULL, '2022-11-09', '', 'sudah'),
-('24060120160981', 'LULUS', 'B', '2022-10-10', '', 'sudah');
+INSERT INTO `tb_skripsi` (`nim`, `status_skripsi`, `nilai_skripsi`, `dosbing`, `tanggal_sidang`, `scan_skripsi`, `verif_skripsi`) VALUES
+('24060120120001', 'LULUS', 'B', 'Beta Noranita, S.Si, M.Kom.', '2023-02-28', 0x4661797a615f41756c69615f4d4c5f312e706466, 'sudah'),
+('2406012012015', 'ON GOING', '', '', '2022-10-31', '', 'sudah'),
+('2406012013010', 'BELUM MENGAMBIL', NULL, '', NULL, '', 'belum'),
+('24060120140120', 'BELUM MENGAMBIL', NULL, '', NULL, '', 'belum'),
+('24060120160114', 'ON GOING', NULL, '', '2022-11-09', '', 'sudah'),
+('24060120160981', 'LULUS', 'B', '', '2022-10-10', '', 'sudah');
 
 -- --------------------------------------------------------
 
@@ -1531,7 +1512,7 @@ INSERT INTO `tb_skripsi` (`nim`, `status_skripsi`, `nilai_skripsi`, `tanggal_sid
 --
 
 CREATE TABLE `tb_user` (
-  `nim/nip` varchar(18) NOT NULL,
+  `nimnip` varchar(18) NOT NULL,
   `username` varchar(50) NOT NULL,
   `status` enum('dosen','mhs','operator','departemen') NOT NULL,
   `password` varchar(25) NOT NULL,
@@ -1542,11 +1523,12 @@ CREATE TABLE `tb_user` (
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`nim/nip`, `username`, `status`, `password`, `email`) VALUES
+INSERT INTO `tb_user` (`nimnip`, `username`, `status`, `password`, `email`) VALUES
 ('123123123', 'dosenwali', 'dosen', '1234', 'dosenwali@mail.com'),
 ('123123321', 'operator', 'operator', '1234', 'operator@mail.com'),
 ('1234', 'departemen', 'departemen', '1234', 'departemen@mail.com'),
 ('123456789', 'mahasiswa', 'mhs', '1234', 'mahasiswa@mail.com'),
+('196511071992031003', 'Drs. Eko Adi Sarwoko, M.Kom.', 'dosen', '1234', 'ekoadis@gmail.com'),
 ('197308291998022001', 'dosen2', 'dosen', '1234', 'betanora@gmail.com'),
 ('24060120120001', 'Bunga Mawar', 'mhs', '1234', 'bungamawar@gmail.com'),
 ('2406012012015', 'Andy Bach', 'mhs', '1234', 'andybach@gmail.com'),
@@ -1566,12 +1548,10 @@ ALTER TABLE `tb_dosen`
   ADD PRIMARY KEY (`kode_wali`);
 
 --
--- Indexes for table `tb_irs_diambil`
+-- Indexes for table `tb_khs`
 --
-ALTER TABLE `tb_irs_diambil`
-  ADD UNIQUE KEY `kode_mk_2` (`kode_mk`),
-  ADD KEY `nim` (`nim`),
-  ADD KEY `kode_mk` (`kode_mk`);
+ALTER TABLE `tb_khs`
+  ADD PRIMARY KEY (`id_khs`);
 
 --
 -- Indexes for table `tb_kota`
@@ -1595,26 +1575,50 @@ ALTER TABLE `tb_mhs`
   ADD KEY `kode_wali` (`kode_wali`);
 
 --
+-- Indexes for table `tb_pkl`
+--
+ALTER TABLE `tb_pkl`
+  ADD PRIMARY KEY (`id_pkl`);
+
+--
 -- Indexes for table `tb_propinsi`
 --
 ALTER TABLE `tb_propinsi`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_skripsi`
+--
+ALTER TABLE `tb_skripsi`
+  ADD PRIMARY KEY (`nim`);
+
+--
 -- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`nim/nip`);
+  ADD PRIMARY KEY (`nimnip`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `tb_khs`
+--
+ALTER TABLE `tb_khs`
+  MODIFY `id_khs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `tb_kota`
 --
 ALTER TABLE `tb_kota`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1677;
+
+--
+-- AUTO_INCREMENT for table `tb_pkl`
+--
+ALTER TABLE `tb_pkl`
+  MODIFY `id_pkl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_propinsi`
@@ -1625,13 +1629,6 @@ ALTER TABLE `tb_propinsi`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `tb_irs_diambil`
---
-ALTER TABLE `tb_irs_diambil`
-  ADD CONSTRAINT `tb_irs_diambil_ibfk_1` FOREIGN KEY (`nim`) REFERENCES `tb_mhs` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tb_irs_diambil_ibfk_2` FOREIGN KEY (`kode_mk`) REFERENCES `tb_matakul` (`kode_mk`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_kota`
