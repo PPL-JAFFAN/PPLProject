@@ -183,7 +183,7 @@ function updateKhs($nim, $smt, $namafile)
 function uploadDetailKhs($data)
 {
     global $conn;
-
+    $id_khs = $_SESSION['id_khs'];
     $smt = $_SESSION['semester'];
     $nim = $_SESSION['nim'];
     $sks = $data['sks'];
@@ -193,7 +193,7 @@ function uploadDetailKhs($data)
 
     $_SESSION['smt'] = $smt;
 
-    $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES('$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
+    $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES('NULL', '$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
     return $query;
 }
 

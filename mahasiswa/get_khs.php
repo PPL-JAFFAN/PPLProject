@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
   if ($_POST['sks'] < 0 || $_POST['sks'] > 24){
     $flag = false;
   }
-  if ($_POST['sksk'] < 0){
+  if ($_POST['sksk'] < 0){  
     $flag = false;
   }
   if ($_POST['ip'] < 0 || $_POST['ip'] > 4){

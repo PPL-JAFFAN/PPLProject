@@ -166,6 +166,7 @@ function test_input($data){
     <?php
     // get detail mahasiswa
     $mhsDetail = getMhsDetail($_SESSION['nim']);
+    $khsDetail = getKhsDetail($_SESSION['nim']);
 
       ?>
       <li class="profile">
@@ -187,7 +188,7 @@ function test_input($data){
           <?php 
           $i = 1;
           while ($i <= $mhsDetail['semester']){
-            $querySksk = mysqli_query($conn,"SELECT * FROM tb_khs WHERE nim='".$mhsDetail['nim']."' AND semester=".$i);
+            $querySksk = mysqli_query($conn,"SELECT * FROM tb_khs WHERE nim='".$khsDetail['nim']."' AND semester=".$i);
             $cek = mysqli_num_rows($querySksk);
             if ($cek == 0){
               echo '<a href="get_khs.php?semester='.$i.'">
