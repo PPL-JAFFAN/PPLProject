@@ -211,7 +211,7 @@ $color = '';
           </div>
         </div>
       </div>
-      <div class="h5 mt-4 mb-4 w-100">Laporan Progres Skripsi</div>
+      <div class="h5 mt-4 mb-4 w-100">Upload Laporan Progres Skripsi</div>
 
       <div id="drop_zone">
         <p>Drop file here</p>

@@ -158,6 +158,9 @@ $color = '';
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Input Progres Data PKL</div><br>
+      <div>
+        <a href="mhs_pkl_input.php" class="btn btn-primary">Lihat Data Progres PKL</a>
+      </div>
       <div class="row row-cols-1 row-cols-md-1 g-4 mt-1" id="datadiri">
         <div class="col">
           <div class="card rounded-4 ">
