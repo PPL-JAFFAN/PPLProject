@@ -7,6 +7,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 $pklDetail = getPklDetail($_SESSION['nim']);
+$data = getPklDetail($_SESSION['nim']);
 
 $color = '';
 
@@ -180,17 +181,10 @@ $color = '';
 
       <div>
         <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
-
-        <div id="drop_zone">
-          <p>Drop file here</p>
-          <p>or</p>
-          <p><button type="button" id="btn_file_pick" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span> Select File</button></p>
-          <p id="file_info"></p>
-          <p><button type="button" id="btn_upload" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span> Upload To Server</button></p>
-          <input type="file" id="selectfile">
-          <p id="message_info"></p>
-        </div>
-        <div class="text-center">
+        <td id="scan_skripsi">
+          <a href="../mahasiswa/uploads/<?php echo $data['scan_pkl'] ?>" class="btn btn-primary">Lihat Scan PKL</a>
+        </td>
+        <div>
           <?php
           if ($pklDetail['scan_pkl']) {
             echo "File terupload : " . $pklDetail['scan_pkl'];
