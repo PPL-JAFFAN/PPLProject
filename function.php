@@ -212,3 +212,12 @@ function uploadDetailSkripsi($data)
     $query = mysqli_query($conn, "INSERT INTO tb_skripsi VALUES('$nim', '$status_skripsi', '$nilai_skripsi', '$tanggal_sidang', '$scan_skripsi', '$verif_skripsi')");
     return $query;
 }
+
+function getDosenList(){
+    // get dosen
+    global $conn;
+    $query = mysqli_query($conn, "SELECT * FROM tb_dosen");
+    while($data = mysqli_fetch_assoc($query)){
+        echo '<option value="'.$data['nama'].'">'.$data['nama'].'</option>';
+    }
+}

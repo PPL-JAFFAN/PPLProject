@@ -12,8 +12,10 @@ $skripsiDetail = getSkripsiDetail($nim);
 if (isset($_POST['submit'])) {
   $status = $_POST['status'];
   $nilai = $_POST['nilai'];
+  $dosbing = $_POST['dosbing'];
+
   if ($skripsiDetail) {
-    $query = "UPDATE tb_skripsi SET status_skripsi = '$status', nilai_skripsi = '$nilai' WHERE nim = '$nim'";
+    $query = "UPDATE tb_skripsi SET status_skripsi = '$status',dosbing = '$dosbing', nilai_skripsi = '$nilai' WHERE nim = '$nim'";
     $result = mysqli_query($conn, $query);
   } else {
     $query = "INSERT INTO tb_skripsi VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
@@ -169,7 +171,9 @@ $color = '';
                   <option value="LULUS" <?php if ($skripsiDetail['status_skripsi'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
                 </select>
                 <label for="dosbing" class="form-label">Dosen Pembimbing</label>
-                <input type="text" id="dosbing" name="dosbing" class="form-control" value="">
+                <select name="dosbing" id="dosbing" class="form-select" aria-label="Default select example">
+                  <?php getDosenList(); ?>
+                </select>
 
 
                 <label for="status" class="form-label">Nilai :</label>
