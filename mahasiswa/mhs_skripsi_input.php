@@ -161,6 +161,9 @@ $color = '';
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Input Progres Data Skripsi</div><br>
+      <div>
+        <a href="mhs_skripsi.php" class="btn btn-primary">Lihat Data Progres Skripsi</a>
+      </div>
       <div class="row row-cols-1 row-cols-md-1 g-4 mt-1" id="datadiri">
         <div class="col">
           <div class="card rounded-4 ">
@@ -171,12 +174,7 @@ $color = '';
                   <option value="SEDANG MENGAMBIL" <?php if ($skripsiDetail['status_skripsi'] == 'ON GOING') echo 'selected'; ?>>ON GOING</option>
                   <option value="LULUS" <?php if ($skripsiDetail['status_skripsi'] == 'LULUS') echo 'selected'; ?>>LULUS</option>
                 </select>
-                <label for="dosbing" class="form-label">Dosen Pembimbing</label>
-                <select name="dosbing" id="dosbing" class="form-select" aria-label="Default select example">
-                  <?php getDosenList(); ?>
-                </select>
-
-
+                </br>
                 <label for="status" class="form-label">Nilai :</label>
                 <!-- ============================================ -->
                 <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
@@ -185,19 +183,25 @@ $color = '';
                             echo 'disabled'
 
                           ?>> <?php
-                        if ($skripsiDetail['status_skripsi'] == 'SEDANG MENGAMBIL') {
-                          echo 'Tidak Tersedia';
-                        } else {
-                          echo '--- Pilih Nilai ---';
-                          echo '<option value="A"> A </option>';
-                          echo '<option value="B"> B </option>';
-                          echo '<option value="C"> C </option>';
-                        }
-                        ?> </option>
+                              if ($skripsiDetail['status_skripsi'] == 'SEDANG MENGAMBIL') {
+                                echo 'Tidak Tersedia';
+                              } else {
+                                echo '--- Pilih Nilai ---';
+                                echo '<option value="A"> A </option>';
+                                echo '<option value="B"> B </option>';
+                                echo '<option value="C"> C </option>';
+                              }
+                              ?> </option>
                 </select>
-
+                </br>
                 <label for="tanggal_sidang" class="tanggal_sidang" aria-label="Default select example">Tanggal Sidang</label>
                 <input type="date" name="tanggal_sidang" id="tanggal_sidang" class="form-control" value="<?php echo $skripsiDetail['tanggal_sidang']; ?>">
+                </br>
+                <label for="dosbing" class="form-label">Dosen Pembimbing</label>
+                <select name="dosbing" id="dosbing" class="form-select" aria-label="Default select example">
+                  <?php getDosenList(); ?>
+                </select>
+                </br>
 
                 <div class="d-flex justify-content-center">
                   <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
