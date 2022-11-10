@@ -184,20 +184,10 @@ $data = getSkripsiDetail($_SESSION['nim']);
 
       <div>
         <div class="h5 mt-4 mb-4 w-100">Laporan Progres Skripsi</div>
-
-        <!-- <div id="drop_zone">
-          <p>Drop file here</p>
-          <p>or</p>
-          <p><button type="button" id="btn_file_pick" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span> Select File</button></p>
-          <p id="file_info"></p>
-          <p><button type="button" id="btn_upload" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span> Upload To Server</button></p>
-          <input type="file" id="selectfile">
-          <p id="message_info"></p>
-        </div> -->
         <td id="scan_skripsi">
           <a href="../mahasiswa/uploads_skripsi/<?php echo $data['scan_skripsi'] ?>" class="btn btn-primary">Lihat Scan Skripsi</a>
         </td>
-        <div class="text-center">
+        <div>
           <?php
           if ($skripsiDetail['scan_skripsi']) {
             echo "File terupload : " . $skripsiDetail['scan_skripsi'];
