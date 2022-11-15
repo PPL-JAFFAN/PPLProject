@@ -8,48 +8,6 @@ if (!isset($_SESSION['email'])) {
 $color = '';
 $error = '';
 
-if (isset($_POST['submit'])) {
-  if (uploadDetailKhs($_POST)) {
-    echo "<script>
-    alert('Data berhasil diupdate');
-    document.location.href = 'upload_file_khs.php?nim=" . $_SESSION['nim'] . "&smt=" . $_POST['smt'] . "';
-    </script>";
-  } else {
-    echo "<script>
-    alert('Data gagal diupdate');
-    </script>";
-  }
-
-
-  // validasi sks: tidak boleh kosong 
-  $alamat = test_input($_POST['sks']);
-  if ($sks == '') {
-    $error_sks = "SKS harus diisi";
-  }
-
-  // validasi sksk: tidak boleh kosong 
-  $alamat = test_input($_POST['sksk']);
-  if ($sksk == '') {
-    $error_sksk = "IPK harus diisi";
-  }
-
-  // validasi IP: tidak boleh kosong 
-  $alamat = test_input($_POST['ip']);
-  if ($ip == '') {
-    $error_ip = "IPK harus diisi";
-  } else if ($ip > 4) {
-    $error_ip = 'IP tidak bisa lebih dari 4';
-  }
-
-  // validasi IPK: tidak boleh kosong 
-  $alamat = test_input($_POST['ipk']);
-  if ($ipk == '') {
-    $error_ipk = "IPK harus diisi";
-  } else if ($ipk > 4) {
-    $error_ipk = 'IPK tidak bisa lebih dari 4';
-  }
-}
-
 function test_input($data)
 {
   $data = trim($data);

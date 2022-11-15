@@ -180,21 +180,22 @@ function updateKhs($nim, $smt, $namafile)
 }
 
 // function update file sks
-function uploadDetailKhs($data)
+function uploadDetailKhs($data, $semester, $exist)
 {
     global $conn;
     $id_khs = $_SESSION['id_khs'];
-    $smt = $_SESSION['semester'];
     $nim = $_SESSION['nim'];
     $sks = $data['sks'];
     $sksk = $data['sksk'];
     $ip = $data['ip'];
     $ipk = $data['ipk'];
-
-    $_SESSION['smt'] = $smt;
-
-    $query = mysqli_query($conn, "INSERT INTO tb_khs VALUES('NULL', '$smt', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
-    return $query;
+    if ($exist == 0) {
+        $queryinsert = mysqli_query($conn, "INSERT INTO tb_khs VALUES('NULL', '$semester', '$nim', '$sks', NULL, '$sksk', '$ip', '$ipk', 'belum')");
+        return $queryinsert;
+    } else {
+        $queryupdate = mysqli_query($conn, "UPDATE tb_khs SET sks=$sks, sks_kumulatif=$sksk,ip_semester=$ip,ip_kumulatif=$ipk,verif_khs='belum' WHERE nim=$nim AND semester=$semester");
+        return $queryupdate;
+    }
 }
 
 // function update file skripsi

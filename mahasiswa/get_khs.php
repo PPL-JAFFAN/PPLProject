@@ -11,28 +11,27 @@ $color = '';
 $error = '';
 $semester = $_GET['semester'];
 $khsDetail = getKhsDetail($_SESSION['nim'], $semester);
-if (empty($khsDetail)){
+if (empty($khsDetail)) {
   $exist = 0;
-}
-else{
+} else {
   $exist = 1;
 }
 if (isset($_POST['submit'])) {
   $flag = true;
-  if ($_POST['sks'] < 0 || $_POST['sks'] > 24){
+  if ($_POST['sks'] < 0 || $_POST['sks'] > 24) {
     $flag = false;
   }
-  if ($_POST['sksk'] < 0){  
+  if ($_POST['sksk'] < 0) {
     $flag = false;
   }
-  if ($_POST['ip'] < 0 || $_POST['ip'] > 4){
+  if ($_POST['ip'] < 0 || $_POST['ip'] > 4) {
     $flag = false;
   }
-  if ($_POST['ipk'] < 0 || $_POST['ipk'] > 4){
+  if ($_POST['ipk'] < 0 || $_POST['ipk'] > 4) {
     $flag = false;
   }
-  if ($flag){
-    if (uploadDetailKhs($_POST,$semester,$exist)) {
+  if ($flag) {
+    if (uploadDetailKhs($_POST, $semester, $exist)) {
       echo "<script>
       alert('Data berhasil diupdate');
       document.location.href = 'upload_file_khs.php?nim=" . $_SESSION['nim'] . "&smt=" . $semester . "';
@@ -41,22 +40,21 @@ if (isset($_POST['submit'])) {
       echo "<script>
       alert('Data gagal diupdate');
       </script>";
-    }   
-  }
-  else{
+    }
+  } else {
     echo "<script>
     alert('Data gagal diupdate');
     </script>";
   }
-  
 }
 
-function test_input($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-    }
+function test_input($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 ?>
 
 <!DOCTYPE html>
@@ -166,8 +164,8 @@ function test_input($data){
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-    // get detail mahasiswa
-    $mhsDetail = getMhsDetail($_SESSION['nim']);
+      // get detail mahasiswa
+      $mhsDetail = getMhsDetail($_SESSION['nim']);
 
       ?>
             <li class="profile">
@@ -184,49 +182,43 @@ function test_input($data){
     </div>
 
     <?php
-    if (empty($khsDetail['sks'])){
-      $sks = 0;
-    }
-    else{
-      $sks = $khsDetail['sks'];
-    }
+  if (empty($khsDetail['sks'])) {
+    $sks = 0;
+  } else {
+    $sks = $khsDetail['sks'];
+  }
 
-    if (empty($khsDetail['sks_kumulatif'])){
-      $sksk = 0;
-    }
-    else{
-      $sksk = $khsDetail['sks_kumulatif'];
-    }
+  if (empty($khsDetail['sks_kumulatif'])) {
+    $sksk = 0;
+  } else {
+    $sksk = $khsDetail['sks_kumulatif'];
+  }
 
-    if (empty($khsDetail['ip_semester'])){
-      $ip = 0;
-    }
-    else{
-      $ip = $khsDetail['ip_semester'];
-    }
+  if (empty($khsDetail['ip_semester'])) {
+    $ip = 0;
+  } else {
+    $ip = $khsDetail['ip_semester'];
+  }
 
-    if (empty($khsDetail['ip_kumulatif'])){
-      $ipk = 0;
-    }
-    else{
-      $ipk = $khsDetail['ip_kumulatif'];
-    }
+  if (empty($khsDetail['ip_kumulatif'])) {
+    $ipk = 0;
+  } else {
+    $ipk = $khsDetail['ip_kumulatif'];
+  }
 
-    if (empty($khsDetail['verif_khs'])){
-      $verif = 'belum';
+  if (empty($khsDetail['verif_khs'])) {
+    $verif = 'belum';
+    $color = 'red';
+  } else {
+    $verif = $khsDetail['verif_khs'];
+    if ($verif == 'belum') {
       $color = 'red';
+    } else {
+      $color = 'green';
     }
-    else{
-      $verif = $khsDetail['verif_khs'];
-      if ($verif == 'belum'){
-        $color = 'red';
-      }
-      else{
-        $color = 'green';
-      }
-    }
-  
-    ?>
+  }
+
+  ?>
 
     <section class="home-section">
         <form method="POST">
@@ -234,7 +226,7 @@ function test_input($data){
             <div class="mx-5">
                 <div class="row">
                     <div class="col-sm-10">
-                        <h3 class="mb-2">KHS Semester <?php echo $semester?> </h3>
+                        <h3 class="mb-2">KHS Semester <?php echo $semester ?> </h3>
                     </div>
                     <br>
                 </div>
@@ -269,7 +261,7 @@ function test_input($data){
 
                 <div class="row">
                     <h3>Verifikasi oleh dosen : </h3>
-                    <h2 style="color:<?php echo $color ?> ; "><?php echo $verif?> </h2>
+                    <h2 style="color:<?php echo $color ?> ; "><?php echo $verif ?> </h2>
                 </div>
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
