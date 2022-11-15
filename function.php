@@ -69,10 +69,10 @@ function getDosenDetail($kode_wali)
 }
 
 // get detail khs
-function getKhsDetail($nim)
+function getKhsDetail($nim, $semester)
 {
     global $conn;
-    $query = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='$nim'");
+    $query = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='$nim' AND semester=$semester");
     $data = mysqli_fetch_assoc($query);
     return $data;
 }
@@ -213,11 +213,12 @@ function uploadDetailSkripsi($data)
     return $query;
 }
 
-function getDosenList(){
+function getDosenList()
+{
     // get dosen
     global $conn;
     $query = mysqli_query($conn, "SELECT * FROM tb_dosen");
-    while($data = mysqli_fetch_assoc($query)){
-        echo '<option value="'.$data['nama'].'">'.$data['nama'].'</option>';
+    while ($data = mysqli_fetch_assoc($query)) {
+        echo '<option value="' . $data['nama'] . '">' . $data['nama'] . '</option>';
     }
 }

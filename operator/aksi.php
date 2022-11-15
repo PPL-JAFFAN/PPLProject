@@ -2,12 +2,6 @@
 session_start();
 require "../db_login.php";
 
-$dbhost = "localhost:3308";
-$dbuser = "root";
-$dbpwd = "";
-$dbname = "ppl";
-
-
 function test_input($data)
 {
    global $conn;
