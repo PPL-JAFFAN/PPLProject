@@ -147,6 +147,7 @@ if (!isset($_SESSION['email'])) {
                 <div class="card-body">
                   <div class="text-center">
                     <img class="rounded-4 mt-3" style="width: 200px ;" src="../img/default-profile-pic.jpg">
+                    
                     <h5 class="my-3"><?php echo $mhsDetail['nama']; ?></h5>
                     <p class="text-muted mb-1"><?php echo $mhsDetail['status']; ?></p>
                     <p class="text-muted mb-4"></p>
@@ -225,17 +226,7 @@ if (!isset($_SESSION['email'])) {
 
 
                     <div class="row">
-                      <div class="form-group col-sm-5">
-                        <h6 for="kabupaten">Kota</h6>
 
-                        <select name="kabupaten" id="kabupaten" class="form-control">
-                          <option value="">Pilih kabupaten/Kota</option>
-
-                          <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
-                        </select>
-                      </div>
-
-                      <div class="col-1"></div>
                       <div class="form-group col-sm-5">
                         <h6 for="provinsi">Provinsi</h6>
                         <select name="provinsi" id="provinsi" class="form-control" onchange="getKabupaten(this.value)">
@@ -246,8 +237,19 @@ if (!isset($_SESSION['email'])) {
                           ?>
                           <!-- /* TODO tampilkan daftar provinsi menggunakan ajax */ -->
                         </select>
-
                       </div>
+
+                      <div class="col-1"></div>
+                      <div class="form-group col-sm-5">
+                        <h6 for="kabupaten">Kota/Kabupaten</h6>
+
+                        <select name="kabupaten" id="kabupaten" class="form-control">
+                          <option value="">Pilih kabupaten/Kota</option>
+
+                          <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
+                        </select>
+                      </div>
+
                     </div>
                     <br>
 

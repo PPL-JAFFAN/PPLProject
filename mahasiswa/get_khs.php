@@ -173,7 +173,7 @@ function test_input($data)
                     <!--<img src="profile.jpg" alt="profileImg">-->
                     <div class="name_job">
                         <div class="name"><?php echo $mhsDetail['nama']; ?></div>
-                        <div class="job"><?php echo $mhsDetail['email']; ?></div>
+                        <div class="email"><?php echo $mhsDetail['email']; ?></div>
                     </div>
                 </div>
                 <i class="fa fa-bars" id="bars"></i>>
@@ -221,51 +221,64 @@ function test_input($data)
   ?>
 
     <section class="home-section">
-        <form method="POST">
+       <div class="container-fluid">
 
-            <div class="mx-5">
-                <div class="row">
-                    <div class="col-sm-10">
-                        <h3 class="mb-2">KHS Semester <?php echo $semester ?> </h3>
-                    </div>
-                    <br>
-                </div>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <h3 class="mb-2">SKS :</h3>
-                        <input class="form-control mb-2" type="number" name="sks" value="<?php echo $sks ?>" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <h3 class="mb-2">SKS Kumulatif :</h3>
-                        <input class="form-control mb-2" type="number" name="sksk" value="<?php echo $sksk ?>" />
-                    </div>
-                </div>
+        <div class="h4 mt-5 w-100 ">Data KHS Mahasiswa
+        </div><br>
 
-                <div class="row">
-                    <div class="col-sm-11">
-                        <h3 class="mb-2">IP :</h3>
-                        <input class="form-control mb-2" type="number" name="ip" step="0.01"
-                            value="<?php echo $ip ?>" />
-                    </div>
-                </div>
+        <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+            <div class="col">
+                <div class="card rounded-4 card-active p-4 ">
+                    <div class="card-body">
+                      <form method="POST">
+                          <div class="mx-5">
+                              <div class="row">
+                                  <div class="">
+                                      <h5 class="mb-2">KHS Semester <?php echo $semester ?> </h5>
+                                  </div>
+                                  <br><br>
+                              </div>
+                              <div class="row">
+                                  <div class="">
+                                      <h5 class="mb-2">SKS :</h5>
+                                      <input class="form-control mb-2" type="number" name="sks" value="<?php echo $sks ?>" />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="">
+                                      <h5 class="mb-2">SKS Kumulatif :</h5>
+                                      <input class="form-control mb-2" type="number" name="sksk" value="<?php echo $sksk ?>" />
+                                  </div>
+                              </div>
 
-                <div class="row">
-                    <div class="col-sm-11">
-                        <h3>IPK : </h3>
-                        <input class="form-control mb-2" type="number" name="ipk" step="0.01"
-                            value="<?php echo $ipk ?>" />
-                    </div>
-                </div>
+                              <div class="row">
+                                  <div class="">
+                                      <h5 class="mb-2">IP :</h5>
+                                      <input class="form-control mb-2" type="number" name="ip" step="0.01"
+                                          value="<?php echo $ip ?>" />
+                                  </div>
+                              </div>
 
-                <div class="row">
-                    <h3>Verifikasi oleh dosen : </h3>
-                    <h2 style="color:<?php echo $color ?> ; "><?php echo $verif ?> </h2>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary mt-3" type="submit" id="submit" name="submit">Submit</button>
+                              <div class="row">
+                                  <div class="">
+                                      <h5>IPK : </h5>
+                                      <input class="form-control mb-2" type="number" name="ipk" step="0.01"
+                                          value="<?php echo $ipk ?>" />
+                                  </div>
+                              </div>
+
+                              <div class="row mt-3">
+                                  <h5>Verifikasi oleh dosen : </h5>
+                                  <h5 style="color:<?php echo $color ?> ; "><?php echo $verif ?> </h5>
+                              </div>
+                              <div class="d-flex justify-content-center">
+                                  <button class="btn btn-primary mt-3 w-100" type="submit" id="submit" name="submit">Submit</button>
+                              </div>
+                          </div>
+                      </form>
+                      </div>
                 </div>
             </div>
-        </form>
+        </div>
+    </div>
     </section>

@@ -142,37 +142,46 @@ function test_input($data)
     </div>
 
     <section class="home-section">
-        <div class="h4 mt-5 w-100 ">Data KHS Mahasiswa</div>
-        <div class="container-fluid">
+    <div class="container-fluid">
+        <div class="h4 mt-5 w-100 ">Data KHS Mahasiswa
+        </div><br>
+
+        <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+            <div class="col">
+                <div class="card rounded-4 card-active p-4 ">
+                    <div class="card-body">
             <?php
-      $i = 1;
-      while ($i <= $mhsDetail['semester']) {
-        $querySksk = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='" . $_SESSION['nim'] . "' AND semester=" . $i);
-        $cek = mysqli_num_rows($querySksk);
-        if ($cek == 0) {
-          echo '<a href="get_khs.php?semester=' . $i . '">
-              <div>
-              <h2>Semester ' . $i . '</h2>
-              <h4>Jumlah SKS : 0</h4>
-              </div>
-              </a>
-              <br>';
-        } else {
-          $khs = mysqli_fetch_assoc($querySksk);
-          echo '
-            <a href="get_khs.php?semester=' . $i . '">
-            <div>
-            <h2>Semester ' . $i . '</h2>
-            <h4>Jumlah SKS : ' . $khs['sks'] . '</h4>
+            $i = 1;
+            while ($i <= $mhsDetail['semester']) {
+                $querySksk = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='" . $_SESSION['nim'] . "' AND semester=" . $i);
+                $cek = mysqli_num_rows($querySksk);
+                if ($cek == 0) {
+                echo '<a href="get_khs.php?semester=' . $i . '">
+                    <div>
+                    <h4>Semester ' . $i . '</h4>
+                    <h6>Jumlah SKS : 0</h6>
+                    </div>
+                    </a>
+                    <br>';
+                } else {
+                $khs = mysqli_fetch_assoc($querySksk);
+                echo '
+                    <a href="get_khs.php?semester=' . $i . '">
+                    <div>
+                    <h4>Semester ' . $i . '</h4>
+                    <h6>Jumlah SKS : ' . $khs['sks'] . '</h6>
+                    </div>
+                    </a> <br>';
+                }
+
+                $i++;
+            } ?>
+
+                    </div>
+                </div>
             </div>
-            </a>
-            <br>';
-        }
-
-        $i++;
-      } ?>
-
         </div>
+    </div>
     </section>
 
     <script src="../library/js/script.js"> </script>

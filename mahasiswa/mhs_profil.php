@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header("location:../login.php");
 }
-
+error_reporting(E_ERROR | E_PARSE);
 ?>
 
 <!DOCTYPE html>

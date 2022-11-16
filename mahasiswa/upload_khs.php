@@ -9,7 +9,7 @@ if (!file_exists($folder)) {
 }
 $move = move_uploaded_file($_FILES["upload_file"]["tmp_name"], $folder . "/" . $_FILES["upload_file"]["name"]);
 if($move){
-   updateKhs($_SESSION['nim'], $_SESSION['smt'], $_FILES["upload_file"]["name"]);
+   updateKhs($_SESSION['nim'], $_SESSION['semester'], $_FILES["upload_file"]["name"]);
    echo "File uploaded successfully..";
 }else{
    echo "Uploading failed!";
