@@ -319,4 +319,19 @@
   }
 }
 
+#khs_selected{
+  background-color: rgb(246, 246, 246);
+  padding: 0.5em;
+  padding-left: 2em;
+  border-radius: 2em;
+  text-decoration: none !important;
+  color: black;
+  transition: all 0.5s;
+}
+
+#khs_selected:hover{
+  background-color: #8974FF;
+  color: white;
+  font-size: 110%;
+}
 

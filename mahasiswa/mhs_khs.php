@@ -157,7 +157,7 @@ function test_input($data)
                                 $cek = mysqli_num_rows($querySksk);
                                 if ($cek == 0) {
                                     echo '<a href="get_khs.php?semester=' . $i . '">
-                    <div>
+                    <div id="khs_selected">
                     <h4>Semester ' . $i . '</h4>
                     <h6>Jumlah SKS : 0</h6>
                     </div>
@@ -167,11 +167,12 @@ function test_input($data)
                                     $khs = mysqli_fetch_assoc($querySksk);
                                     echo '
                     <a href="get_khs.php?semester=' . $i . '">
-                    <div>
+                    <div id="khs_selected">
                     <h4>Semester ' . $i . '</h4>
                     <h6>Jumlah SKS : ' . $khs['sks'] . '</h6>
                     </div>
-                    </a> <br>';
+                    </a>
+                    <br>';
                                 }
 
                                 $i++;
