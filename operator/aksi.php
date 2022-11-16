@@ -65,7 +65,7 @@ if (isset($_POST['add_dosen'])) {
 
    $addtodosen = mysqli_query($conn, "INSERT INTO tb_dosen (nama, nip, email ) VALUES('$nama','$nip', '$email')");
    $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username, email, password ) VALUES('$nip','$nama','$email', '$password')");
-   $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim) VALUES('$nim')");
+
 
 
    if ($addtodosen) {
@@ -128,6 +128,7 @@ if (isset($_POST['add_mhs'])) {
    $addtomhs = mysqli_query($conn, "INSERT INTO tb_mhs (nama, nim, semester, angkatan, jalur_masuk, email,status, kode_wali ) 
    VALUES('$nama','$nim','$semester','$angkatan','$jalur_masuk', '$email','$status','$dosen')");
    $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username,status, email, password ) VALUES('$nim','$nama','$level','$email', '$nim')");
+   $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim) VALUES('$nim')");
 
    if ($addtomhs) {
       header('location:manajemenakun.php');
