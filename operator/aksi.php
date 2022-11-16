@@ -65,6 +65,8 @@ if (isset($_POST['add_dosen'])) {
 
    $addtodosen = mysqli_query($conn, "INSERT INTO tb_dosen (nama, nip, email ) VALUES('$nama','$nip', '$email')");
    $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username, email, password ) VALUES('$nip','$nama','$email', '$password')");
+   $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim) VALUES('$nim')");
+
 
    if ($addtodosen) {
       header('location:datadosen.php');
