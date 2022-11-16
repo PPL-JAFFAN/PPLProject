@@ -20,9 +20,9 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($conn, $query);
   }
   if ($result) {
-    echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl.php';</script>";
+    echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl_input.php';</script>";
   } else {
-    echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl.php';</script>";
+    echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl_input.php';</script>";
   }
 }
 
