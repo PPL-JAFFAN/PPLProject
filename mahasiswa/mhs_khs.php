@@ -3,17 +3,17 @@ require '../function.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
 }
 $color = '';
 $error = '';
 
 function test_input($data)
 {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 ?>
 
@@ -124,16 +124,16 @@ function test_input($data)
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
+            // get detail mahasiswa
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
                     <div class="name_job">
                         <div class="name"><?php echo $mhsDetail['nama']; ?></div>
-                        <div class="job"><?php echo $mhsDetail['email']; ?></div>
+                        <div class="email"><?php echo $mhsDetail['email']; ?></div>
                     </div>
                 </div>
                 <i class="fa fa-bars" id="bars"></i>>
@@ -142,46 +142,46 @@ function test_input($data)
     </div>
 
     <section class="home-section">
-    <div class="container-fluid">
-        <div class="h4 mt-5 w-100 ">Data KHS Mahasiswa
-        </div><br>
+        <div class="container-fluid">
+            <div class="h4 mt-5 w-100 ">Data KHS Mahasiswa
+            </div><br>
 
-        <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
-            <div class="col">
-                <div class="card rounded-4 card-active p-4 ">
-                    <div class="card-body">
-            <?php
-            $i = 1;
-            while ($i <= $mhsDetail['semester']) {
-                $querySksk = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='" . $_SESSION['nim'] . "' AND semester=" . $i);
-                $cek = mysqli_num_rows($querySksk);
-                if ($cek == 0) {
-                echo '<a href="get_khs.php?semester=' . $i . '">
+            <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+                <div class="col">
+                    <div class="card rounded-4 card-active p-4 ">
+                        <div class="card-body">
+                            <?php
+                            $i = 1;
+                            while ($i <= $mhsDetail['semester']) {
+                                $querySksk = mysqli_query($conn, "SELECT * FROM tb_khs WHERE nim='" . $_SESSION['nim'] . "' AND semester=" . $i);
+                                $cek = mysqli_num_rows($querySksk);
+                                if ($cek == 0) {
+                                    echo '<a href="get_khs.php?semester=' . $i . '">
                     <div>
                     <h4>Semester ' . $i . '</h4>
                     <h6>Jumlah SKS : 0</h6>
                     </div>
                     </a>
                     <br>';
-                } else {
-                $khs = mysqli_fetch_assoc($querySksk);
-                echo '
+                                } else {
+                                    $khs = mysqli_fetch_assoc($querySksk);
+                                    echo '
                     <a href="get_khs.php?semester=' . $i . '">
                     <div>
                     <h4>Semester ' . $i . '</h4>
                     <h6>Jumlah SKS : ' . $khs['sks'] . '</h6>
                     </div>
                     </a> <br>';
-                }
+                                }
 
-                $i++;
-            } ?>
+                                $i++;
+                            } ?>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </section>
 
     <script src="../library/js/script.js"> </script>

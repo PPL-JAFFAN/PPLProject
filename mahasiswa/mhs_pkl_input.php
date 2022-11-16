@@ -20,9 +20,9 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($conn, $query);
   }
   if ($result) {
-    echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl.php';</script>";
+    echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl_input.php';</script>";
   } else {
-    echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl.php';</script>";
+    echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl_input.php';</script>";
   }
 }
 
@@ -189,14 +189,14 @@ $color = '';
                             echo 'disabled'
 
                           ?>> <?php
-                        if ($pklDetail['status_pkl'] != 'LULUS') {
-                          echo 'Tidak Tersedia';
-                        } else {
-                          echo '<option value="A"> A </option>';
-                          echo '<option value="B"> B </option>';
-                          echo '<option value="C"> C </option>';
-                        }
-                        ?> </option>
+                              if ($pklDetail['status_pkl'] != 'LULUS') {
+                                echo 'Tidak Tersedia';
+                              } else {
+                                echo '<option value="A"> A </option>';
+                                echo '<option value="B"> B </option>';
+                                echo '<option value="C"> C </option>';
+                              }
+                              ?> </option>
                                 </select>
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-primary mt-3" type="submit" id="submit"
