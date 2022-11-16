@@ -1,6 +1,9 @@
 <?php
-  include'../db_login.php';
-  require('aksi.php');
+  include '../db_login.php';
+  include './aksi.php';
+  include '../function.php'
+  
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +33,15 @@
         background-color: #8974FF;
       }
     </style>
-    <title>Manajemen Akun Mahasiswa</title>
+    <style>
+				.modal {
+				  background: rgba(0, 0, 0, 0.5); 
+				}
+				.modal-backdrop {
+				  display: none;
+				}
+			  </style>
+    <title>Data Dosen</title>
   </head>
 
 <body>
@@ -69,7 +80,7 @@
        <span class="tooltip">Mahasiswa Skripsi</span>
      </li>
      <li>
-       <a class="nav-link" href="datadosen.php">
+       <a class="nav-link " href="datadosen.php">
          <i class='bx bx-folder' ></i>
          <span class="links_name">Data Dosen</span>
        </a>
@@ -103,205 +114,239 @@
   </div>
   
   <section class="home-section">
-    <div class="container-fluid">
-	<p id="db_status"></p>
-      <br>
-	  <div style="font-size:30px">Manajemen Akun Mahasiswa</div></br>
-	  <div>Program Studi Informatika</div></br>
-	  				<a class="nav" href="add_mahasiswa.php">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Tambah">
-                            Tambah Mahasiswa
-                        </button>
-                    </a></br>
+   
+      <div class="h4 mt-5 w-100 ">Manajemen Data Mahasiswa
+      
+      <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#add_mhs">
+        Tambah Data Mahasiswa
+      </button></div><br>
+
+      <div class=" mt-4 mb-4 w-100">Data Mahasiswa Departemen Informatika</div>
       <div class="card p-4 rounded-4">
       <table id="example" class="table  bg-light rounded-3" style="width:100%">
         <thead>
             <tr>
-                <th>No</th>
-				<th>NIM</th>
+                <th>NIM</th>
                 <th>Nama</th>
-				<th>Alamat</th>
+                <th>Semester</th>
+                <th>Email</th>
                 <th>Aksi</th>
+                <!-- <th>No HP</th> -->
             </tr>
         </thead>
         <tbody>
           <?php
-          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs');
+          $ambildata = mysqli_query($conn, 'SELECT * FROM tb_mhs'  );
           $i = 1;
           while ($data = mysqli_fetch_array($ambildata)) {
-            $nim = $data['nim'];
-            $nama = $data['nama'];
-            $alamat = $data['alamat'];
-            $kode_kota = $data['kode_kota'];
-            $angkatan = $data['angkatan'];
-            $jalur_masuk = $data['jalur_masuk'];
-            $email = $data['email'];
-            $no_hp = $data['no_hp'];
-            $status = $data['status'];
-            $kode_wali = $data['kode_wali'];
-            $semester = $data['semester'];
+              $nim = $data['nim'];
+              // $id = $data['kode_wali'];
+              $nama = $data['nama'];
+              $semester = $data['semester'];
+              $email = $data['email'];
           ?>
 
+          
+
         <tr>
-		    <td><?= $i++ ?></td>
-            <td><?= $nim ?></td>
-			<td><?= $nama; ?></td>
-			<td><?= $alamat; ?></td>
-			<td>
-			  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Edit<?= $nim; ?>">
-				Edit
-			  </button>
-			  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete<?= $nim; ?>">
-				Delete
-			  </button>
-			  <style>
-				.modal {
-				  background: rgba(0, 0, 0, 0.5); 
-				}
-				.modal-backdrop {
-				  display: none;
-				}
-			  </style>
-                <!-- Edit Modal -->
-				<div class="modal fade" id="Edit<?= $nim; ?>">
-				  <div class="modal-dialog">
-					<div class="modal-content">
+          <td><?= $nim ?></td>
+          <td><?= $nama; ?></td>
+          <td><?= $semester; ?></td>
+          <td><?= $email; ?></td>
+          <!-- <td><?= $no_hp; ?></td> -->
+          <td>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" name="edit_mhs" data-bs-toggle="modal" data-bs-target="#edit_mhs<?= $nim;?>">Edit</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" name="delete_mhs" data-bs-toggle="modal" data-bs-target="#delete_mhs<?= $nim;?>">Hapus</button>
+          </td>
+        </tr>
+        
+          <!-- Edit Modal -->
+        <div class="modal fade" id="edit_mhs<?= $nim;?>">
+        <div class="modal-dialog">
+          <div class="modal-content">
 
-					  <!-- Modal Header -->
-					  <div class="modal-header">
-						<h4 class="modal-title">Edit Data Mahasiswa</h4>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-					  </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Data Mahasiswa</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-					  <!-- Modal body -->
-					  <div class="modal-body">
-						<form method="POST">
-                            <div class="modal-body">
-                             NIM:<input type="number" name="nimmahasiswa" placeholder="NIM" value="<?= $nim; ?>" class="form-control" required>
-                            <br>
-							 Nama:<input type="text" name="namabaru" placeholder="Nama" value="<?= $nama; ?>" class="form-control" required>
-                            <br>
-                             Alamat:<input type="text" name="alamat" placeholder="Alamat" value="<?= $alamat; ?>" class="form-control">
-                            <br> 
-							 Kode Kota:<input type="number" name="kode_kota" min="4" maxlength="4" placeholder="Kode Kota" value="<?= $kode_kota; ?>" class="form-control">
-                            <br>
-							 Angkatan:<input type="number" name="angkatan" min="4" maxlength="4" placeholder="Angkatan" value="<?= $angkatan; ?>" class="form-control">
-                            <br>
-							 Jalur Masuk:<input type="text" name="jalur_masuk" placeholder="Jalur Masuk" value="<?= $jalur_masuk; ?>" class="form-control">
-                            <br>
-							 Email:<input type="text" name="email" placeholder="Email" value="<?= $email; ?>" class="form-control">
-                            <br>
-							 No HP:<input type="number" name="no_hp" placeholder="No HP" value="<?= $no_hp; ?>" class="form-control">
-                            <br>
-							 Status:<input type="text" name="status" placeholder="Status" value="<?= $status; ?>" class="form-control">
-                            <br>
-							 Kode Wali:<input type="number" name="kode_wali" placeholder="Kode Wali" value="<?= $kode_wali; ?>" class="form-control">
-                            <br>
-							 Semester:<input type="number" name="semester" min="1" maxlength="1" placeholder="Semester" value="<?= $semester; ?>" class="form-control">
-                            <br>
-							<br>
-                            
-                            </div>
-                        
-					  </div>
+            <!-- Modal body -->
+            <form method="POST">
+              <div class="modal-body">
+                <input type="text" name="nama" placeholder="Nama" class="form-control" value="<?= $nama; ?>" required>
+                <br>
+                <!-- <input type="text" name="nim" placeholder="NIM" class="form-control" value="<?= $nim; ?>"  required>
+                <br> -->
+                <input type="text" name="semester" placeholder="Semester" value="<?= $semester; ?>" class="form-control" required>
+                <br>
+                <input type="hidden" name="id" value="<?= $nim; ?>">
+                <input type="email" name="email" placeholder="Email" value="<?= $email; ?>"  class="form-control" required>
+                <br>
+                <select name="status_mhs" class="form-select" aria-label="Default select example">
+                <option selected>Status</option>
+                <option value="Aktif">Aktif</option>
+                <option value="NonAktif">NonAktif</option>
+                <option value="Cuti">Cuti</option>
+                <option value="Lulus">Lulus</option>
+                <option value="Undur Diri">Undur Diri</option>
+                <option value="DO">Drop Out</option>
+              </select>
+              <br>
+              
+                <!-- <input type="text" name="password" placeholder="Password" value="<?= $password; ?>"  class="form-control" required> -->
+              </div>
 
-					  <!-- Modal footer -->
-					  <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" name="updatemahasiswa">Submit</button>
-						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-					  </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" name="edit_mhs">Submit</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              </div>
             </form>
 
-					</div>
-				  </div>
-				</div>
-				
-				<!-- Tambah Modal -->
-				<div class="modal fade" id="Tambah">
-					<div class="modal-dialog">
-						<div class="modal-content">
+              </div>
+            </div>
+        </div>
 
-							<!-- Modal Header -->
-							<a class="nav-link" href="add_mahasiswa.php">
-								<button type="button" class="btn btn-primary">
-									Tambah Mahasiswa
-								</button>
-							</a>
-							<div class="card-body">
+        <!-- Delete Modal -->
+        <div class="modal fade" id="delete_mhs<?= $nim;?>">
+        <div class="modal-dialog">
+          <div class="modal-content">
 
-								<!-- Modal body -->
-								<form method="POST">
-									<div class="modal-body">
-										<input type="number" name="nimmahasiswa" placeholder="NIM" class="form-control" required>
-										<br>
-										<input type="text" name="namabaru" placeholder="Nama" class="form-control" required>
-										<br>
-										<input type="text" name="alamat" placeholder="Alamat" class="form-control" required>
-										<br> 
-										<input type="number" name="kode_kota" placeholder="Kode Kota" class="form-control" required>
-										<br>
-										<input type="number" name="angkatan" min="4" max="4" placeholder="Angkatan" class="form-control" required>
-										<br>
-										<input type="text" name="jalur_masuk" placeholder="Jalur Masuk" class="form-control" required>
-										<br>
-										<input type="text" name="email" placeholder="Email" class="form-control" required>
-										<br>
-										<input type="number" name="no_hp" placeholder="No HP" class="form-control" required>
-										<br>
-										<input type="text" name="status" placeholder="Status" class="form-control" required>
-										<br>
-										<input type="number" name="kode_wali" placeholder="Kode Wali" class="form-control" required>
-										<br>
-										<input type="number" name="semester" placeholder="Semester" class="form-control" required>
-										<br>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Delete Modal -->
-				<div class="modal fade" id="Delete<?= $nim; ?>">
-				  <div class="modal-dialog">
-					<div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Hapus Data Mahasiswa</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-					  <!-- Modal Header -->
-					  <div class="modal-header">
-						<h4 class="modal-title">Delete Mahasiswa</h4>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-					  </div>
+            <!-- Modal body -->
+            <form method="POST">
+              <div class="modal-body">
+                <input type="hidden" name="id" value="<?= $nim; ?>">
+                <h6>Apakah Yakin Akan Menghapus </h6> <?= $nama; ?>
+                <br>
+              </div>
 
-					  <!-- Modal body -->
-                        <div class="modal-body">
-                         Hapus Mahasiswa <?= $email; ?>?
-                             <br><br>
-                             <button type="submit" class="btn btn-primary" name="hapus" onclick="hapus(<?php echo $nim?>)">Hapus</button>
-                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                      </form>
-					</div>
-				  </div>
-				</div>
-			</td>
-			<?php
-			  }
-			?>
-		</tr>
-		
-		
-			</tbody>
-			</table>
-			</div>
-  </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" name="delete_mhs">Hapus</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+
+              </div>
+            </div>
+        </div>
+
+        <?php
+          }
+        ?>
+
+      
+     
+    </table>
+    </div>
   </div>
 </body>
 </section>
 
-<script src="../library/js/script.js"></script>
+  <!-- Add Modal -->
+  <div class="modal fade" id="add_mhs">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Tambah Data Mahasiswa</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <!-- Modal body -->
+          <form method="POST">
+            <div class="modal-body">
+              <input type="text" name="nama" placeholder="Nama" class="form-control" required>
+              <br>
+              <input type="text" name="nim" placeholder="NIM" class="form-control" required>
+              <br>
+              <select name="semester" class="form-select" aria-label="Default select example">
+                <option selected>Semester</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+              </select>
+              <br>
+              <select name="angkatan" class="form-select" aria-label="Default select example">
+                <option selected>Angkatan</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+              </select>
+              <br>
+              <select name="jalur_masuk" class="form-select" aria-label="Default select example">
+                <option selected>Jalur Masuk</option>
+                <option value="SNMPTN">SNMPTN</option>
+                <option value="SBMPTN">SBMPTN</option>
+                <option value="UM">UM</option>
+              </select>
+              <br>
+             
+              <input type="email" name="email" placeholder="Email" class="form-control" value="" required>
+              <br>
+              
+              <select name="dosen" class="form-select" aria-label="Default select example">
+                <option selected>Pilih Dosen</option>
+                <?php
+                //query menampilkan nama unit kerja ke dalam combobox
+                $query    =mysqli_query($conn, "SELECT * FROM tb_dosen");
+                while ($data = mysqli_fetch_array($query)) {
+                ?>
+                <option value="<?=$data['kode_wali'];?>"><?php echo $data['nama'];?></option>
+                <?php
+                }
+                ?>
+            </select>
+              <!-- <input type="password" name="password" placeholder="Password" class="form-control" required>
+              <br> -->
+                        
+          </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" name="add_mhs">Submit</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+  </div>
+
+  
+
+  
+
+  <script src="../library/js/script.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+
 
 <script>$(document).ready(function () {
     $('#example').DataTable();
@@ -309,29 +354,6 @@
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
-<script>
-function getXMLHTTPRequest() {
-  if (window.XMLHttpRequest) {
-      return new XMLHttpRequest();
-  } else {
-      return new ActiveXObject("Microsoft.XMLHTTP");
-  }
-}
 
-function hapus(nim) {
-  console.log(nim)
-  var xmlhttp = getXMLHTTPRequest()
-  var url = "hapus.php?nim=" + nim;
-  xmlhttp.open('GET', url, true);
-  xmlhttp.onreadystatechange = function() {
-      if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
-          document.getElementById("db_status").innerHTML = xmlhttp.responseText;
-      }
-      return false;
-  }
-  xmlhttp.send(null);
-  window.location.href = "manajemenakun.php"
-}
-</script>
   
  </html>

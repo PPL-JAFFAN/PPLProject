@@ -265,7 +265,7 @@
       </div>
 
       <br>
-      <div class="h5 mt-4 mb-4 w-100">Tabel</div>
+      <div class="h5 mt-4 mb-4 w-100">Data Mahasiswa</div>
       <div class="card p-4 rounded-4">
       <table id="example" class="table  bg-light rounded-3" style="width:100%">
         <thead>

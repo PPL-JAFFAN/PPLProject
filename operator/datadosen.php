@@ -1,8 +1,40 @@
 <?php
   include '../db_login.php';
   include './aksi.php';
-  include '../function.php'
-  
+  include '../function.php';
+
+  if (isset($_POST['add_dosen'])){
+    // validasi nama: tidak boleh kosong hanya dapat berisi huruf dan spasi
+    $nama = ($_POST['nama']);
+    if(empty($nama)){
+        $error_nama = "Nama harus diisi";
+    }elseif(!preg_match("/^[a-zA-Z]*$/", $nama)){
+        $error_nama = "Nama hanya dapat berisi huruf dan spasi";
+    }
+
+    // validasi NIP: tidak boleh kosong hanya dapat berisi angka
+    $nip = ($_POST['nip']);
+    if(empty($nip)){
+        $error_nip = " NIP harus diisi";
+    }elseif(preg_match("/^[a-zA-Z]*$/", $nip)){
+        $error_nip = "NIP hanya dapat berisi Angka";
+    }
+
+    //validasi email : tidak boleh kosong, format harus benar
+    $email = ($_POST['email']);
+    if($email == ''){
+        $error_email = "Email harus diisi";
+    }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $error_email = "Format email tidak benar";
+    }
+
+    // validasi password: tidak boleh kosong 
+    $password = ($_POST['password']);
+    if($password == ''){
+        $error_password = "Password harus diisi";
+    }    
+
+}
 
 ?>
 
@@ -116,11 +148,11 @@
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Rekap Data Dosen
-      </div><br>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_dosen">
+      
+      <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#add_dosen">
         Tambah Data Dosen
       </button>
-    </div>
+      </div><br>
 
       <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
 
@@ -144,6 +176,7 @@
       </div>
 
       <br>
+      
       <div class="h5 mt-4 mb-4 w-100">Data Dosen Departemen Informatika</div>
       <div class="card p-4 rounded-4">
       <table id="example" class="table  bg-light rounded-3" style="width:100%">
@@ -169,10 +202,7 @@
               $email = $data['email'];
               // $no_hp = $data['no_hp'];
               // $password = $data['password'];
-              
-             
-
-          
+   
           ?>
 
           
@@ -280,13 +310,21 @@
           <!-- Modal body -->
           <form method="POST">
             <div class="modal-body">
-              <input type="text" name="nama" placeholder="Nama" class="form-control" required>
-              <br>
-              <input type="text" name="nip" placeholder="NIP" class="form-control" required>
-              <br>
-              <input type="email" name="email" placeholder="Email" class="form-control" value="" required>
-              <br>
-              <input type="password" name="password" placeholder="Password" class="form-control" required>
+              <div class="form-group">
+                <input type="text" name="nama" placeholder="Nama" class="form-control" required>
+                <div class="error"> <?php if(isset($error_nama)) echo $error_nama; ?> </div>
+                <br>
+              </div>
+              <div class="form-group">
+                <input type="text" name="nip" placeholder="NIP" class="form-control" required>
+                <div class="error"> <?php if(isset($error_nip)) echo $error_nip; ?> </div>
+                <br>
+              </div>
+              <div class="form-group">
+                <input type="email" name="email" placeholder="Email" class="form-control" value="" required>
+                <div class="error"> <?php if(isset($error_email)) echo $error_email; ?> </div>
+                <br>
+              </div>
             </div>
 
             <!-- Modal footer -->
@@ -308,22 +346,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/PapaParse/4.6.3/papaparse.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="../../extensions/Editor/js/dataTables.editor.min.js"></script>
-<script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-
-
-
 
 <script>$(document).ready(function () {
     $('#example').DataTable();
