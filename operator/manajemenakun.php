@@ -41,7 +41,7 @@
 				  display: none;
 				}
 			  </style>
-    <title>Data Dosen</title>
+    <title>Manajemen Akun</title>
   </head>
 
 <body>
