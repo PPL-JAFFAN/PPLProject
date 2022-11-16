@@ -15,7 +15,8 @@ if (!isset($_SESSION['nip'])) {
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="../library/css/style.css">
     <link rel="stylesheet" href="doswal.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -94,7 +95,8 @@ if (!isset($_SESSION['nip'])) {
             <div class="container-fluid">
                 <div class="d-flex justify-content-center" id="searchmhs">
                     <h4 class="float-start">Verifikasi PKL Mahasiswa</h4>
-                    <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value="" id="nama_mhs" />
+                    <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
+                        id="nama_mhs" />
                     <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
                 </div>
 
@@ -127,12 +129,12 @@ if (!isset($_SESSION['nip'])) {
 
                             while ($data = $connect->fetch_object()) {
                                 $st_verif = $data->verif_pkl;
-                                if ($st_verif == "belum") {
-                                    $selectstatus1 = "selected = true";
-                                    $selectstatus2 = "";
-                                } elseif ($st_verif == "sudah") {
+                                if ($st_verif == "sudah") {
                                     $selectstatus1 = "";
                                     $selectstatus2 = "selected = true";
+                                } else {
+                                    $selectstatus2 = "";
+                                    $selectstatus1 = "selected = true";
                                 }
                                 echo '<tr id ="rows">';
                                 echo '<td id="table1">' . $no . '</td>';
@@ -141,8 +143,10 @@ if (!isset($_SESSION['nip'])) {
                                 echo '<td id="table1">' . $data->status_pkl . '</td>';
                                 echo '<td id="table1">' . $data->nilai_pkl . '</td>';
                             ?>
-                                <td id="table1"><button type="button" class="btn btn-primary" onclick="location.href = '../mahasiswa/uploads/<?php echo $data->scan_pkl ?>'">Lihat Scan PKL</button></td>
-                                <?php echo '
+                            <td id="table1"><button type="button" class="btn btn-primary"
+                                    onclick="location.href = '../mahasiswa/uploads/<?php echo $data->scan_pkl ?>'">Lihat
+                                    Scan PKL</button></td>
+                            <?php echo '
                          <td>
                             <select id="' . $data->nim . '" name="verif_pkl" class="form-control" onchange="changePKL(' . $data->nim . ')">
                                 <option value="belum"' . $selectstatus1 . '>Belum</option>

@@ -18,287 +18,301 @@ $color = '';
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="UTF-8">
-  <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
-  <link rel="stylesheet" href="style.css">
-  <!-- Boxicons CDN Link -->
-  <link rel="stylesheet" href="style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <meta charset="UTF-8">
+    <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxicons CDN Link -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
-  <style>
+    <style>
     .home-section a .card-active {
-      color: white;
-      background-color: #8974FF;
+        color: white;
+        background-color: #8974FF;
     }
-  </style>
-  <style>
+    </style>
+    <style>
     #drop_zone {
-      background-color: white;
-      /* border: #B980F0 5px dashed; */
-      border-radius: 20px;
-      width: 100%;
+        background-color: white;
+        /* border: #B980F0 5px dashed; */
+        border-radius: 20px;
+        width: 100%;
 
-      padding: 60px 0;
+        padding: 60px 0;
     }
 
     #drop_zone p {
-      font-size: 20px;
-      text-align: center;
+        font-size: 20px;
+        text-align: center;
     }
 
     #btn_upload,
     #selectfile {
-      display: none;
+        display: none;
     }
-  </style>
-  <title>Data Mahasiswa</title>
+    </style>
+    <title>Data Mahasiswa</title>
 </head>
 
 <body>
-  <div class="sidebar">
-    <div class="logo-details">
-      <i> <img src="../asset/img/undip.png" style="width:40px ; padding-bottom:5px" alt=""></i>
-      <div class="logo_name" style="padding-top: 5px;">
-        <div style="font-size:10px ;">Departemen Informatika</div> Universitas Diponegoro
-      </div>
-    </div>
-    <ul class="nav-list">
+    <div class="sidebar">
+        <div class="logo-details">
+            <i> <img src="../asset/img/undip.png" style="width:40px ; padding-bottom:5px" alt=""></i>
+            <div class="logo_name" style="padding-top: 5px;">
+                <div style="font-size:10px ;">Departemen Informatika</div> Universitas Diponegoro
+            </div>
+        </div>
+        <ul class="nav-list">
 
-      <li>
-        <a href="mhs_profil.php" class="nav-link  ">
-          <i class='bx bx-home' id="icon"></i>
-          <span class="links_name">Profil</span>
-        </a>
-        <span class="tooltip">Profil</span>
-      </li>
-      <li>
-        <a href="mhs_irs.php">
-          <i class='bx bxs-bar-chart-alt-2' id="icon"></i>
-          <span class="links_name">Data IRS</span>
-        </a>
-        <span class="tooltip">Data IRS</span>
-      </li>
-      <li>
-        <a href="mhs_khs.php">
-          <i class='bx bx-pie-chart-alt-2' id="icon"></i>
-          <span class="links_name">
-            <Datag>Data KHS</Datag>
-          </span>
-        </a>
-        <span class="tooltip">Data KHS</span>
-      </li>
-      <li>
-        <a href="mhs_pkl.php" class="nav-link active">
-          <i class='bx bxs-graduation ' id="icon"></i>
-          <span class="links_name">Data PKL</span>
-        </a>
-        <span class="tooltip">Data PKL</span>
-      </li>
-      <li>
-        <a href="mhs_skripsi.php">
-          <i class='bx bxs-bar-chart-alt-2' id="icon"></i>
-          <span class="links_name">Data Skripsi</span>
-        </a>
-        <span class="tooltip">Data Skripsi</span>
-      </li>
-      <li>
-        <a href="../logout.php">
-          <i class='bx bx-log-out' id="log_out"></i>
-          <span class="links_name">Keluar</span>
-        </a>
-        <span class="tooltip">Keluar</span>
-      </li>
-      <?php
+            <li>
+                <a href="mhs_profil.php" class="nav-link  ">
+                    <i class='bx bx-home' id="icon"></i>
+                    <span class="links_name">Profil</span>
+                </a>
+                <span class="tooltip">Profil</span>
+            </li>
+            <li>
+                <a href="mhs_irs.php">
+                    <i class='bx bxs-bar-chart-alt-2' id="icon"></i>
+                    <span class="links_name">Data IRS</span>
+                </a>
+                <span class="tooltip">Data IRS</span>
+            </li>
+            <li>
+                <a href="mhs_khs.php">
+                    <i class='bx bx-pie-chart-alt-2' id="icon"></i>
+                    <span class="links_name">
+                        <Datag>Data KHS</Datag>
+                    </span>
+                </a>
+                <span class="tooltip">Data KHS</span>
+            </li>
+            <li>
+                <a href="mhs_pkl.php" class="nav-link active">
+                    <i class='bx bxs-graduation ' id="icon"></i>
+                    <span class="links_name">Data PKL</span>
+                </a>
+                <span class="tooltip">Data PKL</span>
+            </li>
+            <li>
+                <a href="mhs_skripsi.php">
+                    <i class='bx bxs-bar-chart-alt-2' id="icon"></i>
+                    <span class="links_name">Data Skripsi</span>
+                </a>
+                <span class="tooltip">Data Skripsi</span>
+            </li>
+            <li>
+                <a href="../logout.php">
+                    <i class='bx bx-log-out' id="log_out"></i>
+                    <span class="links_name">Keluar</span>
+                </a>
+                <span class="tooltip">Keluar</span>
+            </li>
+            <?php
       // get detail mahasiswa
       $pklDetail = getPklDetail($_SESSION['nim']);
       $mhsDetail = getMhsDetail($_SESSION['nim']);
 
       ?>
-      <li class="profile">
-        <div class="profile-details">
-          <!--<img src="profile.jpg" alt="profileImg">-->
-          <div class="name_job">
-            <div class="name"><?php echo $mhsDetail['nama']; ?></div>
-            <div class="email"><?php echo $mhsDetail['email']; ?></div>
-          </div>
-        </div>
-        <i class="fa fa-bars" id="bars"></i>>
-      </li>
-    </ul>
-  </div>
+            <li class="profile">
+                <div class="profile-details">
+                    <!--<img src="profile.jpg" alt="profileImg">-->
+                    <div class="name_job">
+                        <div class="name"><?php echo $mhsDetail['nama']; ?></div>
+                        <div class="email"><?php echo $mhsDetail['email']; ?></div>
+                    </div>
+                </div>
+                <i class="fa fa-bars" id="bars"></i>>
+            </li>
+        </ul>
+    </div>
 
-  <section class="home-section">
-    <div class="container-fluid">
-      <div class="h4 mt-5 w-100 ">Data Progres PKL</div><br>
-      <div>
-        <a href="mhs_pkl_input.php" class="btn btn-primary">Input Data Progres PKL</a>
-      </div>
+    <section class="home-section">
+        <div class="container-fluid">
+            <div class="h4 mt-5 w-100 ">Data Progres PKL</div><br>
+            <div>
+                <a href="mhs_pkl_input.php" class="btn btn-primary">Input Data Progres PKL</a>
+            </div>
 
-      <div class="row row-cols-1 row-cols-md-2 g-4 mt-1" id="datadiri">
-        <div class="col">
-          <div class="card rounded-4 ">
-            <div class="card-body">
-              <?php if ($pklDetail['status_pkl'] == 'LULUS') {
+            <div class="row row-cols-1 row-cols-md-2 g-4 mt-1" id="datadiri">
+                <div class="col">
+                    <div class="card rounded-4 ">
+                        <div class="card-body">
+                            <?php if ($pklDetail['status_pkl'] == 'LULUS') {
                 $color = 'green';
               } else if ($pklDetail['status_pkl'] == 'BELUM MENGAMBIL') {
                 $color = 'red';
               } else {
                 $color = 'yellow';
               } ?>
-              <p class="text-center">Status PKL</p>
-              <p class="jumlah  card-text text-center" style="color:<?php echo $color ?>; text-align:center;"><?php echo $pklDetail['status_pkl']; ?></p>
+                            <p class="text-center">Status PKL</p>
+                            <p class="jumlah  card-text text-center"
+                                style="color:<?php echo $color ?>; text-align:center;">
+                                <?php echo $pklDetail['status_pkl']; ?></p>
 
-            </div>
-          </div>
-        </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="col">
-          <div class="card rounded-4 ">
-            <div class="card-body">
-              <p class="text-center">Nilai</p>
-              <p class="jumlah card-text text-center"><?php echo $pklDetail['nilai_pkl']; ?></p>
-              <!-- <form action="" method="GET" enctype="multipart/form-data">
+                <div class="col">
+                    <div class="card rounded-4 ">
+                        <div class="card-body">
+                            <p class="text-center">Nilai</p>
+                            <p class="jumlah card-text text-center"><?php echo $pklDetail['nilai_pkl']; ?></p>
+                            <!-- <form action="" method="GET" enctype="multipart/form-data">
                         <div class="input-group">
                             <input type="file" class="form-control" id="file" aria-describedby="file" aria-label="Upload">
                             <button class="btn btn-outline-secondary" type="submit" id="upload" name="upload">Upload</button>
                         </div>
                     </form> -->
 
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div>
-        <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
-        <td id="scan_skripsi">
-          <a href="../mahasiswa/uploads/<?php echo $data['scan_pkl'] ?>" class="btn btn-primary">Lihat Scan PKL</a>
-        </td>
-        <div>
-          <?php
+            <div>
+                <div class="h5 mt-4 mb-4 w-100">Laporan Progres PKL</div>
+                <td id="scan_skripsi">
+                    <a href="../mahasiswa/uploads/<?php echo $data['scan_pkl'] ?>" class="btn btn-primary">Lihat Scan
+                        PKL</a>
+                </td>
+                <div>
+                    <?php
           if ($pklDetail['scan_pkl']) {
             echo "File terupload : " . $pklDetail['scan_pkl'];
           } else {
             echo "Belum ada file yang diupload";
           }
           ?>
-        </div>
-      </div>
-      <div class="card rounded-4 ">
-        <div class="card-body">
-          <p class="text-center">Verifikasi</p>
-          <p class="jumlah card-text text-center"><?php echo $pklDetail['verif_pkl']; ?></p>
-          <!-- <form action="" method="GET" enctype="multipart/form-data">
+                </div>
+            </div>
+            <div class="card rounded-4 ">
+                <div class="card-body">
+                    <p class="text-center">Verifikasi</p>
+                    <?php if ($pklDetail['verif_pkl'] == "belum") {
+            $color = "green";
+          } else {
+            $color = "red";
+          } ?>
+                    <p class="jumlah card-text text-center" style="color: <?php echo $color ?> ">
+                        <?php echo $pklDetail['verif_pkl']; ?></p>
+                    <!-- <form action="" method="GET" enctype="multipart/form-data">
                         <div class="input-group">
                             <input type="file" class="form-control" id="file" aria-describedby="file" aria-label="Upload">
                             <button class="btn btn-outline-secondary" type="submit" id="upload" name="upload">Upload</button>
                         </div>
                     </form> -->
 
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    </div>
-  </section>
+        </div>
+    </section>
 
 
 
-  <script src="../library/js/script.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="../library/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
-  <script>
+    <script>
     $(document).ready(function() {
-      $('#example').DataTable();
+        $('#example').DataTable();
     });
-  </script>
+    </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
 
-  <script>
+    <script>
     var fileobj;
     $(document).ready(function() {
-      $("#drop_zone").on("dragover", function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-      });
-      $("#drop_zone").on("drop", function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        fileobj = event.originalEvent.dataTransfer.files[0];
-        var fname = fileobj.name;
-        var fsize = fileobj.size;
-        if (fname.length > 0) {
-          document.getElementById('file_info').innerHTML = "File name : " + fname + ' <br>File size : ' + bytesToSize(fsize);
-        }
-        document.getElementById('selectfile').files[0] = fileobj;
-        document.getElementById('btn_upload').style.display = "inline";
-      });
-      $('#btn_file_pick').click(function() {
-        /*normal file pick*/
-        document.getElementById('selectfile').click();
-        document.getElementById('selectfile').onchange = function() {
-          fileobj = document.getElementById('selectfile').files[0];
-          var fname = fileobj.name;
-          var fsize = fileobj.size;
-          if (fname.length > 0) {
-            document.getElementById('file_info').innerHTML = "File name : " + fname + ' <br>File size : ' + bytesToSize(fsize);
-          }
-          document.getElementById('btn_upload').style.display = "inline";
-        };
-      });
-      $('#btn_upload').click(function() {
-        if (fileobj == "" || fileobj == null) {
-          alert("Please select a file");
-          return false;
-        } else {
-          ajax_file_upload(fileobj);
-        }
-      });
+        $("#drop_zone").on("dragover", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        });
+        $("#drop_zone").on("drop", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            fileobj = event.originalEvent.dataTransfer.files[0];
+            var fname = fileobj.name;
+            var fsize = fileobj.size;
+            if (fname.length > 0) {
+                document.getElementById('file_info').innerHTML = "File name : " + fname +
+                    ' <br>File size : ' + bytesToSize(fsize);
+            }
+            document.getElementById('selectfile').files[0] = fileobj;
+            document.getElementById('btn_upload').style.display = "inline";
+        });
+        $('#btn_file_pick').click(function() {
+            /*normal file pick*/
+            document.getElementById('selectfile').click();
+            document.getElementById('selectfile').onchange = function() {
+                fileobj = document.getElementById('selectfile').files[0];
+                var fname = fileobj.name;
+                var fsize = fileobj.size;
+                if (fname.length > 0) {
+                    document.getElementById('file_info').innerHTML = "File name : " + fname +
+                        ' <br>File size : ' + bytesToSize(fsize);
+                }
+                document.getElementById('btn_upload').style.display = "inline";
+            };
+        });
+        $('#btn_upload').click(function() {
+            if (fileobj == "" || fileobj == null) {
+                alert("Please select a file");
+                return false;
+            } else {
+                ajax_file_upload(fileobj);
+            }
+        });
     });
 
     function ajax_file_upload(file_obj) {
-      if (file_obj != undefined) {
-        var form_data = new FormData();
-        form_data.append('upload_file', file_obj);
-        $.ajax({
-          type: 'POST',
-          url: 'upload_pkl.php',
-          contentType: false,
-          processData: false,
-          data: form_data,
-          beforeSend: function(response) {
-            $('#message_info').html("Uploading your file, please wait...");
-          },
-          success: function(response) {
-            $('#message_info').html(response);
-            alert(response);
-            $('#selectfile').val('');
-          }
-        });
-      }
+        if (file_obj != undefined) {
+            var form_data = new FormData();
+            form_data.append('upload_file', file_obj);
+            $.ajax({
+                type: 'POST',
+                url: 'upload_pkl.php',
+                contentType: false,
+                processData: false,
+                data: form_data,
+                beforeSend: function(response) {
+                    $('#message_info').html("Uploading your file, please wait...");
+                },
+                success: function(response) {
+                    $('#message_info').html(response);
+                    alert(response);
+                    $('#selectfile').val('');
+                }
+            });
+        }
     }
 
     function bytesToSize(bytes) {
-      var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-      if (bytes == 0) return '0 Byte';
-      var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-      return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (bytes == 0) return '0 Byte';
+        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
     }
-  </script>
-  <script src="../library/js/script.js"> </script>
+    </script>
+    <script src="../library/js/script.js"> </script>
 
 
 </html>

@@ -74,7 +74,6 @@ if (isset($_POST['add_dosen'])) {
       echo "Gagal Menambahkan Data";
       header('location:datadosen.php');
    }
-
 }
 
 
@@ -93,7 +92,6 @@ if (isset($_POST['edit_dosen'])) {
       echo "Gagal Menambahkan Data";
       header('location:datadosen.php');
    }
-
 }
 
 //delete dosen
@@ -109,7 +107,6 @@ if (isset($_POST['delete_dosen'])) {
       echo "Gagal Menambahkan Data";
       header('location:datadosen.php');
    }
-
 }
 
 //Add Mahasiswa
@@ -128,8 +125,8 @@ if (isset($_POST['add_mhs'])) {
    $addtomhs = mysqli_query($conn, "INSERT INTO tb_mhs (nama, nim, semester, angkatan, jalur_masuk, email,status, kode_wali ) 
    VALUES('$nama','$nim','$semester','$angkatan','$jalur_masuk', '$email','$status','$dosen')");
    $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username,status, email, password ) VALUES('$nim','$nama','$level','$email', '$nim')");
-   $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim) VALUES('$nim')");
-   $addtoskripsi = mysqli_query($conn, "INSERT INTO tb_skripsi (nim) VALUES('$nim')");
+   $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim, status_pkl, verif_pkl) VALUES('$nim','BELUM MENGAMBIL','belum')");
+   $addtoskripsi = mysqli_query($conn, "INSERT INTO tb_skripsi (nim, status_skripsi, verif_skripsi) VALUES('$nim','BELUM MENGAMBIL','belum')");
 
    if ($addtomhs) {
       header('location:manajemenakun.php');
@@ -137,7 +134,6 @@ if (isset($_POST['add_mhs'])) {
       echo "Gagal Menambahkan Data";
       header('location:manajemenakun.php');
    }
-
 }
 
 
@@ -158,7 +154,6 @@ if (isset($_POST['edit_mhs'])) {
       echo "Gagal Edit Data";
       header('location:manajemenakun.php');
    }
-
 }
 
 //delete mahasiswa
@@ -176,11 +171,4 @@ if (isset($_POST['delete_mhs'])) {
       echo "Gagal Hapus Data";
       header('location:manajemenakun.php');
    }
-
 }
-
-
-
-
-
-?>
