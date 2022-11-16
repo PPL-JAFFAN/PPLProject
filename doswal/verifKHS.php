@@ -15,7 +15,8 @@ if (!isset($_SESSION['nip'])) {
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="../library/css/style.css">
     <link rel="stylesheet" href="doswal.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -81,8 +82,8 @@ if (!isset($_SESSION['nip'])) {
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                    <div class="name"><?php echo $_SESSION['nama']?></div>
-                        <div class="email"><?php echo $_SESSION['email']?></div>
+                        <div class="name"><?php echo $_SESSION['nama'] ?></div>
+                        <div class="email"><?php echo $_SESSION['email'] ?></div>
                     </div>
                 </div>
             </li>
@@ -91,20 +92,21 @@ if (!isset($_SESSION['nip'])) {
     <form method="GET" autocomplete="on">
         <section class="home-section">
             <div class="d-flex justify-content-center" id="searchmhs">
-                <h4 class="float-start" >Verifikasi KHS Mahasiswa</h4>
-                <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value="" id="nama_mhs" />
+                <h4 class="float-start">Verifikasi KHS Mahasiswa</h4>
+                <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
+                    id="nama_mhs" />
                 <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
             </div>
 
             <div class="card rounded-4 mt-5">
                 <div class="card-body">
-                <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5 ><br>
+                    <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5><br>
                     <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
                         <tr>
                             <th id="table1">NAMA </th>
                             <th class="text-center">NIM </th>
-                            <th class="text-center"">SEMESTER </th>
-                            <th id="table1">SKS </th>
+                            <th class="text-center">SEMESTER </th>
+                            <th id=" table1">SKS </th>
                             <th id="table1">SKS KUMULATIF</th>
                             <th id="table1">IP SEMESTER</th>
                             <th id="table1">IP KUMULATIF</th>
@@ -113,13 +115,13 @@ if (!isset($_SESSION['nip'])) {
                         </tr>
                         <?php
 
-                        $query = "SELECT * FROM tb_khs JOIN tb_mhs where tb_khs.nim = tb_mhs.nim AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_khs.verif_khs,tb_khs.semester";
+                        $query = "SELECT * FROM tb_mhs JOIN tb_khs where tb_khs.nim = tb_mhs.nim AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_khs.verif_khs,tb_khs.semester";
                         $connect = mysqli_query($conn, $query);
                         $no = 1;
 
                         if (isset($_GET['cari_mhs'])) {
                             $nama_mhs = $_GET['nama_mhs'];
-                            $query = "SELECT * FROM tb_khs JOIN tb_mhs where tb_khs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%" . $nama_mhs . "%' AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_khs.verif_khs,tb_khs.semester";
+                            $query = "SELECT * FROM tb_mhs JOIN tb_khs where tb_khs.nim = tb_mhs.nim && tb_mhs.nama LIKE '%" . $nama_mhs . "%' AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_khs.verif_khs,tb_khs.semester";
                             $connect = mysqli_query($conn, $query);
                             $no = 1;
                         }
@@ -143,9 +145,10 @@ if (!isset($_SESSION['nip'])) {
                             echo '<td id="table1">' . $data->ip_semester . '</td>';
                             echo '<td id="table1">' . $data->ip_kumulatif . '</td>';
                         ?>
-                            <td id="table1"><button type="button" class="btn btn-primary" onclick="location.href = '../mahasiswa/uploads_khs/<?php echo $data->scan_khs ?>'">Lihat
-                                    Scan KHS</button></td>
-                            <?php echo '
+                        <td id="table1"><button type="button" class="btn btn-primary"
+                                onclick="location.href = '../mahasiswa/uploads_khs/<?php echo $data->scan_khs ?>'">Lihat
+                                Scan KHS</button></td>
+                        <?php echo '
                          <td>
                             <select id="' . $data->nim . '" name="verif_khs" class="form-control" onchange="changeKHS(' . $data->nim . ')">
                                 <option value="belum"' . $selectstatus1 . '>Belum</option>
