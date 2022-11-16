@@ -129,6 +129,7 @@ if (isset($_POST['add_mhs'])) {
    VALUES('$nama','$nim','$semester','$angkatan','$jalur_masuk', '$email','$status','$dosen')");
    $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username,status, email, password ) VALUES('$nim','$nama','$level','$email', '$nim')");
    $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim) VALUES('$nim')");
+   $addtoskripsi = mysqli_query($conn, "INSERT INTO tb_skripsi (nim) VALUES('$nim')");
 
    if ($addtomhs) {
       header('location:manajemenakun.php');
@@ -166,6 +167,8 @@ if (isset($_POST['delete_mhs'])) {
 
    $querydelete = mysqli_query($conn, "DELETE FROM tb_mhs WHERE nim='$id'");
    $querydeleteuser = mysqli_query($conn, "DELETE FROM tb_user WHERE nimnip='$id'");
+   $querydeletepkl = mysqli_query($conn, "DELETE FROM tb_pkl WHERE nim='$id'");
+   $querydeleteskripsi = mysqli_query($conn, "DELETE FROM tb_skripsi WHERE nim='$id'");
 
    if ($querydelete) {
       header('location:manajemenakun.php');
