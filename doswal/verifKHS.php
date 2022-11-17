@@ -150,7 +150,7 @@ if (!isset($_SESSION['nip'])) {
                                 Scan KHS</button></td>
                         <?php echo '
                          <td>
-                            <select id="' . $data->nim . '" name="verif_khs" class="form-control" onchange="changeKHS(' . $data->nim . ')">
+                            <select id="' . $data->nim . '" name="verif_khs" class="form-control" onchange="changeKHS(' . $data->nim . ',' . $data->semester . ')">
                                 <option value="belum"' . $selectstatus1 . '>Belum</option>
                                 <option value="sudah"' . $selectstatus2 . '>Sudah</option>
                             </select>

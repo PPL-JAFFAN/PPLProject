@@ -130,12 +130,14 @@ if (!isset($_SESSION['nip'])) {
                             while ($data = $connect->fetch_object()) {
                                 $st_verif = $data->verif_irs;
                                 if ($st_verif == "belum") {
-                                    $selectstatus1 = "selected = true";
+                                    $selectstatus1 = 'selected = true';
                                     $selectstatus2 = "";
                                 } elseif ($st_verif == "sudah") {
                                     $selectstatus1 = "";
-                                    $selectstatus2 = "selected = true";
+                                    $selectstatus2 = 'selected = true';
                                 }
+                                $nim = $data->nim;
+                                $semester = $data->semester;
                                 echo '<tr id ="rows">';
                                 echo '<td id="table1">' . $no . '</td>';
                                 echo '<td id="table1">' . $data->nama . '</td>';
@@ -148,7 +150,7 @@ if (!isset($_SESSION['nip'])) {
                                     Scan IRS</button></td>
                             <?php echo '
                          <td>
-                            <select id="' . $data->nim . '" name="verif_irs" class="form-control" onchange="changeIRS(' . $data->nim . ')">
+                            <select id="' . $data->nim . '" name="verif_irs" class="form-control" onchange="changeIRS(' . $nim . ',' . $semester . ')">
                                 <option value="belum"' . $selectstatus1 . '>Belum</option>
                                 <option value="sudah"' . $selectstatus2 . '>Sudah</option>
                             </select>
@@ -163,5 +165,5 @@ if (!isset($_SESSION['nip'])) {
             </div>
         </section>
     </form>
-    <!-- <p id="db_status"></p> -->
+    <div id="db_status"></div>
     <script src="../library/js/script.js"> </script>
