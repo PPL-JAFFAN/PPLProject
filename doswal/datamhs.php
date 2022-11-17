@@ -2,8 +2,8 @@
 require_once('../db_login.php');
 session_start();
 
-if (!isset($_SESSION['nip'])){ 
-    header ("Location:../login.php");
+if (!isset($_SESSION['nip'])) {
+    header("Location:../login.php");
 }
 
 ?>
@@ -16,7 +16,8 @@ if (!isset($_SESSION['nip'])){
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="../library/css/style.css">
     <link rel="stylesheet" href="doswal.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -28,9 +29,7 @@ if (!isset($_SESSION['nip'])){
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
-
-
+    <script src="https://unpkg.com/scrollreveal"></script>
 </head>
 
 <body>
@@ -82,8 +81,8 @@ if (!isset($_SESSION['nip'])){
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                    <div class="name"><?php echo $_SESSION['nama']?></div>
-                        <div class="email"><?php echo $_SESSION['email']?></div>
+                        <div class="name"><?php echo $_SESSION['nama'] ?></div>
+                        <div class="email"><?php echo $_SESSION['email'] ?></div>
                     </div>
                 </div>
             </li>
@@ -94,60 +93,63 @@ if (!isset($_SESSION['nip'])){
         <section class="home-section">
             <div class="container-fluid">
 
-            <div class="d-flex justify-content-center" id="searchmhs">
-                <h3>Rekap Data Mahasiswa</h3>
-                <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
-                    id="nama_mhs" />
-                <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
-            </div>
-            
-            <div class="card rounded-4 mt-5">
-                <div class="card-body">
-                <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5 ><br>
-                    <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
-                        <tr>
-                            <th id="table1">NO. </th>
-                            <th id="table1">NAMA </th>
-                            <th id="table1">NIM </th>
-                            <th id="table1">SEMESTER </th>
-                            <th id="table1">STATUS </th>
-                            <th id="table1">AKSI </th>
-                        </tr>
-                        <?php 
-                    $query = "SELECT * FROM tb_mhs WHERE kode_wali = ".$_SESSION['kode_wali'];
-                    $connect = mysqli_query($conn, $query);
-                    $no = 1;
-
-                    if (isset($_POST['cari_mhs'])){
-                        $nama_mhs = $_POST['nama_mhs'];
-                        $query = "SELECT * FROM tb_mhs where nama like '%".$nama_mhs."%' AND kode_wali = ".$_SESSION['kode_wali'];
-                        $connect = mysqli_query($conn, $query);
-                        $no = 1;
-                    }
-                    
-                    while ($data = $connect->fetch_object()) {
-                        echo '<tr>';
-                        echo '<td id="table1">'.$no.'</td>';
-                        echo '<td id="table1">'.$data->nama.'</td>';
-                        echo '<td id="table1">'.$data->nim.'</td>';
-                        echo '<td id="table1">'.$data->semester.'</td>';
-                        echo '<td id="table1">'.$data->status.'</td>';
-
-                        ?><td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = 'lihatMhs.php?nim=<?php echo $data->nim ?>'">Lihat
-                                Mahasiswa</button></td>
-                        <?php echo '</tr>';
-                        $no = $no+1;
-                    }
-                
-                  ?>
-                    </table>
+                <div class="d-flex justify-content-center" id="searchmhs">
+                    <h3>Rekap Data Mahasiswa</h3>
+                    <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
+                        id="nama_mhs" />
+                    <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
                 </div>
-            </div>
+
+                <div class="card rounded-4 mt-5">
+                    <div class="card-body">
+                        <h5 class="m-4 text-center ">Mahasiswa Perwalian</h5><br>
+                        <table class="mt-3 d-flex justify-content-center" id="tabelmhs">
+                            <tr>
+                                <th id="table1">NO. </th>
+                                <th id="table1">NAMA </th>
+                                <th id="table1">NIM </th>
+                                <th id="table1">SEMESTER </th>
+                                <th id="table1">STATUS </th>
+                                <th id="table1">AKSI </th>
+                            </tr>
+                            <?php
+                            $query = "SELECT * FROM tb_mhs WHERE kode_wali = " . $_SESSION['kode_wali'];
+                            $connect = mysqli_query($conn, $query);
+                            $no = 1;
+
+                            if (isset($_POST['cari_mhs'])) {
+                                $nama_mhs = $_POST['nama_mhs'];
+                                $query = "SELECT * FROM tb_mhs where nama like '%" . $nama_mhs . "%' AND kode_wali = " . $_SESSION['kode_wali'];
+                                $connect = mysqli_query($conn, $query);
+                                $no = 1;
+                            }
+
+                            while ($data = $connect->fetch_object()) {
+                                echo '<tr class="table-scroll">';
+                                echo '<td id="table1">' . $no . '</td>';
+                                echo '<td id="table1">' . $data->nama . '</td>';
+                                echo '<td id="table1">' . $data->nim . '</td>';
+                                echo '<td id="table1">' . $data->semester . '</td>';
+                                echo '<td id="table1">' . $data->status . '</td>';
+
+                            ?><td id="table1"><button type="button" class="btn btn-primary"
+                                    onclick="location.href = 'lihatMhs.php?nim=<?php echo $data->nim ?>'">Lihat
+                                    Mahasiswa</button></td>
+                            <?php echo '</tr>';
+                                $no = $no + 1;
+                            }
+
+                            ?>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
     </form>
     <script src="../library/js/script.js"> </script>
+    <script>
+    ScrollReveal().reveal('.table-scroll');
+    </script>
 </body>
 
 </html>
