@@ -213,7 +213,7 @@
       </a>
       </div>
       <div class="col">
-      <a href="2019.php">
+      <a href="../do/2019.php">
       <div class="card rounded-4 card-active">
         <div class="card-body">
           <p class="text-center">Jumlah Mahasiswa Drop Out</p>
