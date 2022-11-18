@@ -6,18 +6,17 @@ session_start();
 if (isset($_SESSION['nip'])) {
     $nip = $_SESSION['nip'];
     $query = mysqli_query($conn, "select * from tb_dosen where nip='$nip'");
-    
+
     $cek = mysqli_num_rows($query);
     $dosen = mysqli_fetch_assoc($query);
 
     $kode_kota = $dosen['kode_kota'];
     $querykota = mysqli_query($conn, "select * from tb_kota where id=$kode_kota");
     $kota = mysqli_fetch_assoc($querykota);
-    if(empty($kota)){
+    if (empty($kota)) {
         $namakota = '';
         $namaprov = '';
-    }
-    else{
+    } else {
         $namakota = $kota['nama'];
         $id_prov = $kota['id_provinsi'];
 
@@ -25,7 +24,7 @@ if (isset($_SESSION['nip'])) {
         $prov = mysqli_fetch_assoc($queryprov);
         $namaprov = $prov['nama'];
     }
-    
+
 
     $namadosen = $dosen['nama'];
     $_SESSION['nama'] = $namadosen;
@@ -149,8 +148,8 @@ if (isset($_SESSION['nip'])) {
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                        <div class="name"><?php echo $_SESSION['nama']?></div>
-                        <div class="email"><?php echo $_SESSION['email']?></div>
+                        <div class="name"><?php echo $_SESSION['nama'] ?></div>
+                        <div class="email"><?php echo $_SESSION['email'] ?></div>
                     </div>
                 </div>
             </li>
@@ -161,139 +160,140 @@ if (isset($_SESSION['nip'])) {
     <section class="home-section">
         <div class="container container-fluid">
             <div class="h4 mt-5 w-100 ">Profil
-                    <div class="h4 float-end">
-                        <h4>Halo, <?= $namadosen; ?></h4>
-                    </div>
+                <div class="h4 float-end">
+                    <h4>Halo, <?= $namadosen; ?></h4>
+                </div>
             </div><br>
 
-<div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
-<div class="col">
-<div class="card rounded-4 card-active ">
-    <div class="card-body">
-        <div class="text-center">
-        <img class="rounded-4 m-3" src="../img/default-profile-pic.jpg" width="140" />
-                </div>
-                <div class="text-center">
-                    <button type="button" class="btn btn-warning" onclick="location.href = 'editdosen.php'">Edit
-                        data diri</button>
+            <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+                <div class="col">
+                    <div class="card rounded-4 card-active ">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img class="rounded-4 m-3" src="../img/default-profile-pic.jpg" width="140" />
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-warning"
+                                    onclick="location.href = 'editdosen.php'">Edit
+                                    data diri</button>
+                            </div>
+                        </div>
+
+                        <div class="px-5">
+                            <table class="table table-responsive">
+
+                                <tr>
+                                    <th>Nama Lengkap : </th>
+                                    <td> <?php echo $namadosen; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>NIP :</th>
+                                    <td><?php echo $nip; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Kode Wali :</th>
+                                    <td> <?php echo $kodewali; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Alamat :</th>
+                                    <td> <?php echo $alamat; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Kabupaten/Kota :</th>
+                                    <td> <?php echo $namakota; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Propinsi :</th>
+                                    <td> <?php echo $namaprov; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Email :</th>
+                                    <td> <?php echo $email; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>No. HP :</th>
+                                    <td> <?php echo $nohp; ?></td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
 
-            <div class="px-5">
-                <table class="table table-responsive">
-
-                <tr>
-                    <th>Nama Lengkap : </th>
-                    <td> <?php echo $namadosen; ?></td>
-                </tr>
-                <tr>
-                    <th>NIP :</th>
-                    <td><?php echo $nip; ?></td>
-                </tr>
-                <tr>
-                    <th>Kode Wali :</th>
-                    <td> <?php echo $kodewali; ?></td>
-                </tr>
-                <tr>
-                    <th>Alamat :</th>
-                    <td> <?php echo $alamat; ?></td>
-                </tr>
-                <tr>
-                    <th>Kabupaten/Kota :</th>
-                    <td> <?php echo $namakota; ?></td>
-                </tr>
-                <tr>
-                    <th>Propinsi :</th>
-                    <td> <?php echo $namaprov; ?></td>
-                </tr>
-                <tr>
-                    <th>Email :</th>
-                    <td> <?php echo $email; ?></td>
-                </tr>
-                <tr>
-                    <th>No. HP :</th>
-                    <td> <?php echo $nohp; ?></td>
-                </tr>
-                </table>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+                <div class="col">
+                    <a href="datamhs.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="text-center">Jumlah Mahasiswa Perwalian</p>
+                                <p class="card-text jumlah text-center"><?= $noPerwalian; ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="mhsAktif.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="text-center">Mahasiswa Perwalian Aktif</p>
+                                <p class="card-text jumlah text-center"><?= $noAktif; ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="mhsSkripsi.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="text-center">Mahasiswa Perwalian Lulus Skripsi</p>
+                                <p class="card-text jumlah text-center"><?= $noSkripsi; ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
 
-            
-        </div>
-    </div>
-</div>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+                <div class="col">
+                    <a href="mhsCuti.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="text-center">Mahasiswa Perwalian Cuti</p>
+                                <p class="card-text jumlah text-center"><?= $noCuti; ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="mhsPKL.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="text-center">Mahasiswa Perwalian Sudah PKL</p>
+                                <p class="card-text jumlah text-center"><?= $noPKL; ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="mhsMangkir.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="text-center">Mahasiswa Perwalian Mangkir</p>
+                                <p class="card-text jumlah text-center"><?= $noMangkir; ?></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
-    <div class="col">
-        <a href="datamhs.php">
-        <div class="card rounded-4 ">
-        <div class="card-body">
-            <p class="text-center">Jumlah Mahasiswa Perwalian</p>
-            <p class="card-text jumlah text-center"><?= $noPerwalian; ?></p>
         </div>
-        </div>
-        </a>
-    </div>
-    <div class="col">
-        <a href="mhsAktif.php">
-        <div class="card rounded-4 ">
-        <div class="card-body">
-            <p class="text-center">Mahasiswa Perwalian Aktif</p>
-            <p class="card-text jumlah text-center"><?= $noAktif; ?></p>
-        </div>
-        </div>
-        </a>
-    </div>
-    <div class="col">
-        <a href="mhsSkripsi.php">
-        <div class="card rounded-4 ">
-        <div class="card-body">
-            <p class="text-center">Mahasiswa Perwalian Lulus Skripsi</p>
-            <p class="card-text jumlah text-center"><?= $noSkripsi; ?></p>
-        </div>
-        </div>
-        </a>
-    </div>
-</div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
-    <div class="col">
-        <a href="mhsCuti.php">
-        <div class="card rounded-4 ">
-        <div class="card-body">
-            <p class="text-center">Mahasiswa Perwalian Cuti</p>
-            <p class="card-text jumlah text-center"><?= $noCuti; ?></p>
         </div>
-        </div>
-        </a>
-    </div>
-    <div class="col">
-        <a href="mhsPKL.php">
-        <div class="card rounded-4 ">
-        <div class="card-body">
-            <p class="text-center">Mahasiswa Perwalian Sudah PKL</p>
-            <p class="card-text jumlah text-center"><?= $noPKL; ?></p>
-        </div>
-        </div>
-        </a>
-    </div>
-    <div class="col">
-        <a href="mhsMangkir.php">
-        <div class="card rounded-4 ">
-        <div class="card-body">
-            <p class="text-center">Mahasiswa Perwalian Mangkir</p>
-            <p class="card-text jumlah text-center"><?= $noMangkir; ?></p>
-        </div>
-        </div>
-        </a>
-    </div>
-</div>
+    </section>
 
-</div>
-
-</div>
-</section>
-    
-<script src="../library/js/script.js"> </script>
+    <script src="../library/js/script.js"> </script>
 </body>
 
 </html>
