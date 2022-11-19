@@ -126,11 +126,11 @@
       <table id="example" class="table  bg-light rounded-3" style="width:100%">
         <thead>
             <tr>
-                <th>NIM</th>
-                <th>Nama</th>
-                <th>Semester</th>
-                <th>Email</th>
-                <th>Aksi</th>
+                <th width='40'>NIM</th>
+                <th width='120'>Nama</th>
+                <th width='20'>Semester</th>
+                <th width='40'>Email</th>
+                <th width='120'>Aksi</th>
                 <!-- <th>No HP</th> -->
             </tr>
         </thead>
