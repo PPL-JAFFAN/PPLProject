@@ -18,7 +18,7 @@ if (isset($_SESSION['nip'])) {
     $user = mysqli_fetch_assoc($queryPass);
     $password = $user['password'];
 } else {
-    header("Location: ../login.php");
+    header("Location:../index.php");
 }
 
 if (isset($_POST['edit'])) {

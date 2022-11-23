@@ -67,7 +67,7 @@ if (isset($_SESSION['nip'])) {
         $noSkripsi++;
     }
 } else {
-    header("Location: ../login.php");
+    header("Location:../index.php");
 }
 
 

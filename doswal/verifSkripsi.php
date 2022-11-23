@@ -2,8 +2,8 @@
 require_once('../db_login.php');
 session_start();
 
-if (!isset($_SESSION['nip'])){ 
-    header ("Location:../login.php");
+if (!isset($_SESSION['nip'])) {
+    header("Location:../index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,8 @@ if (!isset($_SESSION['nip'])){
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="../library/css/style.css">
     <link rel="stylesheet" href="doswal.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -81,8 +82,8 @@ if (!isset($_SESSION['nip'])){
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                    <div class="name"><?php echo $_SESSION['nama']?></div>
-                        <div class="email"><?php echo $_SESSION['email']?></div>
+                        <div class="name"><?php echo $_SESSION['nama'] ?></div>
+                        <div class="email"><?php echo $_SESSION['email'] ?></div>
                     </div>
                 </div>
             </li>
@@ -92,78 +93,77 @@ if (!isset($_SESSION['nip'])){
     <form method="GET" autocomplete="on">
         <section class="home-section">
             <div class="container-fluid">
-            <div class="d-flex justify-content-center" id="searchmhs">
-                <h4 class="float-start" >Verifikasi Skripsi Mahasiswa</h4>
-                <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
-                    id="nama_mhs" />
-                <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
-            </div>
+                <div class="d-flex justify-content-center" id="searchmhs">
+                    <h4 class="float-start">Verifikasi Skripsi Mahasiswa</h4>
+                    <input class="form-control" type="text" name="nama_mhs" placeholder="Nama Mahasiswa" value=""
+                        id="nama_mhs" />
+                    <input type="submit" class="btn btn-class btn-primary" name="cari_mhs" value="Cari" />
+                </div>
 
-            <div class="card rounded-4 mt-5">
-                <div class="card-body">
-                <h5 class="text-center m-4">Mahasiswa Perwalian</h5>
-                <div class="d-flex justify-content-center">
-                    <table id="tabelmhs">
-                        <tr>
-                            <th id="table1">NO. </th>
-                            <th id="table1">NAMA </th>
-                            <th id="table1">NIM </th>
-                            <th id="table1">STATUS SKRIPSI </th>
-                            <th id="table1">NILAI </th>
-                            <th id="table1">TANGGAL SIDANG </th>
-                            <th id="table1">SCAN SIDANG </th>
-                            <th id="table1">VERIFIKASI </th>
-                        </tr>
-                        <?php 
+                <div class="card rounded-4 mt-5">
+                    <div class="card-body">
+                        <h5 class="text-center m-4">Mahasiswa Perwalian</h5>
+                        <div class="d-flex justify-content-center">
+                            <table id="tabelmhs">
+                                <tr>
+                                    <th id="table1">NO. </th>
+                                    <th id="table1">NAMA </th>
+                                    <th id="table1">NIM </th>
+                                    <th id="table1">STATUS SKRIPSI </th>
+                                    <th id="table1">NILAI </th>
+                                    <th id="table1">TANGGAL SIDANG </th>
+                                    <th id="table1">SCAN SIDANG </th>
+                                    <th id="table1">VERIFIKASI </th>
+                                </tr>
+                                <?php
 
-                        $query = "SELECT * FROM tb_skripsi JOIN tb_mhs where tb_skripsi.nim = tb_mhs.nim AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_skripsi.verif_skripsi";
-                        $connect = mysqli_query($conn, $query);
-                        $no = 1;
+                                $query = "SELECT * FROM tb_skripsi JOIN tb_mhs where tb_skripsi.nim = tb_mhs.nim AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_skripsi.verif_skripsi";
+                                $connect = mysqli_query($conn, $query);
+                                $no = 1;
 
-                        if (isset($_GET['cari_mhs'])){
-                            $nama_mhs = $_GET['nama_mhs'];
-                            $query = "SELECT * FROM tb_skripsi JOIN tb_mhs where tb_skripsi.nim = tb_mhs.nim && tb_mhs.nama LIKE '%".$nama_mhs."%' AND tb_mhs.kode_wali = ".$_SESSION["kode_wali"]." ORDER BY tb_skripsi.verif_skripsi";
-                            $connect = mysqli_query($conn, $query);
-                            $no = 1;
-                        }
-                        
-                    
-                    while ($data = $connect->fetch_object()) {
-                        $st_verif = $data->verif_skripsi;
-                        if ($st_verif == "belum"){
-                            $selectstatus1 = "selected = true";
-                            $selectstatus2 = "";
-                        }
-                        elseif ($st_verif == "sudah"){
-                                $selectstatus1 = "";
-                                $selectstatus2 = "selected = true";
-                        }
-                        echo '<tr id ="rows">';
-                        echo '<td id="table1">'.$no.'</td>';
-                        echo '<td id="table1">'.$data->nama.'</td>';
-                        echo '<td id="table1">'.$data->nim.'</td>';
-                        echo '<td id="table1">'.$data->status_skripsi.'</td>';
-                        echo '<td id="table1">'.$data->nilai_skripsi.'</td>';
-                        echo '<td id="table1">'.$data->tanggal_sidang.'</td>';
-                        ?>
-                        <td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = '../mahasiswa/uploads_skripsi/<?php echo $data->scan_skripsi?>'">Lihat
-                                Scan skripsi</button></td>
-                        <?php echo '
+                                if (isset($_GET['cari_mhs'])) {
+                                    $nama_mhs = $_GET['nama_mhs'];
+                                    $query = "SELECT * FROM tb_skripsi JOIN tb_mhs where tb_skripsi.nim = tb_mhs.nim && tb_mhs.nama LIKE '%" . $nama_mhs . "%' AND tb_mhs.kode_wali = " . $_SESSION["kode_wali"] . " ORDER BY tb_skripsi.verif_skripsi";
+                                    $connect = mysqli_query($conn, $query);
+                                    $no = 1;
+                                }
+
+
+                                while ($data = $connect->fetch_object()) {
+                                    $st_verif = $data->verif_skripsi;
+                                    if ($st_verif == "belum") {
+                                        $selectstatus1 = "selected = true";
+                                        $selectstatus2 = "";
+                                    } elseif ($st_verif == "sudah") {
+                                        $selectstatus1 = "";
+                                        $selectstatus2 = "selected = true";
+                                    }
+                                    echo '<tr id ="rows">';
+                                    echo '<td id="table1">' . $no . '</td>';
+                                    echo '<td id="table1">' . $data->nama . '</td>';
+                                    echo '<td id="table1">' . $data->nim . '</td>';
+                                    echo '<td id="table1">' . $data->status_skripsi . '</td>';
+                                    echo '<td id="table1">' . $data->nilai_skripsi . '</td>';
+                                    echo '<td id="table1">' . $data->tanggal_sidang . '</td>';
+                                ?>
+                                <td id="table1"><button type="button" class="btn btn-primary"
+                                        onclick="location.href = '../mahasiswa/uploads_skripsi/<?php echo $data->scan_skripsi ?>'">Lihat
+                                        Scan skripsi</button></td>
+                                <?php echo '
                          <td>
-                            <select id="'.$data->nim.'" name="verif_skripsi" class="form-control" onchange="changeSkripsi('.$data->nim.')">
-                                <option value="belum"'.$selectstatus1.'>Belum</option>
-                                <option value="sudah"'.$selectstatus2.'>Sudah</option>
+                            <select id="' . $data->nim . '" name="verif_skripsi" class="form-control" onchange="changeSkripsi(' . $data->nim . ')">
+                                <option value="belum"' . $selectstatus1 . '>Belum</option>
+                                <option value="sudah"' . $selectstatus2 . '>Sudah</option>
                             </select>
                         </td>'; ?>
-                        <?php echo '</tr>';
-                        $no = $no+1;
-                    }
-                  ?>
-                    </table>
+                                <?php echo '</tr>';
+                                    $no = $no + 1;
+                                }
+                                ?>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            </div>
             </div>
         </section>
     </form>

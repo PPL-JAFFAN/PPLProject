@@ -2,8 +2,8 @@
 require_once('../db_login.php');
 session_start();
 
-if (!isset($_SESSION['nip'])){ 
-    header ("Location:../login.php");
+if (!isset($_SESSION['nip'])) {
+    header("Location:../index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,8 @@ if (!isset($_SESSION['nip'])){
     <!--<title> Responsive Sidebar Menu  | CodingLab </title>-->
     <link rel="stylesheet" href="../library/css/style.css">
     <link rel="stylesheet" href="doswal.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -81,61 +82,61 @@ if (!isset($_SESSION['nip'])){
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                    <div class="name"><?php echo $_SESSION['nama']?></div>
-                        <div class="email"><?php echo $_SESSION['email']?></div>
+                        <div class="name"><?php echo $_SESSION['nama'] ?></div>
+                        <div class="email"><?php echo $_SESSION['email'] ?></div>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
 
-  
+
     <section class="home-section">
         <div class="container container-fluid">
             <div class="h4 mt-5 w-100 ">Verifikasi Mahasiswa</div><br>
-        <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
-            <div class="col">
-                <a href="verifIRS.php">
-                <div class="card rounded-4 ">
-                <div class="card-body">
-                    <p class="h3 m-4 text-center">Data IRS</p>
+            <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+                <div class="col">
+                    <a href="verifIRS.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="h3 m-4 text-center">Data IRS</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
+                <div class="col">
+                    <a href="verifKHS.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="h3 m-4 text-center">Data KHS</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
             </div>
-            <div class="col">
-                <a href="verifKHS.php">
-                <div class="card rounded-4 ">
-                <div class="card-body">
-                    <p class="h3 m-4 text-center">Data KHS</p>
-                </div>
-                </div>
-                </a>
-            </div>
-        </div>
 
-        <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
-            <div class="col">
-                <a href="verifPKL.php">
-                <div class="card rounded-4 ">
-                <div class="card-body">
-                    <p class="h3 m-4 text-center">Data PKL</p>
+            <div class="row row-cols-1 row-cols-md-2 g-4 mt-1">
+                <div class="col">
+                    <a href="verifPKL.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="h3 m-4 text-center">Data PKL</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
+                <div class="col">
+                    <a href="verifSkripsi.php">
+                        <div class="card rounded-4 ">
+                            <div class="card-body">
+                                <p class="h3 m-4 text-center">Data SKRIPSI</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
             </div>
-            <div class="col">
-                <a href="verifSkripsi.php">
-                <div class="card rounded-4 ">
-                <div class="card-body">
-                    <p class="h3 m-4 text-center">Data SKRIPSI</p>
-                </div>
-                </div>
-                </a>
-            </div>
-        </div>
 
-        </section>
+    </section>
 
     <script src="../library/js/script.js"> </script>
 </body>
