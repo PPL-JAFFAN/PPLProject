@@ -2,9 +2,9 @@
 require_once('../db_login.php');
 session_start();
 
-if (isset($_SESSION['nip'])){  
+if (isset($_SESSION['nip'])) {
     $nip = $_SESSION['nip'];
-    $query = mysqli_query($conn,"select * from tb_dosen where nip='$nip'");
+    $query = mysqli_query($conn, "select * from tb_dosen where nip='$nip'");
     $cek = mysqli_num_rows($query);
     $dosen = mysqli_fetch_assoc($query);
     $namadosen = $dosen['nama'];
@@ -12,24 +12,23 @@ if (isset($_SESSION['nip'])){
     $alamat = $dosen['alamat'];
     $email = $dosen['email'];
     $nohp = $dosen['no_hp'];
-    $querypropinsi = mysqli_query($conn,"select * from tb_propinsi");
+    $querypropinsi = mysqli_query($conn, "select * from tb_propinsi");
 
-    $queryPass = mysqli_query($conn,"select * from tb_user where nimnip='$nip'");
+    $queryPass = mysqli_query($conn, "select * from tb_user where nimnip='$nip'");
     $user = mysqli_fetch_assoc($queryPass);
     $password = $user['password'];
-}
-else{
-    header ("Location: ../login.php");
+} else {
+    header("Location: ../login.php");
 }
 
-if(isset($_POST['edit'])){
+if (isset($_POST['edit'])) {
     $nama = $_POST['nama'];
     $alamat = $_POST['alamat'];
     $nohp = $_POST['no_hp'];
     $email = $_POST['email'];
     $kode_kota = $_POST['kabupaten'];
     $password = $_POST['password'];
-    $queryedit = mysqli_query($conn,"UPDATE tb_dosen 
+    $queryedit = mysqli_query($conn, "UPDATE tb_dosen 
                                 SET
                                 nama = '$nama',
                                 alamat = '$alamat',
@@ -118,8 +117,8 @@ if(isset($_POST['edit'])){
                 <div class="profile-details">
                     <!-- <img src="undip.png" alt="profileImg"> -->
                     <div class="name_job">
-                        <div class="name"><?php echo $_SESSION['nama']?></div>
-                        <div class="email"><?php echo $_SESSION['email']?></div>
+                        <div class="name"><?php echo $_SESSION['nama'] ?></div>
+                        <div class="email"><?php echo $_SESSION['email'] ?></div>
                     </div>
                 </div>
             </li>
@@ -127,76 +126,78 @@ if(isset($_POST['edit'])){
     </div>
 
     <section class="home-section">
-    <div class="container-fluid">
-        <div class="h4 mt-5 w-100 ">Edit Data 
-                </div><br>
-        <div class="row row-cols-1 row-cols-md-1 g-4 ">
-            <div class="col">
-            <div class="card rounded-4 card-active ">
-                <div class="card-body">
-                    <form class="px-4 mt-3" action="" method="POST" id="buatakun">
-                    <div class="form-group">
-                        <label for="name" id="uname">Nama Lengkap</label>
-                        <input class="form-control mb-3" type="text" name="nama" placeholder="Nama Lengkap"
-                            value="<?=$dosen['nama'];?>" />
-                    </div>
+        <div class="container-fluid">
+            <div class="h4 mt-5 w-100 ">Edit Data
+            </div><br>
+            <div class="row row-cols-1 row-cols-md-1 g-4 ">
+                <div class="col">
+                    <div class="card rounded-4 card-active ">
+                        <div class="card-body">
+                            <form class="px-4 mt-3" action="" method="POST" id="buatakun">
+                                <div class="form-group">
+                                    <label for="name" id="uname">Nama Lengkap</label>
+                                    <input class="form-control mb-3" type="text" name="nama" placeholder="Nama Lengkap"
+                                        value="<?= $dosen['nama']; ?>" />
+                                </div>
 
-                    <div class="form-group">
-                        <label for="alamat" id="uname">Alamat</label>
-                        <input class="form-control mb-3" type="text" name="alamat" placeholder="alamat"
-                            value="<?=$dosen['alamat'];?>" />
-                    </div>
+                                <div class="form-group">
+                                    <label for="alamat" id="uname">Alamat</label>
+                                    <input class="form-control mb-3" type="text" name="alamat" placeholder="alamat"
+                                        value="<?= $dosen['alamat']; ?>" />
+                                </div>
 
-                    <div class="form-group">
-                        <label for="no_telp" id="uname">No. HP</label>
-                        <input class="form-control mb-3" type="text" name="no_hp" placeholder="Nomor Telepon"
-                            value="<?=$dosen['no_hp'];?>" />
-                    </div>
+                                <div class="form-group">
+                                    <label for="no_telp" id="uname">No. HP</label>
+                                    <input class="form-control mb-3" type="text" name="no_hp"
+                                        placeholder="Nomor Telepon" value="<?= $dosen['no_hp']; ?>" />
+                                </div>
 
-                    <div class="form-group">
-                        <label for="kode" id="uname">Email</label>
-                        <input class="form-control mb-3" type="email" name="email" placeholder="email"
-                            value="<?=$dosen['email'];?>" />
-                    </div>
+                                <div class="form-group">
+                                    <label for="kode" id="uname">Email</label>
+                                    <input class="form-control mb-3" type="email" name="email" placeholder="email"
+                                        value="<?= $dosen['email']; ?>" />
+                                </div>
 
-                    <div class="form-group">
-                        <label for="kode" id="uname">Password</label>
-                        <input class="form-control mb-3" type="text" name="password" placeholder="ketik password"
-                            value="<?=$password;?>" />
-                    </div>
+                                <div class="form-group">
+                                    <label for="kode" id="uname">Password</label>
+                                    <input class="form-control mb-3" type="text" name="password"
+                                        placeholder="ketik password" value="<?= $password; ?>" />
+                                </div>
 
-                    <div class="form-group">
-                        <label for="provinsi">Provinsi</label>
-                        <select name="provinsi" id="provinsi" class="form-control mb-3" onchange="getKabupaten(this.value)">
-                            <option value="">Pilih Propinsi</option>
-                            <?php while ($row = $querypropinsi->fetch_object()){
-                            echo '<option value="'.$row->id.'">'.$row->nama.'</option>';
-                        }
-                        ?>
-                            <!-- /* TODO tampilkan daftar provinsi menggunakan ajax */ -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="kabupaten">Kabupaten</label>
-                        <select name="kabupaten" id="kabupaten" class="form-control">
-                            <option value="">Pilih kabupaten/Kota</option>
+                                <div class="form-group">
+                                    <label for="provinsi">Provinsi</label>
+                                    <select name="provinsi" id="provinsi" class="form-control mb-3"
+                                        onchange="getKabupaten(this.value)">
+                                        <option value="">Pilih Propinsi</option>
+                                        <?php while ($row = $querypropinsi->fetch_object()) {
+                                            echo '<option value="' . $row->id . '">' . $row->nama . '</option>';
+                                        }
+                                        ?>
+                                        <!-- /* TODO tampilkan daftar provinsi menggunakan ajax */ -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kabupaten">Kabupaten</label>
+                                    <select name="kabupaten" id="kabupaten" class="form-control">
+                                        <option value="">Pilih kabupaten/Kota</option>
 
-                            <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
-                        </select>
-                    </div>
+                                        <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
+                                    </select>
+                                </div>
 
-                    <br>
-                    <div class="col-12 d-flex justify-content-center button-signup" id="ctn-signup">
-                        <input type="submit" class="btn btn-primary mt-2 w-100 mb-3" name="edit" value="Konfirmasi Edit" id="signupbutton" />
-                    </div>
-                    </form>
+                                <br>
+                                <div class="col-12 d-flex justify-content-center button-signup" id="ctn-signup">
+                                    <input type="submit" class="btn btn-primary mt-2 w-100 mb-3" name="edit"
+                                        value="Konfirmasi Edit" id="signupbutton" />
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-         </div>
+            </div>
         </div>
     </section>
-<script src="../library/js/script.js"> </script>
+    <script src="../library/js/script.js"> </script>
 </body>
 
 </html>
