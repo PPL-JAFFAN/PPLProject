@@ -7,7 +7,7 @@ https://trello.com/b/Uw7B9AMu/ppl-group-2
 https://bit.ly/DokPengujianPPLJAFFAN
 
 - User Manual
-https://docs.google.com/document/d/1VVtLeFQ6l_SXQhSMzrXDkflHjZ6bP-Ew8Y9g6p4ypos/edit?usp=sharing
+https://bit.ly/UserManualSiapIn_Kel2_PPL_B
 
 - *Laporan Progress PPL SiapIn*
 https://docs.google.com/document/d/1Kk9-kJ456Q0dUNz856dRaFdS3AhDiIoTZOD_qERVu5k/edit?usp=sharing
