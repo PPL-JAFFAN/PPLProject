@@ -23,21 +23,46 @@ function close()
 if (isset($_POST['updatemahasiswa'])) {
    $nimmahasiswa = $_POST['nimmahasiswa'];
    $namabaru = $_POST['namabaru'];
-   $alamat = $_POST['alamat'];
-   $kode_kota = $_POST['kode_kota'];
    $angkatan = $_POST['angkatan'];
-   $jalur_masuk = $_POST['jalur_masuk'];
    $email = $_POST['email'];
-   $no_hp = $_POST['no_hp'];
    $status = $_POST['status'];
-   $kode_wali = $_POST['kode_wali'];
-   $semester = $_POST['semester'];
 
-   $queryupdate = mysqli_query($conn, "UPDATE tb_mhs SET nama = '$namabaru' , alamat = '$alamat' , kode_kota = '$kode_kota' ,
-   angkatan = '$angkatan' , jalur_masuk = '$jalur_masuk' , email = '$email' , no_hp = '$no_hp' , status = '$status' , kode_wali = '$kode_wali' ,
-   semester = '$semester' WHERE nim='$nimmahasiswa'");
-   if ($queryupdate) {
-      header('location:manajemenakun.php');
+
+   //validate form
+   $valid = TRUE;
+   if (empty($namabaru)) {
+      $error_nama = "Nama is required";
+      $valid = FALSE;
+   } else if (!preg_match("/^[a-zA-Z ]*$/", $namabaru)) {
+      $error_nama = "Only letters and white space allowed";
+      $valid = FALSE;
+   }
+   if (empty($angkatan)) {
+      $error_angkatan = "Angkatan is required";
+      $valid = FALSE;
+   } else if (!preg_match("/^[0-9]*$/", $angkatan)) {
+      $error_angkatan = "Only numbers allowed";
+      $valid = FALSE;
+   }
+   if (empty($email)) {
+      $error_email = "Email is required";
+      $valid = FALSE;
+   } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $error_email = "Invalid email format";
+      $valid = FALSE;
+   }
+   if (empty($status)) {
+      $error_status = "Status is required";
+      $valid = FALSE;
+   }
+
+   if ($valid) {
+      $queryupdate = mysqli_query($conn, "UPDATE tb_mhs SET nama = '$namabaru', angkatan = '$angkatan', email = '$email', status = '$status' WHERE nim = '$nimmahasiswa'");
+      if ($queryupdate) {
+         header('location:manajemenakun.php');
+      } else {
+         header('location:manajemenakun.php');
+      }
    } else {
       header('location:manajemenakun.php');
    }
@@ -111,6 +136,8 @@ if (isset($_POST['delete_dosen'])) {
 
 //Add Mahasiswa
 if (isset($_POST['add_mhs'])) {
+   $valid = true;
+   $err = '';
    $nama = $_POST['nama'];
    $nim = $_POST['nim'];
    $semester = $_POST['semester'];
@@ -121,18 +148,31 @@ if (isset($_POST['add_mhs'])) {
    $dosen = $_POST['dosen'];
    $status = "Aktif";
    $level = "mhs";
+   //validate form cant be empty
+   if (empty($nama) || empty($nim) || empty($semester) || empty($angkatan) || empty($jalur_masuk) || empty($email) || empty($dosen)) {
+      $valid = false;
+      $err = "Form tidak boleh kosong";
+   }
+   //validate $nim can only start with "24060" and length must be 14
+   if (substr($nim, 0, 5) != "24060" || strlen($nim) != 14) {
+      $valid = false;
+      $err = "NIM harus diawali dengan 24060 dan panjang NIM harus 14";
+   }
 
-   $addtomhs = mysqli_query($conn, "INSERT INTO tb_mhs (nama, nim, semester, angkatan, jalur_masuk, email,status, kode_wali ) 
-   VALUES('$nama','$nim','$semester','$angkatan','$jalur_masuk', '$email','$status','$dosen')");
-   $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username,status, email, password ) VALUES('$nim','$nama','$level','$email', '$nim')");
-   $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim, status_pkl, verif_pkl) VALUES('$nim','BELUM MENGAMBIL','belum')");
-   $addtoskripsi = mysqli_query($conn, "INSERT INTO tb_skripsi (nim, status_skripsi, verif_skripsi) VALUES('$nim','BELUM MENGAMBIL','belum')");
-
-   if ($addtomhs) {
+   if (!$valid) {
       header('location:manajemenakun.php');
    } else {
-      echo "Gagal Menambahkan Data";
-      header('location:manajemenakun.php');
+      $addtomhs = mysqli_query($conn, "INSERT INTO tb_mhs (nama, nim, semester, angkatan, jalur_masuk, email,status, kode_wali ) 
+      VALUES('$nama','$nim','$semester','$angkatan','$jalur_masuk', '$email','$status','$dosen')");
+      $addtouser = mysqli_query($conn, "INSERT INTO tb_user (nimnip, username,status, email, password ) VALUES('$nim','$nama','$level','$email', '$nim')");
+      $addtopkl = mysqli_query($conn, "INSERT INTO tb_pkl (nim, status_pkl, verif_pkl) VALUES('$nim','BELUM MENGAMBIL','belum')");
+      $addtoskripsi = mysqli_query($conn, "INSERT INTO tb_skripsi (nim, status_skripsi, verif_skripsi) VALUES('$nim','BELUM MENGAMBIL','belum')");
+      if ($addtomhs) {
+         header('location:manajemenakun.php');
+      } else {
+         echo "Gagal Menambahkan Data";
+         header('location:manajemenakun.php');
+      }
    }
 }
 
