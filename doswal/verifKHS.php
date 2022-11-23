@@ -146,7 +146,7 @@ if (!isset($_SESSION['nip'])) {
                             echo '<td id="table1">' . $data->ip_kumulatif . '</td>';
                         ?>
                         <td id="table1"><button type="button" class="btn btn-primary"
-                                onclick="location.href = '../mahasiswa/uploads_khs/<?php echo $data->scan_khs ?>'">Lihat
+                                onclick="location.href = '../mahasiswa/uploads_khs/<?php echo $data->file_khs ?>'">Lihat
                                 Scan KHS</button></td>
                         <?php echo '
                          <td>

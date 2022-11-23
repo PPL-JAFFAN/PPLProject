@@ -146,7 +146,7 @@ if (!isset($_SESSION['nip'])) {
                                 echo '<td id="table1">' . $data->sks . '</td>';
                             ?>
                             <td id="table1"><button type="button" class="btn btn-primary"
-                                    onclick="location.href = '../file/irs/<?php echo $data->file_khs ?>'">Lihat
+                                    onclick="location.href = '../mahasiswa/uploads/<?php echo $data->file_irs ?>'">Lihat
                                     Scan IRS</button></td>
                             <?php echo '
                          <td>
