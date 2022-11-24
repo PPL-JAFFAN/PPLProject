@@ -23,8 +23,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+   <link rel="icon" type="image/x-icon" href="../../../asset/img/undip.png">
 
-    <title>Data Mahasiswa</title>
+   <title>SiapIn</title>
   
   <style>
     .home-section a .card-active{
@@ -159,7 +160,7 @@
       <br>
       <div class="h5 mt-4 mb-4 w-100">Mahasiswa Belum Lulus Skripsi</div>
       <div class="card p-4 rounded-4">
-      <table id="example" class="table  bg-light rounded-3" style="width:100%">
+      <table id="example" class="table   rounded-3" style="width:100%">
         <thead>
             <tr>
                 <th>NIM</th>

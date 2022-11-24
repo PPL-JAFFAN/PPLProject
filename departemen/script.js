@@ -1,18 +1,17 @@
-var keyword = document.getElementById('keyword');
+var keyword = document.getElementById('keyword')
 var tombolCari =document.getElementById('tombol-cari');
-var kontainer = document.getElementById('kontainer');
+var container = document.getElementById('container');
 
-
-keyword.addEventListener('change', function(){
+keyword.addEventListener('keyup', function(){
     //membuat objek ajax
     var xhr = new XMLHttpRequest();
     //cek ajax ready
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
-            kontainer.innerHTML = xhr.responseText;
+            container.innerHTML = xhr.responseText;
         }
     }
     //eksekusi ajax
-    xhr.open('GET', 'getmhspkl.php?keyword'+ keyword.value, true);
+    xhr.open('GET', 'getmhs.php?keyword=' + keyword +'', 'true');
     xhr.send();
 });

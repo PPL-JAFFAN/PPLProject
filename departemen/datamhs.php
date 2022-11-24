@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="../asset/img/undip.png">
 
     <style>
       .home-section a .card-active{
@@ -30,7 +31,7 @@
         background-color: #8974FF;
       }
     </style>
-    <title>Data Mahasiswa</title>
+    <title>SiapIn</title>
   </head>
 
 <body>
@@ -97,6 +98,7 @@
   <section class="home-section">
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Rekap Data Mahasiswa
+
       <div class="dropdown float-end">
       <a class="btn btn-primary dropdown-toggle" href="datamhs.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Angkatan
@@ -113,6 +115,7 @@
         <li><a class="dropdown-item" href="./datamhs/aktif/2022.php">2022</a></li>
 
       </ul>
+    </div>
     </div>
       </div><br>
 
@@ -218,9 +221,10 @@
       </div>
 
       <br>
+      <div id="container">
       <div class="h5 mt-4 mb-4 w-100">Tabel</div>
       <div class="card p-4 rounded-4">
-      <table id="example" class="table  bg-light rounded-3" style="width:100%">
+      <table id="example" class="table   rounded-3" style="width:100%">
         <thead>
             <tr>
                 <th>NIM</th>
@@ -267,7 +271,7 @@
      
     </table>
     </div>
-
+    </div>
 
 
 
@@ -279,6 +283,7 @@
 
 
 <script src="../library/js/script.js"></script>
+<script src="./script.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
