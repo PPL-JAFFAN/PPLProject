@@ -184,7 +184,7 @@
         </div>
 
         <div class="form-group  mb-4">
-            <label class="h6" for="jalur_masuk">jalur_masuk</label>
+            <label class="h6" for="jalur_masuk">Jalur Masuk</label>
             <select name="jalur_masuk" class="form-select" aria-label="Default select example">
                 <option selected value="Jalur Masuk">Jalur Masuk</option>
                 <option value="SNMPTN" <?php if(isset($jalur_masuk) && $jalur_masuk=="SNMPTN") echo 'selected="true"'; ?> >SNMPTN</option>
