@@ -3,38 +3,6 @@
   include './aksi.php';
   include '../function.php';
 
-  if (isset($_POST['add_dosen'])){
-    // validasi nama: tidak boleh kosong hanya dapat berisi huruf dan spasi
-    $nama = ($_POST['nama']);
-    if(empty($nama)){
-        $error_nama = "Nama harus diisi";
-    }elseif(!preg_match("/^[a-zA-Z]*$/", $nama)){
-        $error_nama = "Nama hanya dapat berisi huruf dan spasi";
-    }
-
-    // validasi NIP: tidak boleh kosong hanya dapat berisi angka
-    $nip = ($_POST['nip']);
-    if(empty($nip)){
-        $error_nip = " NIP harus diisi";
-    }elseif(preg_match("/^[a-zA-Z]*$/", $nip)){
-        $error_nip = "NIP hanya dapat berisi Angka";
-    }
-
-    //validasi email : tidak boleh kosong, format harus benar
-    $email = ($_POST['email']);
-    if($email == ''){
-        $error_email = "Email harus diisi";
-    }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $error_email = "Format email tidak benar";
-    }
-
-    // validasi password: tidak boleh kosong 
-    $password = ($_POST['password']);
-    if($password == ''){
-        $error_password = "Password harus diisi";
-    }    
-
-}
 
 ?>
 
@@ -73,7 +41,7 @@
 				  display: none;
 				}
 			  </style>
-    <title>Data Dosen</title>
+    <title>SiapIn</title>
   </head>
 
 <body>
@@ -149,9 +117,10 @@
     <div class="container-fluid">
       <div class="h4 mt-5 w-100 ">Rekap Data Dosen
       
-      <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#add_dosen">
+      <a href="add_dosen.php">
+      <button type="button" class="btn btn-primary float-end" >
         Tambah Data Dosen
-      </button>
+      </button></a>
       </div><br>
 
       <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
@@ -179,7 +148,7 @@
       
       <div class="h5 mt-4 mb-4 w-100">Data Dosen Departemen Informatika</div>
       <div class="card p-4 rounded-4">
-      <table id="example" class="table  bg-light rounded-3" style="width:100%">
+      <table id="example" class="table   rounded-3" style="width:100%">
         <thead>
             <tr>
                 <th>NIP</th>
@@ -296,47 +265,7 @@
 </body>
 </section>
 
-  <!-- Add Modal -->
-  <div class="modal fade" id="add_dosen">
-      <div class="modal-dialog">
-        <div class="modal-content">
-
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Tambah Data Dosen</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-
-          <!-- Modal body -->
-          <form method="POST">
-            <div class="modal-body">
-              <div class="form-group">
-                <input type="text" name="nama" placeholder="Nama" class="form-control" required>
-                <div class="error"> <?php if(isset($error_nama)) echo $error_nama; ?> </div>
-                <br>
-              </div>
-              <div class="form-group">
-                <input type="text" name="nip" placeholder="NIP" class="form-control" required>
-                <div class="error"> <?php if(isset($error_nip)) echo $error_nip; ?> </div>
-                <br>
-              </div>
-              <div class="form-group">
-                <input type="email" name="email" placeholder="Email" class="form-control" value="" required>
-                <div class="error"> <?php if(isset($error_email)) echo $error_email; ?> </div>
-                <br>
-              </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" name="add_dosen">Submit</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            </div>
-          </form>
-
-        </div>
-      </div>
-  </div>
+  
 
   
 
@@ -352,7 +281,28 @@
 });</script>
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
 
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 
   
  </html>

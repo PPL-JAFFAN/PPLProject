@@ -1,18 +1,22 @@
-var keyword = document.getElementById('keyword');
-var tombolCari =document.getElementById('tombol-cari');
-var kontainer = document.getElementById('kontainer');
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
 
 
-keyword.addEventListener('change', function(){
-    //membuat objek ajax
-    var xhr = new XMLHttpRequest();
-    //cek ajax ready
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState == 4 && xhr.status == 200){
-            kontainer.innerHTML = xhr.responseText;
-        }
-    }
-    //eksekusi ajax
-    xhr.open('GET', 'getmhspkl.php?keyword='+ keyword.value, true);
-    xhr.send();
-});

@@ -28,7 +28,7 @@
         background-color: #8974FF;
       }
     </style>
-    <title>Data Mahasiswa</title>
+    <title>SiapIn</title>
   </head>
 
 <body>
@@ -212,7 +212,7 @@
       </a>
       </div>
       <div class="col">
-      <a href="../do/2022.php">
+      <a href="2022.php">
       <div class="card rounded-4 card-active">
         <div class="card-body">
           <p class="text-center">Jumlah Mahasiswa Drop Out</p>
@@ -226,7 +226,7 @@
       <br>
       <div class="h5 mt-4 mb-4 w-100">Tabel</div>
       <div class="card p-4 rounded-4">
-      <table id="example" class="table  bg-light rounded-3" style="width:100%">
+      <table id="example" class="table   rounded-3" style="width:100%">
         <thead>
             <tr>
                 <th>NIM</th>
