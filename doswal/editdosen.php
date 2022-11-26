@@ -7,6 +7,7 @@ $error_namadosen = '';
 $error_alamat = '';
 $error_nohp = '';
 $error_email = '';
+$error_password = '';
 $error_kabupaten = '';
 
 
@@ -47,6 +48,12 @@ if (isset($_SESSION['nip'])) {
         $idpropinsi = $propinsi['id'];
         $namapropinsi = $propinsi['nama'];
     }
+
+
+
+    $queryPass = mysqli_query($conn, "select * from tb_user where nimnip='$nip'");
+    $user = mysqli_fetch_assoc($queryPass);
+    $password = $user['password'];
 } else {
     header("Location:../index.php");
 }
@@ -87,6 +94,12 @@ if (isset($_POST['edit'])) {
         $error_email = "Invalid email format";
         $valid = FALSE;
     }
+    //validate password
+    $password = $_POST['password'];
+    if ($password == '') {
+        $error_password = "Password tidak boleh kosong";
+        $valid = FALSE;
+    }
     //validate kabupaten
     $kode_kota = $_POST['kabupaten'];
     if ($kode_kota == '') {
@@ -97,7 +110,8 @@ if (isset($_POST['edit'])) {
     //update data into database
     if ($valid) {
         $query = mysqli_query($conn, "update tb_dosen set nama='$namadosen', alamat='$alamat', no_hp='$nohp', email='$email', kode_kota='$kode_kota' where nip='$nip'");
-        if ($query) {
+        $query2 = mysqli_query($conn, "update tb_user set password='$password' where nimnip='$nip'");
+        if ($query && $query2) {
             header("Location:doswal.php");
         } else {
             die("Query gagal dijalankan: " . mysqli_errno($conn) .
@@ -226,6 +240,13 @@ if (isset($_POST['edit'])) {
                                     <input class="form-control mb-3" type="email" name="email" placeholder="email"
                                         value="<?= $dosen['email']; ?>" />
                                     <p id="error"><?php echo $error_email; ?></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kode" id="uname">Password</label>
+                                    <input class="form-control mb-3" type="text" name="password"
+                                        placeholder="ketik password" value="<?= $password; ?>" />
+                                    <p id="error"><?php echo $error_password; ?></p>
                                 </div>
 
                                 <div class="form-group">
