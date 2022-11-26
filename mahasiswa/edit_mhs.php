@@ -3,8 +3,16 @@ require '../function.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
 }
+//set all error as empty string
+$error_nama = '';
+$error_email = '';
+$error_password = '';
+$error_alamat = '';
+$error_nohp = '';
+$error_kota = '';
+
 
 ?>
 
@@ -96,35 +104,81 @@ if (!isset($_SESSION['email'])) {
             </li>
 
             <?php
-      // get detail mahasiswa
-      //fetch semua field data mahasiswa dengan nim tertentu
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
-      $mhsPass = getPassMhs($_SESSION['nim']);
-      $nim = ($_SESSION['nim']);
-      $image =  $mhsDetail['foto_mhs'];
-      $querypropinsi = mysqli_query($conn, "select * from tb_propinsi");
+            // get detail mahasiswa
+            //fetch semua field data mahasiswa dengan nim tertentu
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
+            $mhsPass = getPassMhs($_SESSION['nim']);
+            $nim = ($_SESSION['nim']);
+            $image =  $mhsDetail['foto_mhs'];
+            $querypropinsi = mysqli_query($conn, "select * from tb_propinsi");
 
-      //Melakukan Update data yang telah disubmit
-      if (isset($_POST['update'])) {
-        $nama = $_POST['nama'];
-        $nohp = $_POST['telepon'];
-        $alamat = $_POST['alamat'];
-        $email = $_POST['email'];
-        $kode_kota = $_POST['kabupaten'];
-        $password = $_POST['password'];
+            //Melakukan Update data yang telah disubmit
+            if (isset($_POST['update'])) {
+                $valid = true;
+                $nama = $_POST['nama'];
+                if (empty($nama)) {
+                    $valid = false;
+                    $error_nama = "Nama tidak boleh kosong";
+                } else if (!preg_match("/^[a-zA-Z ]*$/", $nama)) {
+                    $valid = false;
+                    $error_nama = "Hanya huruf dan spasi yang diperbolehkan";
+                }
+                $nohp = $_POST['telepon'];
+                //validate nohp
+                if (empty($nohp)) {
+                    $valid = false;
+                    $error_nohp = "Nomor telepon tidak boleh kosong";
+                } else if (!preg_match("/^[0-9]*$/", $nohp)) {
+                    $valid = false;
+                    $error_nohp = "Hanya angka yang diperbolehkan";
+                }
 
-        $queryedit = "UPDATE tb_mhs SET nama = '$nama', alamat = '$alamat',
+                $alamat = $_POST['alamat'];
+                if (empty($alamat)) {
+                    $valid = false;
+                    $error_alamat = "Alamat tidak boleh kosong";
+                }
+
+                $email = $_POST['email'];
+                if (empty($email)) {
+                    $valid = false;
+                    $error_email = "Email tidak boleh kosong";
+                } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $valid = false;
+                    $error_email = "Format email salah";
+                }
+
+                $kode_kota = $_POST['kabupaten'];
+                if ($kode_kota == '') {
+                    $valid = false;
+                    $error_kota = "Kota tidak boleh kosong";
+                }
+                $password = $_POST['password'];
+                //validate password
+                if (empty($password)) {
+                    $valid = false;
+                    $error_password = "Password tidak boleh kosong";
+                } else if (strlen($password) < 4) {
+                    $valid = false;
+                    $error_password = "Password minimal 8 karakter";
+                }
+
+                if ($valid) {
+                    $queryedit = "UPDATE tb_mhs SET nama = '$nama', alamat = '$alamat',
                         no_hp = '$nohp', email = '$email',kode_kota = $kode_kota
                         WHERE nim = '$nim'";
-        $querypass = "UPDATE tb_user SET password = '$password' where nimnip = '$nim'";
-        $resultedit = mysqli_query($conn, $queryedit);
-        $resultpass = mysqli_query($conn, $querypass);
-        if ($resultedit) {
-          header("Location: mhs_profil.php");
-        }
-      }
+                    $querypass = "UPDATE tb_user SET password = '$password' where nimnip = '$nim'";
+                    $resultedit = mysqli_query($conn, $queryedit);
+                    $resultpass = mysqli_query($conn, $querypass);
+                    if ($resultedit) {
+                        header("Location: mhs_profil.php");
+                    } else {
+                        $error = "Error: " . $queryedit . "<br>" . mysqli_error($conn);
+                    }
+                }
+            }
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -166,6 +220,7 @@ if (!isset($_SESSION['email'])) {
                                                     placeholder="Nama Lengkap"
                                                     value="<?php echo $mhsDetail['nama']; ?>" />
                                             </div>
+                                            <p id="error"><?php echo $error_nama; ?></p>
                                         </div>
 
                                         <div class="row">
@@ -177,6 +232,7 @@ if (!isset($_SESSION['email'])) {
                                                 <span class="form-control mb-2 bg-light" type="text-muted" name="nim"
                                                     placeholder="Nim"><?php echo $_SESSION['nim']; ?></span>
                                             </div>
+
                                         </div>
 
                                         <div class="row">
@@ -200,6 +256,7 @@ if (!isset($_SESSION['email'])) {
                                                     placeholder="mhs@gmail.com"
                                                     value="<?php echo $mhsDetail['email']; ?>" />
                                             </div>
+                                            <p id="error"><?php echo $error_email; ?></p>
                                         </div>
 
                                         <div class="row">
@@ -211,6 +268,7 @@ if (!isset($_SESSION['email'])) {
                                                 <input class="form-control mb-2" type="text" name="alamat"
                                                     placeholder="Alamat" value="<?php echo $mhsDetail['alamat']; ?>" />
                                             </div>
+                                            <p id="error"><?php echo $error_alamat; ?></p>
                                         </div>
 
                                         <div class="row">
@@ -223,6 +281,7 @@ if (!isset($_SESSION['email'])) {
                                                     placeholder="No Telephone"
                                                     value="<?php echo $mhsDetail['no_hp']; ?>" />
                                             </div>
+                                            <p id="error"><?php echo $error_nohp; ?></p>
                                         </div>
 
                                         <div class="row">
@@ -235,6 +294,7 @@ if (!isset($_SESSION['email'])) {
                                                     placeholder="Password"
                                                     value="<?php echo $mhsPass['password']; ?>" />
                                             </div>
+                                            <p id="error"><?php echo $error_password; ?></p>
                                         </div>
 
 
@@ -246,9 +306,9 @@ if (!isset($_SESSION['email'])) {
                                                     onchange="getKabupaten(this.value)">
                                                     <option value="">Pilih Propinsi</option>
                                                     <?php while ($row = $querypropinsi->fetch_object()) {
-                            echo '<option value="' . $row->id . '">' . $row->nama . '</option>';
-                          }
-                          ?>
+                                                        echo '<option value="' . $row->id . '">' . $row->nama . '</option>';
+                                                    }
+                                                    ?>
                                                     <!-- /* TODO tampilkan daftar provinsi menggunakan ajax */ -->
                                                 </select>
                                             </div>
@@ -262,6 +322,7 @@ if (!isset($_SESSION['email'])) {
 
                                                     <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
                                                 </select>
+                                                <p id="error"><?php echo $error_kota; ?></p>
                                             </div>
 
                                         </div>
