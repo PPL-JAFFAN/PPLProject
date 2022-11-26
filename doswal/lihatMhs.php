@@ -3,7 +3,7 @@ require_once('../db_login.php');
 session_start();
 
 if (!isset($_SESSION['nip'])) {
-    header("Location:../login.php");
+    header("Location:../index.php");
 }
 
 $nim = $_GET['nim'];

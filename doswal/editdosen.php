@@ -1,6 +1,14 @@
 <?php
 require_once('../db_login.php');
 session_start();
+//set all error to empty
+$error_nip = '';
+$error_namadosen = '';
+$error_alamat = '';
+$error_nohp = '';
+$error_email = '';
+$error_kabupaten = '';
+
 
 if (isset($_SESSION['nip'])) {
     $nip = $_SESSION['nip'];
@@ -10,34 +18,92 @@ if (isset($_SESSION['nip'])) {
     $namadosen = $dosen['nama'];
     $kodewali = $dosen['kode_wali'];
     $alamat = $dosen['alamat'];
+    // if alamat empty put empty string
+    if ($alamat == NULL) {
+        $alamat = '';
+    }
     $email = $dosen['email'];
     $nohp = $dosen['no_hp'];
+    // if nohp empty put empty string
+    if ($nohp == NULL) {
+        $nohp = '';
+    }
+    $kode_kota = $dosen['kode_kota'];
     $querypropinsi = mysqli_query($conn, "select * from tb_propinsi");
+    $querykota = mysqli_query($conn, "select * from tb_kota where id='$kode_kota'");
 
-    $queryPass = mysqli_query($conn, "select * from tb_user where nimnip='$nip'");
-    $user = mysqli_fetch_assoc($queryPass);
-    $password = $user['password'];
+    $kota = mysqli_fetch_assoc($querykota);
+    if (empty($kota)) {
+        $namakota = "Pilih Kota";
+        $idkota = '';
+    } else {
+        $namakota = $kota['nama'];
+        $idkota = $kota['id'];
+        $idproponsikota = $kota['id_provinsi'];
+        $querykotadipropinsi = mysqli_query($conn, "select * from tb_kota where id_provinsi='$idproponsikota'");
+
+        $querygetpropinsi = mysqli_query($conn, "SELECT * FROM tb_kota JOIN tb_propinsi ON tb_kota.id_provinsi = tb_propinsi.id WHERE tb_kota.id = $kode_kota");
+        $propinsi = mysqli_fetch_assoc($querygetpropinsi);
+        $idpropinsi = $propinsi['id'];
+        $namapropinsi = $propinsi['nama'];
+    }
 } else {
     header("Location:../index.php");
 }
 
 if (isset($_POST['edit'])) {
-    $nama = $_POST['nama'];
+    //validate form
+    $valid = TRUE;
+    $namadosen = $_POST['nama'];
+    if ($namadosen == '') {
+        $error_namadosen = "Nama Dosen tidak boleh kosong";
+        $valid = FALSE;
+    } // nama hanya boleh huruf, spasi, koma, dan titik
+    else if (!preg_match("/^[a-zA-Z .,]*$/", $namadosen)) {
+        $error_namadosen = "Nama Dosen hanya boleh huruf, spasi, koma, dan titik";
+        $valid = FALSE;
+    }
+    //validate alamat
     $alamat = $_POST['alamat'];
+    if ($alamat == '') {
+        $error_alamat = "Alamat tidak boleh kosong";
+        $valid = FALSE;
+    }
+    //validate nohp
     $nohp = $_POST['no_hp'];
+    if ($nohp == '') {
+        $error_nohp = "Nomor HP tidak boleh kosong";
+        $valid = FALSE;
+    } else if (!preg_match("/^[0-9]*$/", $nohp)) {
+        $error_nohp = "Nomor HP harus diisi dengan angka";
+        $valid = FALSE;
+    }
+    //validate email
     $email = $_POST['email'];
+    if ($email == '') {
+        $error_email = "Email tidak boleh kosong";
+        $valid = FALSE;
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_email = "Invalid email format";
+        $valid = FALSE;
+    }
+    //validate kabupaten
     $kode_kota = $_POST['kabupaten'];
-    $password = $_POST['password'];
-    $queryedit = mysqli_query($conn, "UPDATE tb_dosen 
-                                SET
-                                nama = '$nama',
-                                alamat = '$alamat',
-                                no_hp = $nohp,
-                                email = '$email',
-                                kode_kota = '$kode_kota'
-                                where nip=$nip;");
-    $queryPword = mysqli_query($conn, "UPDATE tb_user SET password = '$password' WHERE nimnip='$nip'");
-    header("Location: doswal.php");
+    if ($kode_kota == '') {
+        $error_kabupaten = "Kabupaten tidak boleh kosong";
+        $valid = FALSE;
+    }
+
+    //update data into database
+    if ($valid) {
+        $query = mysqli_query($conn, "update tb_dosen set nama='$namadosen', alamat='$alamat', no_hp='$nohp', email='$email', kode_kota='$kode_kota' where nip='$nip'");
+        if ($query) {
+            header("Location:doswal.php");
+        } else {
+            die("Query gagal dijalankan: " . mysqli_errno($conn) .
+                " - " . mysqli_error($conn));
+        }
+    }
 }
 
 ?>
@@ -138,37 +204,36 @@ if (isset($_POST['edit'])) {
                                     <label for="name" id="uname">Nama Lengkap</label>
                                     <input class="form-control mb-3" type="text" name="nama" placeholder="Nama Lengkap"
                                         value="<?= $dosen['nama']; ?>" />
+                                    <p id="error"><?php echo $error_namadosen; ?></p>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="alamat" id="uname">Alamat</label>
                                     <input class="form-control mb-3" type="text" name="alamat" placeholder="alamat"
                                         value="<?= $dosen['alamat']; ?>" />
+                                    <p id="error"><?php echo $error_alamat; ?></p>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="no_telp" id="uname">No. HP</label>
                                     <input class="form-control mb-3" type="text" name="no_hp"
                                         placeholder="Nomor Telepon" value="<?= $dosen['no_hp']; ?>" />
+                                    <p id="error"><?php echo $error_nohp; ?></p>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="kode" id="uname">Email</label>
                                     <input class="form-control mb-3" type="email" name="email" placeholder="email"
                                         value="<?= $dosen['email']; ?>" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kode" id="uname">Password</label>
-                                    <input class="form-control mb-3" type="text" name="password"
-                                        placeholder="ketik password" value="<?= $password; ?>" />
+                                    <p id="error"><?php echo $error_email; ?></p>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="provinsi">Provinsi</label>
                                     <select name="provinsi" id="provinsi" class="form-control mb-3"
                                         onchange="getKabupaten(this.value)">
-                                        <option value="">Pilih Propinsi</option>
+                                        <!-- set default value as $propinsi-->
+                                        <option value="<?= $idpropinsi; ?>"> <?= $namapropinsi; ?></option>
                                         <?php while ($row = $querypropinsi->fetch_object()) {
                                             echo '<option value="' . $row->id . '">' . $row->nama . '</option>';
                                         }
@@ -179,10 +244,20 @@ if (isset($_POST['edit'])) {
                                 <div class="form-group">
                                     <label for="kabupaten">Kabupaten</label>
                                     <select name="kabupaten" id="kabupaten" class="form-control">
-                                        <option value="">Pilih kabupaten/Kota</option>
+                                        <option value="<?= $idkota; ?>"><?= $namakota; ?></option>
+                                        <!-- /* TODO tampilkan daftar kabupaten*/ -->
+                                        <?php
+                                        if (!empty($kota)) {
+                                            while ($row = $querykotadipropinsi->fetch_object()) {
+                                                echo '<option value="' . $row->id . '">' . $row->nama . '</option>';
+                                            }
+                                        }
+
+                                        ?>
 
                                         <!-- /* TODO tampilkan daftar kabupaten berdasarkan pilihan provinsi sebelumnya, menggunakan ajax*/ -->
                                     </select>
+                                    <p id="error"><?php echo $error_kabupaten; ?></p>
                                 </div>
 
                                 <br>
