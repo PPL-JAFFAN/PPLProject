@@ -16,26 +16,26 @@ $error = '';
 
 
 if (isset($_POST['submit'])) {
-    $semester = $_POST['semester'];
-    $nim = $_SESSION['nim'];
-    $sks = $_POST['sks'];
-    if ($sks > 24) {
-        $error = 'sks tidak boleh lebih dari 24';
-    } else if ($sks < 0) {
-        $error = 'Jumlah SKS Harus Diisi';
-    } else {
-        $querycheck = "SELECT * FROM tb_irs WHERE nim='$nim' AND semester=$semester";
-        $connectcheck = mysqli_query($conn, $querycheck);
-        if (mysqli_fetch_row($connectcheck) == 0) {
-            $querybuat = "INSERT INTO tb_irs VALUES ($semester,$nim,$sks,'','','belum')";
-            $connect = mysqli_query($conn, $querybuat);
-            header("location:mhs_irs.php?semester=$semester");
-        } else {
-            $queryupdate = "UPDATE tb_irs SET sks=$sks , verif_irs='belum' WHERE nim='$nim' AND semester=$semester";
-            $connectupdate = mysqli_query($conn, $queryupdate);
-            header("location:mhs_irs.php?semester=$semester");
-        }
-    }
+      $semester = $_POST['semester'];
+      $nim = $_SESSION['nim'];
+      $sks = $_POST['sks'];
+      if ($sks > 24) {
+            $error = 'sks tidak boleh lebih dari 24';
+      } else if ($sks < 0) {
+            $error = 'Jumlah SKS Harus Diisi';
+      } else {
+            $querycheck = "SELECT * FROM tb_irs WHERE nim='$nim' AND semester=$semester";
+            $connectcheck = mysqli_query($conn, $querycheck);
+            if (mysqli_fetch_row($connectcheck) == 0) {
+                  $querybuat = "INSERT INTO tb_irs VALUES ($semester,$nim,$sks,'','','belum')";
+                  $connect = mysqli_query($conn, $querybuat);
+                  header("location:mhs_irs.php?semester=$semester");
+            } else {
+                  $queryupdate = "UPDATE tb_irs SET sks=$sks , verif_irs='belum' WHERE nim='$nim' AND semester=$semester";
+                  $connectupdate = mysqli_query($conn, $queryupdate);
+                  header("location:mhs_irs.php?semester=$semester");
+            }
+      }
 }
 
 
@@ -158,7 +158,7 @@ if (isset($_POST['submit'])) {
             $mhsDetail = getMhsDetail($_SESSION['nim']);
             $nim = $_SESSION['nim'];
 
-            ?>
+                  ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -196,8 +196,8 @@ if (isset($_POST['submit'])) {
         <div class="container-fluid">
 
 
-            <div class="h4 mt-5 w-100 ">Data IRS Mahasiswa
-            </div><br>
+            <div class="h4 mt-5 w-100 ">Data IRS Mahasiswa </div>
+        </div><br>
 
             <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
                 <div class="col">
@@ -239,11 +239,11 @@ if (isset($_POST['submit'])) {
                                 <button type="submit" class="btn btn-primary mt-3" name="submit" value="submit">Upload
                                     File IRS</button>
 
-                            </form>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
