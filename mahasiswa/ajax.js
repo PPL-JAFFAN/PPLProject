@@ -72,3 +72,5 @@ function get_khs($smt){
   	xmlhttp.send();
 }
 
+
+

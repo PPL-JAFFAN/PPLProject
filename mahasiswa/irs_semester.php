@@ -4,31 +4,45 @@ require '../db_login.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
+}
+
+//query tb_irs sleect where nim = session nim and semester = 1
+$query = "SELECT * FROM tb_irs WHERE nim = " . $_SESSION['nim'] . " AND semester = 1";
+$connect = mysqli_query($conn, $query);
+$result = mysqli_fetch_assoc($connect);
+//if query empty, sks = '', verif = 'belum'
+if (empty($result)) {
+    $sks = '';
+    $verif = 'belum';
+} else {
+    //if query not empty, sks = irs sks, verif = irs verif
+    $sks1 = $result['sks'];
+    $verif1 = $result['verif_irs'];
 }
 
 $error = '';
 if (isset($_POST['submit'])) {
-  $semester = $_POST['semester'];
-  $nim = $_SESSION['nim'];
-  $sks = $_POST['sks'];
-  if ($sks > 24) {
-    $error = 'sks tidak boleh lebih dari 24';
-  } else if ($sks < 0) {
-    $error = 'Jumlah SKS Harus Diisi';
-  } else {
-    $querycheck = "SELECT * FROM tb_irs WHERE nim='$nim' AND semester=$semester";
-    $connectcheck = mysqli_query($conn, $querycheck);
-    if (mysqli_fetch_row($connectcheck) == 0) {
-      $querybuat = "INSERT INTO tb_irs VALUES ($semester,$nim,$sks,'','','belum')";
-      $connect = mysqli_query($conn, $querybuat);
-      header("location:mhs_irs.php?semester=$semester");
+    $semester = $_POST['semester'];
+    $nim = $_SESSION['nim'];
+    $sks = $_POST['sks'];
+    if ($sks > 24) {
+        $error = 'sks tidak boleh lebih dari 24';
+    } else if ($sks < 0) {
+        $error = 'Jumlah SKS Harus Diisi';
     } else {
-      $queryupdate = "UPDATE tb_irs SET sks=$sks , verif_irs='belum' WHERE nim='$nim' AND semester=$semester";
-      $connectupdate = mysqli_query($conn, $queryupdate);
-      header("location:mhs_irs.php?semester=$semester");
+        $querycheck = "SELECT * FROM tb_irs WHERE nim='$nim' AND semester=$semester";
+        $connectcheck = mysqli_query($conn, $querycheck);
+        if (mysqli_fetch_row($connectcheck) == 0) {
+            $querybuat = "INSERT INTO tb_irs VALUES ($semester,$nim,$sks,'','','belum')";
+            $connect = mysqli_query($conn, $querybuat);
+            header("location:mhs_irs.php?semester=$semester");
+        } else {
+            $queryupdate = "UPDATE tb_irs SET sks=$sks , verif_irs='belum' WHERE nim='$nim' AND semester=$semester";
+            $connectupdate = mysqli_query($conn, $queryupdate);
+            header("location:mhs_irs.php?semester=$semester");
+        }
     }
-  }
 }
 
 $color = '';
@@ -143,11 +157,11 @@ $color = '';
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $irsDetail = getIrsDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
+            // get detail mahasiswa
+            $irsDetail = getIrsDetail($_SESSION['nim']);
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -161,59 +175,66 @@ $color = '';
         </ul>
     </div>
     <?php
-  if (empty($irsDetail['sks'])) {
-    $sks = 0;
-  } else {
-    $sks = $irsDetail['sks'];
-  }
-  ?>
+    if (empty($irsDetail['sks'])) {
+        $sks = 0;
+    } else {
+        $sks = $irsDetail['sks'];
+    }
+    ?>
 
     <section class="home-section">
         <div class="container-fluid">
 
 
-            <div class="h4 mt-5 w-100 ">Data IRS Mahasiswa
-            </div><br>
+            <div class="h4 mt-5 w-100 ">Data IRS Mahasiswa </div>
+        </div><br>
 
-            <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
-                <div class="col">
-                    <div class="card rounded-4 card-active p-4 ">
-                        <div class="card-body">
-                            <form method="POST">
-                                <label for="semester">Pilih Semester IRS </label>
-                                <select id="semester" name="semester" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                </select>
+        <div class="row row-cols-1 row-cols-md-1 g-4 mt-1">
+            <div class="col">
+                <div class="card rounded-4 card-active p-4 ">
+                    <div class="card-body">
+                        <form method="POST">
+                            <label for="semester">Pilih Semester IRS </label>
+                            <select id="semester" name="semester" class="form-control" onchange="getIRS(this.value)">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                            </select>
 
-                                <div class="form-group mt-3">
-                                    <label for="sks">Jumlah SKS :</label>
-                                    <input type="number" class="form-control" id="sks" name="sks" maxlength="50"
-                                        value="<? echo $sks; ?>" />
-                                </div>
-                                <div>
-                                    <p style="color:red;"><?php echo $error ?></p>
-                                </div>
-                                <button type="submit" class="btn btn-primary mt-3" name="submit" value="submit">Upload
-                                    File IRS</button>
+                            <div class="form-group mt-3">
+                                <label for="sks">Jumlah SKS :</label>
+                                <input type="number" class="form-control" id="sks" name="sks" maxlength="50" value="" />
+                            </div>
+                            <div>
+                                <label for="status">Verifikasi Dosen: </label>
+                                <h4 id="status"><?php echo $verif1 ?></h4>
+                            </div>
+                            <div>
+                                <p id="semester_ini">SKS smeester 1</p>
+                                <h4 id="sks_ini"><?php echo $sks1 ?></h4>
+                            </div>
+                            <div>
+                                <p style="color:red;"><?php echo $error ?></p>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3" name="submit" value="submit">Upload
+                                File IRS</button>
 
-                            </form>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -228,6 +249,26 @@ $color = '';
     $(document).ready(function() {
         $('#example').DataTable();
     });
+
+    function getIRS(semester) {
+        var xmlhttp = getXMLHTTPRequest();
+        console.log(semester);
+        var url = 'get_irs.php?semester=' + semester;
+        console.log(url);
+        xmlhttp.open('GET', url, true);
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                //split response by space
+                var response = xmlhttp.responseText.split(" ");
+                console.log(response[0]);
+                document.getElementById('status').innerHTML = response[1];
+                document.getElementById('sks_ini').innerHTML = response[0];
+                document.getElementById('semester_ini').innerHTML = "SKS semester " + semester + ": ";
+            }
+        };
+        xmlhttp.send();
+    }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
