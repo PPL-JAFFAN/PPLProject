@@ -97,6 +97,12 @@ if (isset($_POST['add_dosen'])) {
       $valid = false;
    }
 
+   $cekEmail = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tb_dosen WHERE email='$email'"));
+   if ($cekEmail > 0){
+     $error_email = "Email sudah ada";
+     $valid = false;
+   }
+
    if($valid == true){
    $password = $_POST['nip'];
 
@@ -236,6 +242,12 @@ if (isset($_POST['add_mhs'])) {
    }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
       $error_email = "Format email tidak benar";
       $valid = false;
+   }
+
+   $cekEmail = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tb_mhs WHERE email='$email'"));
+   if ($cekEmail > 0){
+     $error_email = "Email sudah ada";
+     $valid = false;
    }
 
    // $password = $_POST['password'];
