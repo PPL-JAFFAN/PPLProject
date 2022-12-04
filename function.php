@@ -59,6 +59,14 @@ function getIrsDetail($nim)
     return $data;
 }
 
+function getIrsVerif($nim, $smt)
+{
+    global $conn;
+    $query = mysqli_query($conn, "SELECT * FROM tb_irs WHERE nim='$nim' AND semester='$smt'");
+    $data = mysqli_fetch_assoc($query);
+    return $data;
+}
+
 // get detail dosen
 function getDosenDetail($kode_wali)
 {

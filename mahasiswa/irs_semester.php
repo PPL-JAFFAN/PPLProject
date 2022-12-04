@@ -4,34 +4,43 @@ require '../db_login.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
-}
-
-$error = '';
-if (isset($_POST['submit'])) {
-  $semester = $_POST['semester'];
-  $nim = $_SESSION['nim'];
-  $sks = $_POST['sks'];
-  if ($sks > 24) {
-    $error = 'sks tidak boleh lebih dari 24';
-  } else if ($sks < 0) {
-    $error = 'Jumlah SKS Harus Diisi';
-  } else {
-    $querycheck = "SELECT * FROM tb_irs WHERE nim='$nim' AND semester=$semester";
-    $connectcheck = mysqli_query($conn, $querycheck);
-    if (mysqli_fetch_row($connectcheck) == 0) {
-      $querybuat = "INSERT INTO tb_irs VALUES ($semester,$nim,$sks,'','','belum')";
-      $connect = mysqli_query($conn, $querybuat);
-      header("location:mhs_irs.php?semester=$semester");
-    } else {
-      $queryupdate = "UPDATE tb_irs SET sks=$sks , verif_irs='belum' WHERE nim='$nim' AND semester=$semester";
-      $connectupdate = mysqli_query($conn, $queryupdate);
-      header("location:mhs_irs.php?semester=$semester");
-    }
-  }
+    header("location:../login.php");
 }
 
 $color = '';
+$error = '';
+// $smt = $_GET['semester'];
+// $irsDetail = getIrsDetail($_SESSION['nim'], $semester);
+
+
+
+
+if (isset($_POST['submit'])) {
+    $semester = $_POST['semester'];
+    $nim = $_SESSION['nim'];
+    $sks = $_POST['sks'];
+    if ($sks > 24) {
+        $error = 'sks tidak boleh lebih dari 24';
+    } else if ($sks < 0) {
+        $error = 'Jumlah SKS Harus Diisi';
+    } else {
+        $querycheck = "SELECT * FROM tb_irs WHERE nim='$nim' AND semester=$semester";
+        $connectcheck = mysqli_query($conn, $querycheck);
+        if (mysqli_fetch_row($connectcheck) == 0) {
+            $querybuat = "INSERT INTO tb_irs VALUES ($semester,$nim,$sks,'','','belum')";
+            $connect = mysqli_query($conn, $querybuat);
+            header("location:mhs_irs.php?semester=$semester");
+        } else {
+            $queryupdate = "UPDATE tb_irs SET sks=$sks , verif_irs='belum' WHERE nim='$nim' AND semester=$semester";
+            $connectupdate = mysqli_query($conn, $queryupdate);
+            header("location:mhs_irs.php?semester=$semester");
+        }
+    }
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -44,8 +53,7 @@ $color = '';
     <link rel="stylesheet" href="style.css">
     <!-- Boxicons CDN Link -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -60,30 +68,30 @@ $color = '';
     <title>SiapIn</title>
 
     <style>
-    .home-section a .card-active {
-        color: white;
-        background-color: #8974FF;
-    }
+        .home-section a .card-active {
+            color: white;
+            background-color: #8974FF;
+        }
     </style>
     <style>
-    #drop_zone {
-        background-color: #eae5e5;
-        /* border: #B980F0 5px dashed; */
-        border-radius: 20px;
-        width: 100%;
+        #drop_zone {
+            background-color: #eae5e5;
+            /* border: #B980F0 5px dashed; */
+            border-radius: 20px;
+            width: 100%;
 
-        padding: 60px 0;
-    }
+            padding: 60px 0;
+        }
 
-    #drop_zone p {
-        font-size: 20px;
-        text-align: center;
-    }
+        #drop_zone p {
+            font-size: 20px;
+            text-align: center;
+        }
 
-    #btn_upload,
-    #selectfile {
-        display: none;
-    }
+        #btn_upload,
+        #selectfile {
+            display: none;
+        }
     </style>
     <title>Profil Mahasiswa</title>
 </head>
@@ -143,11 +151,14 @@ $color = '';
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $irsDetail = getIrsDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
+            // get detail mahasiswa
+            if (isset($semester)) {
+                $irsDetail = getIrsDetail($_SESSION['nim'], $semester);
+            }
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
+            $nim = $_SESSION['nim'];
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -161,12 +172,25 @@ $color = '';
         </ul>
     </div>
     <?php
-  if (empty($irsDetail['sks'])) {
-    $sks = 0;
-  } else {
-    $sks = $irsDetail['sks'];
-  }
-  ?>
+    if (empty($irsDetail['sks'])) {
+        $sks = 0;
+    } else {
+        $sks = $irsDetail['sks'];
+    }
+
+    if (empty($irsDetail['verif_irs'])) {
+        $verif = 'belum';
+        $color = 'red';
+    } else {
+        // $verif = $irsDetail['verif_irs'];
+        $verif = 'sudah';
+        if ($verif == 'belum') {
+            $color = 'red';
+        } else {
+            $color = 'green';
+        }
+    }
+    ?>
 
     <section class="home-section">
         <div class="container-fluid">
@@ -180,8 +204,10 @@ $color = '';
                     <div class="card rounded-4 card-active p-4 ">
                         <div class="card-body">
                             <form method="POST">
+
                                 <label for="semester">Pilih Semester IRS </label>
-                                <select id="semester" name="semester" class="form-control">
+                                <select id="semester" name="semester" class="form-control" oninput="getVerif(<?= $nim ?>,this.value)">
+                                    <option value="0">Pilih Semester</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -198,10 +224,14 @@ $color = '';
                                     <option value="14">14</option>
                                 </select>
 
-                                <div class="form-group mt-3">
-                                    <label for="sks">Jumlah SKS :</label>
-                                    <input type="number" class="form-control" id="sks" name="sks" maxlength="50"
-                                        value="<? echo $sks; ?>" />
+                                <div id='verifcontent'>
+                                    <div class="form-group mt-3">
+                                        <label for="sks">Jumlah SKS :</label>
+                                        <input type="number" class="form-control" name="sks" value="<?php echo $sks ?>" />
+                                    </div>
+                                    <div class="form-group mt-3">
+
+                                    </div>
                                 </div>
                                 <div>
                                     <p style="color:red;"><?php echo $error ?></p>
@@ -217,21 +247,19 @@ $color = '';
         </div>
     </section>
 
-
-
+    <script src="./ajax.js"></script>
     <script src="../library/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
 
 

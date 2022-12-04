@@ -72,3 +72,15 @@ function get_khs($smt){
   	xmlhttp.send();
 }
 
+function getVerif($nim, $smt){
+	var xmlhttp = getXMLHTTPRequest();
+	var url = 'get_verif.php?nim=' + $nim + '&semester=' + $smt;
+	xmlhttp.open('GET',url, true);
+
+	xmlhttp.onreadystatechange = function () {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	  		document.getElementById('verifcontent').innerHTML = xmlhttp.responseText;
+		}
+  	};
+  	xmlhttp.send();
+}
