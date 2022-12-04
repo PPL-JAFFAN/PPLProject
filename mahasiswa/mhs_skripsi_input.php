@@ -3,30 +3,30 @@ require '../function.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
 }
 
 $nim = $_SESSION['nim'];
 $skripsiDetail = getSkripsiDetail($nim);
 
 if (isset($_POST['submit'])) {
-  $status = $_POST['status'];
-  $nilai = $_POST['nilai'];
-  $dosbing = $_POST['dosbing'];
-  $tanggal_sidang = $_POST['tanggal_sidang'];
+    $status = $_POST['status'];
+    $nilai = $_POST['nilai'];
+    $dosbing = $_POST['dosbing'];
+    $tanggal_sidang = $_POST['tanggal_sidang'];
 
-  if ($skripsiDetail) {
-    $query = "UPDATE tb_skripsi SET status_skripsi = '$status',dosbing = '$dosbing', nilai_skripsi = '$nilai', tanggal_sidang = '$tanggal_sidang' WHERE nim = '$nim'";
-    $result = mysqli_query($conn, $query);
-  } else {
-    $query = "INSERT INTO tb_skripsi VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
-    $result = mysqli_query($conn, $query);
-  }
-  if ($result) {
-    echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_skripsi_input.php';</script>";
-  } else {
-    echo "<script>alert('Data gagal diubah!');document.location.href='mhs_skripsi_input.php';</script>";
-  }
+    if ($skripsiDetail) {
+        $query = "UPDATE tb_skripsi SET status_skripsi = '$status',dosbing = '$dosbing', nilai_skripsi = '$nilai', tanggal_sidang = '$tanggal_sidang' WHERE nim = '$nim'";
+        $result = mysqli_query($conn, $query);
+    } else {
+        $query = "INSERT INTO tb_skripsi VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
+        $result = mysqli_query($conn, $query);
+    }
+    if ($result) {
+        echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_skripsi_input.php';</script>";
+    } else {
+        echo "<script>alert('Data gagal diubah!');document.location.href='mhs_skripsi_input.php';</script>";
+    }
 }
 
 
@@ -56,6 +56,8 @@ $color = '';
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="../asset/img/undip.png">
+    <title>SiapIn</title>
 
     <style>
     .home-section a .card-active {
@@ -141,11 +143,11 @@ $color = '';
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
+            // get detail mahasiswa
+            $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -188,19 +190,19 @@ $color = '';
                                 <!-- ============================================ -->
                                 <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
                                     <option <?php
-                          if ($skripsiDetail['status_skripsi'] != 'LULUS')
-                            echo 'disabled'
+                                            if ($skripsiDetail['status_skripsi'] != 'LULUS')
+                                                echo 'disabled'
 
-                          ?>> <?php
-                              if ($skripsiDetail['status_skripsi'] != 'LULUS') {
-                                echo 'Tidak Tersedia';
-                              } else {
-                                echo '--- Pilih Nilai ---';
-                                echo '<option value="A"> A </option>';
-                                echo '<option value="B"> B </option>';
-                                echo '<option value="C"> C </option>';
-                              }
-                              ?> </option>
+                                            ?>> <?php
+                                if ($skripsiDetail['status_skripsi'] != 'LULUS') {
+                                    echo 'Tidak Tersedia';
+                                } else {
+                                    echo '--- Pilih Nilai ---';
+                                    echo '<option value="A"> A </option>';
+                                    echo '<option value="B"> B </option>';
+                                    echo '<option value="C"> C </option>';
+                                }
+                                ?> </option>
                                 </select>
                                 </br>
                                 <label for="tanggal_sidang" class="tanggal_sidang"
@@ -239,12 +241,12 @@ $color = '';
             </div>
             <div class="text-center">
                 <?php
-        if ($skripsiDetail['scan_skripsi']) {
-          echo "File terupload : " . $skripsiDetail['scan_skripsi'];
-        } else {
-          echo "Belum ada file yang diupload";
-        }
-        ?>
+                if ($skripsiDetail['scan_skripsi']) {
+                    echo "File terupload : " . $skripsiDetail['scan_skripsi'];
+                } else {
+                    echo "Belum ada file yang diupload";
+                }
+                ?>
             </div>
         </div>
         </div>

@@ -3,7 +3,7 @@ require '../function.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
 }
 error_reporting(E_ERROR | E_PARSE);
 ?>
@@ -30,6 +30,8 @@ error_reporting(E_ERROR | E_PARSE);
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="../asset/img/undip.png">
+    <title>SiapIn</title>
 
     <style>
     .home-section a .card-active {
@@ -95,10 +97,10 @@ error_reporting(E_ERROR | E_PARSE);
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
+            // get detail mahasiswa
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -116,14 +118,14 @@ error_reporting(E_ERROR | E_PARSE);
         <div class="container-fluid">
 
             <?php
-      // get detail mahasiswa
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
-      $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
-      $khsDetail = getKhsDetail($_SESSION['nim'], $mhsDetail['semester']);
-      $mhsKota = getKotaKabupaten($mhsDetail['kode_kota']);
-      $mhsProv = getProvinsi($mhsKota['id_provinsi']);
-      $_SESSION['semester'] = $mhsDetail['semester'];
-      ?>
+            // get detail mahasiswa
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
+            $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
+            $khsDetail = getKhsDetail($_SESSION['nim'], $mhsDetail['semester']);
+            $mhsKota = getKotaKabupaten($mhsDetail['kode_kota']);
+            $mhsProv = getProvinsi($mhsKota['id_provinsi']);
+            $_SESSION['semester'] = $mhsDetail['semester'];
+            ?>
 
             <!---Card Informasi Data diri mahasiswa-->
 

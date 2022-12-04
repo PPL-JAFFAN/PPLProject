@@ -3,27 +3,27 @@ require '../function.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
 }
 
 $nim = $_SESSION['nim'];
 $pklDetail = getPklDetail($nim);
 
 if (isset($_POST['submit'])) {
-  $status = $_POST['status'];
-  $nilai = $_POST['nilai'];
-  if ($pklDetail) {
-    $query = "UPDATE tb_pkl SET status_pkl = '$status', nilai_pkl = '$nilai' WHERE nim = '$nim'";
-    $result = mysqli_query($conn, $query);
-  } else {
-    $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
-    $result = mysqli_query($conn, $query);
-  }
-  if ($result) {
-    echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl_input.php';</script>";
-  } else {
-    echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl_input.php';</script>";
-  }
+    $status = $_POST['status'];
+    $nilai = $_POST['nilai'];
+    if ($pklDetail) {
+        $query = "UPDATE tb_pkl SET status_pkl = '$status', nilai_pkl = '$nilai' WHERE nim = '$nim'";
+        $result = mysqli_query($conn, $query);
+    } else {
+        $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
+        $result = mysqli_query($conn, $query);
+    }
+    if ($result) {
+        echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl_input.php';</script>";
+    } else {
+        echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl_input.php';</script>";
+    }
 }
 
 
@@ -50,6 +50,8 @@ $color = '';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" type="image/x-icon" href="../asset/img/undip.png">
+    <title>SiapIn</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -138,11 +140,11 @@ $color = '';
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $pklDetail = getPklDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
+            // get detail mahasiswa
+            $pklDetail = getPklDetail($_SESSION['nim']);
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -185,18 +187,18 @@ $color = '';
                                 <!-- ============================================ -->
                                 <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
                                     <option <?php
-                          if ($pklDetail['status_pkl'] != 'LULUS')
-                            echo 'disabled'
+                                            if ($pklDetail['status_pkl'] != 'LULUS')
+                                                echo 'disabled'
 
-                          ?>> <?php
-                              if ($pklDetail['status_pkl'] != 'LULUS') {
-                                echo 'Tidak Tersedia';
-                              } else {
-                                echo '<option value="A"> A </option>';
-                                echo '<option value="B"> B </option>';
-                                echo '<option value="C"> C </option>';
-                              }
-                              ?> </option>
+                                            ?>> <?php
+                                if ($pklDetail['status_pkl'] != 'LULUS') {
+                                    echo 'Tidak Tersedia';
+                                } else {
+                                    echo '<option value="A"> A </option>';
+                                    echo '<option value="B"> B </option>';
+                                    echo '<option value="C"> C </option>';
+                                }
+                                ?> </option>
                                 </select>
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-primary mt-3" type="submit" id="submit"
@@ -222,12 +224,12 @@ $color = '';
             </div>
             <div class="text-center">
                 <?php
-        if ($pklDetail['scan_pkl']) {
-          echo "File terupload : " . $pklDetail['scan_pkl'];
-        } else {
-          echo "Belum ada file yang diupload";
-        }
-        ?>
+                if ($pklDetail['scan_pkl']) {
+                    echo "File terupload : " . $pklDetail['scan_pkl'];
+                } else {
+                    echo "Belum ada file yang diupload";
+                }
+                ?>
             </div>
         </div>
         </div>

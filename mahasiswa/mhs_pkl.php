@@ -3,7 +3,7 @@ require '../function.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
 }
 
 $pklDetail = getPklDetail($_SESSION['nim']);
@@ -32,6 +32,8 @@ $color = '';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" type="image/x-icon" href="../asset/img/undip.png">
+    <title>SiapIn</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -120,11 +122,11 @@ $color = '';
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $pklDetail = getPklDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
+            // get detail mahasiswa
+            $pklDetail = getPklDetail($_SESSION['nim']);
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -150,12 +152,12 @@ $color = '';
                     <div class="card rounded-4 ">
                         <div class="card-body">
                             <?php if ($pklDetail['status_pkl'] == 'LULUS') {
-                $color = 'green';
-              } else if ($pklDetail['status_pkl'] == 'BELUM MENGAMBIL') {
-                $color = 'red';
-              } else {
-                $color = 'yellow';
-              } ?>
+                                $color = 'green';
+                            } else if ($pklDetail['status_pkl'] == 'BELUM MENGAMBIL') {
+                                $color = 'red';
+                            } else {
+                                $color = 'yellow';
+                            } ?>
                             <p class="text-center">Status PKL</p>
                             <p class="jumlah  card-text text-center"
                                 style="color:<?php echo $color ?>; text-align:center;">
@@ -190,22 +192,22 @@ $color = '';
                 </td>
                 <div>
                     <?php
-          if ($pklDetail['scan_pkl']) {
-            echo "File terupload : " . $pklDetail['scan_pkl'];
-          } else {
-            echo "Belum ada file yang diupload";
-          }
-          ?>
+                    if ($pklDetail['scan_pkl']) {
+                        echo "File terupload : " . $pklDetail['scan_pkl'];
+                    } else {
+                        echo "Belum ada file yang diupload";
+                    }
+                    ?>
                 </div>
             </div>
             <div class="card rounded-4 ">
                 <div class="card-body">
                     <p class="text-center">Verifikasi</p>
                     <?php if ($pklDetail['verif_pkl'] == "belum") {
-            $color = "green";
-          } else {
-            $color = "red";
-          } ?>
+                        $color = "green";
+                    } else {
+                        $color = "red";
+                    } ?>
                     <p class="jumlah card-text text-center" style="color: <?php echo $color ?> ">
                         <?php echo $pklDetail['verif_pkl']; ?></p>
                     <!-- <form action="" method="GET" enctype="multipart/form-data">

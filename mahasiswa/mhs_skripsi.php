@@ -4,7 +4,7 @@ require_once '../db_login.php';
 session_start();
 // isset not login
 if (!isset($_SESSION['email'])) {
-  header("location:../login.php");
+    header("location:../login.php");
 }
 
 $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
@@ -36,6 +36,8 @@ $data = getSkripsiDetail($_SESSION['nim']);
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="../asset/img/undip.png">
+    <title>SiapIn</title>
 
     <style>
     .home-section a .card-active {
@@ -121,13 +123,13 @@ $data = getSkripsiDetail($_SESSION['nim']);
                 <span class="tooltip">Keluar</span>
             </li>
             <?php
-      // get detail mahasiswa
-      $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
-      $mhsDetail = getMhsDetail($_SESSION['nim']);
-      $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
+            // get detail mahasiswa
+            $skripsiDetail = getSkripsiDetail($_SESSION['nim']);
+            $mhsDetail = getMhsDetail($_SESSION['nim']);
+            $dosenwaliDetail = getDosenDetail($mhsDetail['kode_wali']);
 
 
-      ?>
+            ?>
             <li class="profile">
                 <div class="profile-details">
                     <!--<img src="profile.jpg" alt="profileImg">-->
@@ -153,12 +155,12 @@ $data = getSkripsiDetail($_SESSION['nim']);
                         <div class="card-body">
                             <p class="text-center" id="title1">Status Skripsi</p>
                             <?php if ($skripsiDetail['status_skripsi'] == 'LULUS') {
-                $color = 'green';
-              } else if ($skripsiDetail['status_skripsi'] == 'BELUM MENGAMBIL') {
-                $color = 'red';
-              } else {
-                $color = 'yellow';
-              } ?>
+                                $color = 'green';
+                            } else if ($skripsiDetail['status_skripsi'] == 'BELUM MENGAMBIL') {
+                                $color = 'red';
+                            } else {
+                                $color = 'yellow';
+                            } ?>
                             <h2 class="mb-3" style="color:<?php echo $color ?>; text-align:center;">
                                 <?php echo $skripsiDetail['status_skripsi']; ?></h2>
 
@@ -192,22 +194,22 @@ $data = getSkripsiDetail($_SESSION['nim']);
                 </td>
                 <div>
                     <?php
-          if ($skripsiDetail['scan_skripsi']) {
-            echo "File terupload : " . $skripsiDetail['scan_skripsi'];
-          } else {
-            echo "Belum ada file yang diupload";
-          }
-          ?>
+                    if ($skripsiDetail['scan_skripsi']) {
+                        echo "File terupload : " . $skripsiDetail['scan_skripsi'];
+                    } else {
+                        echo "Belum ada file yang diupload";
+                    }
+                    ?>
                 </div>
             </div>
             <div class="card rounded-4 ">
                 <div class="card-body">
                     <p class="text-center">Verifikasi</p>
                     <?php if ($skripsiDetail['verif_skripsi'] == "sudah") {
-            $color = "green";
-          } else {
-            $color = "red";
-          } ?>
+                        $color = "green";
+                    } else {
+                        $color = "red";
+                    } ?>
                     <p class="jumlah card-text text-center" style="color: <?php echo $color ?> ">
                         <?php echo $skripsiDetail['verif_skripsi']; ?></p>
                 </div>
