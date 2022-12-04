@@ -12,17 +12,21 @@ $pklDetail = getPklDetail($nim);
 if (isset($_POST['submit'])) {
     $status = $_POST['status'];
     $nilai = $_POST['nilai'];
-    if ($pklDetail) {
-        $query = "UPDATE tb_pkl SET status_pkl = '$status', nilai_pkl = '$nilai' WHERE nim = '$nim'";
-        $result = mysqli_query($conn, $query);
+    if ($status != 'LULUS' && $nilai != '') {
+        echo "<script>alert('Nilai hanya boleh diisi jika status PKL LULUS');document.location.href='mhs_pkl_input.php';</script>";
     } else {
-        $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
-        $result = mysqli_query($conn, $query);
-    }
-    if ($result) {
-        echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl_input.php';</script>";
-    } else {
-        echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl_input.php';</script>";
+        if ($pklDetail) {
+            $query = "UPDATE tb_pkl SET status_pkl = '$status', nilai_pkl = '$nilai' WHERE nim = '$nim'";
+            $result = mysqli_query($conn, $query);
+        } else {
+            $query = "INSERT INTO tb_pkl VALUES(NULL, '$nim', '$status', '$nilai', NULL, NULL)";
+            $result = mysqli_query($conn, $query);
+        }
+        if ($result) {
+            echo "<script>alert('Data berhasil diubah!');document.location.href='mhs_pkl_input.php';</script>";
+        } else {
+            echo "<script>alert('Data gagal diubah!');document.location.href='mhs_pkl_input.php';</script>";
+        }
     }
 }
 
@@ -186,19 +190,15 @@ $color = '';
                                 <label for="status" class="form-label">Nilai :</label>
                                 <!-- ============================================ -->
                                 <select name="nilai" id="nilai" class="form-select" aria-label="Default select example">
-                                    <option <?php
-                                            if ($pklDetail['status_pkl'] != 'LULUS')
-                                                echo 'disabled'
-
-                                            ?>> <?php
-                                if ($pklDetail['status_pkl'] != 'LULUS') {
-                                    echo 'Tidak Tersedia';
-                                } else {
-                                    echo '<option value="A"> A </option>';
-                                    echo '<option value="B"> B </option>';
-                                    echo '<option value="C"> C </option>';
-                                }
-                                ?> </option>
+                                    <?php
+                                    if ($pklDetail['status_pkl'] != 'LULUS') {
+                                        echo '<option value="" disabled>Tidak Tersedia</option>';
+                                    } else {
+                                        echo '<option value="A"> A </option>';
+                                        echo '<option value="B"> B </option>';
+                                        echo '<option value="C"> C </option>';
+                                    }
+                                    ?>
                                 </select>
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-primary mt-3" type="submit" id="submit"

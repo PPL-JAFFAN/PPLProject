@@ -192,7 +192,6 @@ function updateKhs($nim, $smt, $namafile)
 function uploadDetailKhs($data, $semester, $exist)
 {
     global $conn;
-    $id_khs = $_SESSION['id_khs'];
     $nim = $_SESSION['nim'];
     $sks = $data['sks'];
     $sksk = $data['sksk'];

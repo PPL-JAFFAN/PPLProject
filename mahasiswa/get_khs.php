@@ -20,15 +20,19 @@ if (isset($_POST['submit'])) {
   $flag = true;
   if ($_POST['sks'] < 0 || $_POST['sks'] > 24) {
     $flag = false;
+    $error = 'SKS tidak valid';
   }
   if ($_POST['sksk'] < 0) {
     $flag = false;
+    $error = 'SKS kumulatif tidak boleh lebih kecil dari 0';
   }
   if ($_POST['ip'] < 0 || $_POST['ip'] > 4) {
     $flag = false;
+    $error = 'IP tidak valid';
   }
   if ($_POST['ipk'] < 0 || $_POST['ipk'] > 4) {
     $flag = false;
+    $error = 'IP kumulatif tidak valid';
   }
   if ($flag) {
     if (uploadDetailKhs($_POST, $semester, $exist)) {
@@ -39,11 +43,13 @@ if (isset($_POST['submit'])) {
     } else {
       echo "<script>
       alert('Data gagal diupdate');
+      document.location.href = 'get_khs.php?semester=" . $semester . "';
       </script>";
     }
   } else {
     echo "<script>
-    alert('Data gagal diupdate');
+    alert('" . $error . "');
+    document.location.href = 'get_khs.php?semester=" . $semester . "';
     </script>";
   }
 }
