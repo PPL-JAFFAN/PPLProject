@@ -213,7 +213,7 @@ $color = '';
                             </select>
 
                             <div class="form-group mt-3">
-                                <label for="sks">Jumlah SKS :</label>
+                                <label for="sks">Jumlah SKS Baru:</label>
                                 <input type="number" class="form-control" id="sks" name="sks" maxlength="50" value="" />
                             </div>
                             <div>
@@ -263,6 +263,9 @@ $color = '';
                 var response = xmlhttp.responseText.split(" ");
                 console.log(response[0]);
                 document.getElementById('status').innerHTML = response[1];
+                if (response[0] == '') {
+                    response[0] = "belum memilih"
+                }
                 document.getElementById('sks_ini').innerHTML = response[0];
                 document.getElementById('semester_ini').innerHTML = "SKS semester " + semester + ": ";
             }
