@@ -18,13 +18,13 @@ if (empty($khsDetail)) {
 }
 if (isset($_POST['submit'])) {
   $flag = true;
-  if ($_POST['sks'] < 0 || $_POST['sks'] > 24) {
+  if ($_POST['sks'] < 0 || $_POST['sks'] > 24 || $_POST['sks'] == '') {
     $flag = false;
     $error = 'SKS tidak valid';
   }
-  if ($_POST['sksk'] < 0) {
+  if ($_POST['sksk'] < 0 || $_POST['sksk'] == '') {
     $flag = false;
-    $error = 'SKS kumulatif tidak boleh lebih kecil dari 0';
+    $error = 'SKS kumulatif tidak valid';
   }
   if ($_POST['ip'] < 0 || $_POST['ip'] > 4) {
     $flag = false;

@@ -194,15 +194,15 @@ $color = '';
                                                 echo 'disabled'
 
                                             ?>> <?php
-                                if ($skripsiDetail['status_skripsi'] != 'LULUS') {
-                                    echo 'Tidak Tersedia';
-                                } else {
-                                    echo '--- Pilih Nilai ---';
-                                    echo '<option value="A"> A </option>';
-                                    echo '<option value="B"> B </option>';
-                                    echo '<option value="C"> C </option>';
-                                }
-                                ?> </option>
+                                                if ($skripsiDetail['status_skripsi'] != 'LULUS') {
+                                                    echo 'Tidak Tersedia';
+                                                } else {
+                                                    echo '--- Pilih Nilai ---';
+                                                    echo '<option value="A"> A </option>';
+                                                    echo '<option value="B"> B </option>';
+                                                    echo '<option value="C"> C </option>';
+                                                }
+                                                ?> </option>
                                 </select>
                                 </br>
                                 <label for="tanggal_sidang" class="tanggal_sidang"
