@@ -110,7 +110,7 @@ if (isset($_POST['edit'])) {
     //update data into database
     if ($valid) {
         $query = mysqli_query($conn, "update tb_dosen set nama='$namadosen', alamat='$alamat', no_hp='$nohp', email='$email', kode_kota='$kode_kota' where nip='$nip'");
-        $query2 = mysqli_query($conn, "update tb_user set password='$password' where nimnip='$nip'");
+        $query2 = mysqli_query($conn, "update tb_user set password='$password',email='$email' where nimnip='$nip'");
         if ($query && $query2) {
             header("Location:doswal.php");
         } else {
