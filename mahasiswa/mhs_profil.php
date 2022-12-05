@@ -144,7 +144,7 @@ error_reporting(E_ERROR | E_PARSE);
                     <div class="card rounded-4 card-active ">
                         <div class="card-body">
                             <div class="text-center my-3">
-                                <img class="rounded-3" src="../img/default-profile-pic.jpg" width="100" />
+                                <img class="rounded-3" src="../img/contoh.jpeg" width="100" />
                                 <!-- show image 
                         <img src="../asset/img/<?php //echo $mhsDetail['foto_mhs']; 
                                                 ?>" alt="foto" width="100px">-->

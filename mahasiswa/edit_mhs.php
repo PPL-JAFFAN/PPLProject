@@ -204,7 +204,7 @@ $error_kota = '';
                                 <div class="card-body">
                                     <div class="text-center">
                                         <img class="rounded-4 mt-3" style="width: 200px ;"
-                                            src="../img/default-profile-pic.jpg">
+                                            src="../img/contoh.jpeg">
 
                                         <h5 class="my-3"><?php echo $mhsDetail['nama']; ?></h5>
                                         <p class="text-muted mb-1"><?php echo $mhsDetail['status']; ?></p>
