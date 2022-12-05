@@ -273,6 +273,8 @@ if (isset($_POST['edit'])) {
                                             while ($row = $querykotadipropinsi->fetch_object()) {
                                                 echo '<option value="' . $row->id . '">' . $row->nama . '</option>';
                                             }
+                                        } else {
+                                            echo '<option value="">Pilih Provinsi</option>';
                                         }
 
                                         ?>

@@ -40,31 +40,47 @@ if (isset($_SESSION['nip'])) {
     $noAktif = 0;
     $noCuti = 0;
     $noMangkir = 0;
-    while ($data = $queryPerwalian->fetch_object()) {
-        if ($data->status == "Aktif") {
-            $noAktif++;
-            $noPerwalian++;
-        } else if ($data->status == "Cuti") {
-            $noCuti++;
-            $noPerwalian++;
-        } else if ($data->status == "Mangkir") {
-            $noMangkir++;
-            $noPerwalian++;
-        } else {
-            $noPerwalian++;
+    if (empty($queryPerwalian)) {
+        $noPerwalian = 0;
+        $noAktif = 0;
+        $noCuti = 0;
+        $noMangkir = 0;
+    } else {
+        while ($data = $queryPerwalian->fetch_object()) {
+            if ($data->status == "Aktif") {
+                $noAktif++;
+                $noPerwalian++;
+            } else if ($data->status == "Cuti") {
+                $noCuti++;
+                $noPerwalian++;
+            } else if ($data->status == "Mangkir") {
+                $noMangkir++;
+                $noPerwalian++;
+            } else {
+                $noPerwalian++;
+            }
         }
     }
 
     $queryPKL = mysqli_query($conn, "select * from tb_mhs JOIN tb_pkl ON tb_mhs.nim=tb_pkl.nim WHERE tb_mhs.kode_wali=" . $kodewali . " AND tb_pkl.status_pkl='LULUS'");
     $noPKL = 0;
-    while ($queryPKL->fetch_object()) {
-        $noPKL++;
+    if (empty($queryPKL)) {
+        $noPKL = 0;
+    } else {
+        while ($data = $queryPKL->fetch_object()) {
+            $noPKL++;
+        }
     }
+
 
     $querySkripsi = mysqli_query($conn, "select * from tb_mhs JOIN tb_skripsi ON tb_mhs.nim=tb_skripsi.nim WHERE tb_mhs.kode_wali=" . $kodewali . " AND tb_skripsi.status_skripsi='LULUS'");
     $noSkripsi = 0;
-    while ($querySkripsi->fetch_object()) {
-        $noSkripsi++;
+    if (empty($querySkripsi)) {
+        $noSkripsi = 0;
+    } else {
+        while ($data = $querySkripsi->fetch_object()) {
+            $noSkripsi++;
+        }
     }
 } else {
     header("Location:../index.php");
