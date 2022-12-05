@@ -169,7 +169,7 @@ $error_kota = '';
                     $queryedit = "UPDATE tb_mhs SET nama = '$nama', alamat = '$alamat',
                         no_hp = '$nohp', email = '$email',kode_kota = $kode_kota
                         WHERE nim = '$nim'";
-                    $querypass = "UPDATE tb_user SET password = '$password' where nimnip = '$nim'";
+                    $querypass = "UPDATE tb_user SET password = '$password', email='$email' where nimnip = '$nim'";
                     $resultedit = mysqli_query($conn, $queryedit);
                     $resultpass = mysqli_query($conn, $querypass);
                     if ($resultedit) {
